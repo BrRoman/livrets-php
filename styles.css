@@ -1,0 +1,110 @@
+body{
+    background-color: rgb(250, 230, 210);
+    width: 95%;}
+
+h1, h2{
+    color: brown;
+    text-align: center;}
+
+td .label{
+    width: 150px;}
+
+#data{
+    width: 500px;}
+
+#date_debut{
+    margin-left: 10px;}
+
+#input, #output{
+    align-items: flex-start;
+    justify-content: flex-start;}
+
+#input{
+    display: flex;
+    flex-direction: row;}
+
+#output{
+    display: none;
+    flex-direction: column;}
+
+#overlay_download, #overlay_wait{
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.2em;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;}
+
+#page{
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    justify-content: center;
+    width: 100%;}
+
+#tex{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;}
+
+#tex_area{
+    height: 1500px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    font-family: monaco;
+    font-size: 11pt;
+    width: 600px;}
+
+.grid{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;}
+
+.grid tr{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center}
+
+.grid td{
+    margin: 5px;
+    text-align: center;}
+
+.grid_elem{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;}
+
+.input_margin{
+    margin-left: 8px;}
+
+.jour{
+    color: brown;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-left: 10px;
+    margin-top: 30px;}
+
+.label{
+    font-size: 14px;}
+
+.label_cap{
+    font-size: 13px;}
+
+.radio{
+    margin-right: 5px;}
+
+
+
+
+
