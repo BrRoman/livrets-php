@@ -143,6 +143,8 @@
                             $code = $code."<td class='label'>Lectures : </td>";
                             $code = $code."<td><input type='text' id='lectures_".$i."' style='width:200px'><select style='width:85px' class='input_margin' id='nb_lect_".$i."'><option value='1'>1 lecture</option><option value='2'>2 lectures</option></select></td>";
                             $code = $code."</tr>";
+
+                            // Grille des pièces :
                             $code = $code."</table>";
                             $code = $code."<table class='grid'>";
                             $code = $code."<tr>";
