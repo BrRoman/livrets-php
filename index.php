@@ -23,37 +23,44 @@
                         $tab_grid = array("IN", "GR", "AL", "OF", "CO", "KY", "GL", "SA", "CR");
                         for($i = 0; $i < 5; $i++){
                             $code = "";
+                            //Jour civil :
                             $code = $code."<div class='jour' id='jour_".$i."'></div>";
                             $code = $code."<table>";
                             
                             // Saint :
                             $code = $code."<tr>";
                             $code = $code."<td class='label'>Saint : </td>";
+                            $code = $code."<td class='label' id='saint_'".$i."'></td>";
                             $code = $code."</tr>";
                             
                             //Rang :
                             $code = $code."<tr>";
                             $code = $code."<td class='label'>Rang : </td>";
+                            $code = $code."<td class='label' id='rang_'".$i."'></td>";
                             $code = $code."</tr>";
                             
                             // Tierce :
                             $code = $code."<tr>";
                             $code = $code."<td class='label'>Tierce : </td>";
+                            $code = $code."<td class='label' id='tierce_'".$i."'></td>";
                             $code = $code."</tr>";
                             
-                            // Oraisons dans le MG :
+                            // Oraisons :
                             $code = $code."<tr>";
                             $code = $code."<td class='label'>Oraisons : </td>";
+                            $code = $code."<td class='label' id='oraisons_'".$i."'></td>";
                             $code = $code."</tr>";
 
-                            //Préface normale :
+                            //Préface :
                             $code = $code."<tr>";
                             $code = $code."<td class='label'>Préface : </td>";
+                            $code = $code."<td class='label' id='preface_'".$i."'></td>";
                             $code = $code."</tr>";
 
                             // Lectures :
                             $code = $code."<tr>";
                             $code = $code."<td class='label'>Lectures : </td>";
+                            $code = $code."<td class='label' id='lectures_'".$i."'></td>";
                             $code = $code."</tr>";
                             
                             // Grille des pièces :

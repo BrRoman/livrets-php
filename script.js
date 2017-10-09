@@ -2,37 +2,6 @@ $(document).ready(function(){
     var jours_fr = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
     var months_fr = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 
-    // Clic sur les boutons radio => désactiver l'opposé :
-    for(var i = 0; i < 5; i++){
-        $("#or_mg_radio_" + i).click(function(){
-            var id = this.id.substring(this.id.length - 1, this.id.length);
-            $("#or_mg_" + id)[0].disabled = false;
-            $("#so_mg_" + id)[0].disabled = false;
-            $("#pc_mg_" + id)[0].disabled = false;
-            $("#oraisons_files_" + id)[0].disabled = true;
-        });
-        $("#or_files_radio_" + i).click(function(){
-            var id = this.id.substring(this.id.length - 1, this.id.length);
-            $("#or_mg_" + id)[0].disabled = true;
-            $("#so_mg_" + id)[0].disabled = true;
-            $("#pc_mg_" + id)[0].disabled = true;
-            $("#oraisons_files_" + id)[0].disabled = false;
-        });
-    }
-
-    for(var i = 0; i < 5; i++){
-        $("#pref_norm_radio_" + i).click(function(){
-            var id = this.id.substring(this.id.length - 1, this.id.length);
-            $("#pref_norm_" + id)[0].disabled = false;
-            $("#pref_saint_" + id)[0].disabled = true;
-        });
-        $("#pref_saint_radio_" + i).click(function(){
-            var id = this.id.substring(this.id.length - 1, this.id.length);
-            $("#pref_norm_" + id)[0].disabled = true;
-            $("#pref_saint_" + id)[0].disabled = false;
-        });
-    }
-
     // Quand une date est sélectionnée, le cas échéant faire apparaître le formulaire et afficher l'entête du LaTeX :
     $("#date_debut").change(function(e){
         var date_timestamp = e.target.valueAsNumber;
@@ -45,70 +14,14 @@ $(document).ready(function(){
             }
             var month = months_fr[date.getMonth()];
             var year = date.getFullYear();
-            /*
-            if(i == 0){
-                var date_debut = [day, month];
-            }
-            if (i == 4){
-                var date_fin = [day, month, year];
-            }*/
             $("#jour_" + i).text(weekday + " " + day + " " + month + " " + year + " :");
         }
         $("#output").css("display", "flex");
-        document.getElementById("saint_0").focus();
         update_latex();
     });
 
-    // Mise à jour du LaTeX à chaque changement de donnée :
+    // Mise à jour du LaTeX à chaque changement de pièce :
     for(var i = 0; i < 5; i++){
-        $("#saint_" + i).keyup(function(){
-            update_latex();
-        });
-        $("#rang_" + i).change(function(){
-            update_latex();
-        });
-        $("#tierce_" + i).keyup(function(){
-            update_latex();
-        });
-        $("#tierce_page_" + i).keyup(function(){
-            update_latex();
-        });
-        $("#or_mg_radio_" + i).change(function(){
-            update_latex();
-        });
-        $("#or_files_radio_" + i).change(function(){
-            update_latex();
-        });
-        $("#or_mg_" + i).keyup(function(){
-            update_latex();
-        });
-        $("#so_mg_" + i).keyup(function(){
-            update_latex();
-        });
-        $("#pc_mg_" + i).keyup(function(){
-            update_latex();
-        });
-        $("#oraisons_files_" + i).keyup(function(){
-            update_latex();
-        });
-        $("#pref_norm_radio_" + i).change(function(){
-            update_latex();
-        });
-        $("#pref_saint_radio_" + i).change(function(){
-            update_latex();
-        });
-        $("#pref_norm_" + i).change(function(){
-            update_latex();
-        });
-        $("#pref_saint_" + i).change(function(){
-            update_latex();
-        });
-        $("#lectures_" + i).keyup(function(){
-            update_latex();
-        });
-        $("#nb_lect_" + i).change(function(){
-            update_latex();
-        });
         for(var j = 0; j < 9; j++){
             $("#grid_value_" + i + j).keyup(function(){
                 update_latex();
