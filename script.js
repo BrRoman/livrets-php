@@ -17,6 +17,7 @@ $(document).ready(function(){
             $("#jour_" + i).text(weekday + " " + day + " " + month + " " + year + " :");
         }
         $("#output").css("display", "flex");
+        calculate_paques(date_timestamp);
         update_latex();
     });
 
@@ -353,4 +354,32 @@ function tex_header(timestamp_start){
 
     return(tex_header);
 }
+
+function calculate_paques(date_timestamp){
+    var date = new Date(date_timestamp);
+    var year = date.getFullYear();
+    var var_1 = year - 1900;
+    var var_2 = var_1 % 19;
+    var var_3 = Math.floor((7 * var_2 + 1) / 19);
+    var var_4 = (11 * var_2 + 4 - var_3) % 29;
+    var var_5 = Math.floor(var_1 / 4);
+    var var_6 = (var_1 + var_5 + 31 - var_4) % 7;
+    var var_7 = 25 - var_4 - var_6;
+    if(var_7 > 0){
+        mois_paques = 4;
+        jour_paques = var_7;
+    }
+    else{
+        mois_paques = 3;
+        jour_paques = var_7 + 31;
+    }
+    console.log(jour_paques, mois_paques, year);
+}
+
+
+
+
+
+
+
 
