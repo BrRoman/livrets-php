@@ -1,87 +1,14 @@
-$(document).ready(function(){
-    var jours_fr = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-    var months_fr = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
-
-    // Quand une date est sélectionnée, le cas échéant faire apparaître le formulaire et afficher l'entête du LaTeX :
-    $("#date_debut").change(function(e){
-        var date_timestamp = e.target.valueAsNumber;
-        for(var i = 0; i < 5; i++){
-            date = new Date(date_timestamp + ((i + 1) * 24 * 3600 * 1000));
-            var weekday = jours_fr[date.getDay()];
-            var day = date.getDate();
-            if(day == 1){
-                day = "1er";
-            }
-            var month = months_fr[date.getMonth()];
-            var year = date.getFullYear();
-            $("#jour_" + i).text(weekday + " " + day + " " + month + " " + year + " :");
-        }
-        $("#output").css("display", "flex");
-        calculate_paques(date_timestamp);
-        update_latex();
-    });
-
-    // Mise à jour du LaTeX à chaque changement de pièce :
-    for(var i = 0; i < 5; i++){
-        for(var j = 0; j < 9; j++){
-            $("#grid_value_" + i + j).keyup(function(){
-                update_latex();
-            });
-        }
-    }
-
-    // Clic sur les boutons "Compiler le pdf" et "Voir le pdf" des 2 overlays :
-    $("#go").click(function(){
-        $("#overlay_wait").css("display", "flex");
-        $.post(
-        "script.php",
-        {"tex": $("#tex_area").val()},
-        function(retour){
-            console.log("retour =", retour);
-            $("#overlay_wait").css("display", "none");
-            $("#overlay_download").css("display", "flex");
-        },
-        "text"
-        );
-    });
-    $("#view").click(function(){
-        $("#overlay_download").css("display", "none");
-    });
-});
-
-function update_latex(){
-    var grid_json = {};
-    for(var i = 0; i < 5; i++){
-        grid_json["#pref_norm_" + i] = ["PR", $("#pref_norm_" + i).val()];
-        for(var j = 0; j < 9; j++){
-            grid_json["#grid_value_" + i + j] = [$("#grid_label_" + i + j).text(), $("#grid_value_" + i + j).val()];
-        }
-    }
-    request(grid_json);
-}
-
-function request(grid_json){
-    $.post(
-        "request.php",
-        grid_json,
-        function(data){
-            console.log("Retour JSON =", data);
-            write_tex(data);
-        },
-        "json"
-    );
-}
+// Fonctions concernant le LaTeX.
 
 function write_tex(pages_json){
-    console.log(pages_json);
     var page = "";
     var tex = tex_header(Date.parse($("#date_debut").val()));
     for(var i = 0; i < 5; i++){
         // Jour liturgique :
-        tex += "\n\n\\section{" + $("#jour_" + i).text().substring(0, $("#jour_" + i).text().lastIndexOf(" :")) + "}\n\n";
-        var saint = "#saint_" + i;
-        if($(saint).val() != ""){
-            tex += "\\Saint{" + $(saint).val() + "}{";
+        tex += "\n\n\\section{" + $("#jour_civil_" + i).text().substring(0, $("#jour_civil_" + i).text().lastIndexOf(" :")) + "}\n\n";
+        var jour_lit = "#jour_lit_" + i;
+        if($(jour_lit).val() != ""){
+            tex += "\\Saint{" + $(jour_lit).val() + "}{";
             // Rang liturgique :
             var rang = "#rang_" + i;
             if($(rang).val() != ""){
@@ -235,14 +162,6 @@ function write_tex(pages_json){
                 }
             }
         }
-        /*
-        if($("#pref_saint_radio_" + i)[0].checked){
-            var or = "#pref_saint_" + i;
-            if($(or).val() != ""){
-                tex += "\\Preface{Pref}{" + $(pref).val() + "}\n\n";
-            }
-        }
-        */
         
         // Sanctus-Agnus :
         var sanctus_agnus = "#grid_value_" + i + "7";
@@ -354,31 +273,6 @@ function tex_header(timestamp_start){
 
     return(tex_header);
 }
-
-function calculate_paques(date_timestamp){
-    var date = new Date(date_timestamp);
-    var year = date.getFullYear();
-    var var_1 = year - 1900;
-    var var_2 = var_1 % 19;
-    var var_3 = Math.floor((7 * var_2 + 1) / 19);
-    var var_4 = (11 * var_2 + 4 - var_3) % 29;
-    var var_5 = Math.floor(var_1 / 4);
-    var var_6 = (var_1 + var_5 + 31 - var_4) % 7;
-    var var_7 = 25 - var_4 - var_6;
-    if(var_7 > 0){
-        mois_paques = 4;
-        jour_paques = var_7;
-    }
-    else{
-        mois_paques = 3;
-        jour_paques = var_7 + 31;
-    }
-    console.log(jour_paques, mois_paques, year);
-}
-
-
-
-
 
 
 

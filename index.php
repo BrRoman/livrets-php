@@ -24,13 +24,13 @@
                         for($i = 0; $i < 5; $i++){
                             $code = "";
                             //Jour civil :
-                            $code = $code."<div class='jour' id='jour_".$i."'></div>";
+                            $code = $code."<div class='jour_civil' id='jour_civil_".$i."'></div>";
                             $code = $code."<table>";
                             
                             // Saint :
                             $code = $code."<tr>";
-                            $code = $code."<td class='label'>Saint : </td>";
-                            $code = $code."<td class='label' id='saint_'".$i."'></td>";
+                            $code = $code."<td class='label'>Jour : </td>";
+                            $code = $code."<td class='label' id='jour_lit_'".$i."'></td>";
                             $code = $code."</tr>";
                             
                             //Rang :
@@ -90,7 +90,9 @@
             </form>
         </div>
 	</body>
-    <script src="jquery-3.2.1.js"></script>
-    <script src="script.js"></script>
+    <script src="scripts/jquery-3.2.1.js"></script>
+    <script src="scripts/calendar.js"></script>
+    <script src="scripts/latex.js"></script>
+    <script src="scripts/main.js"></script>
 </html>
 
