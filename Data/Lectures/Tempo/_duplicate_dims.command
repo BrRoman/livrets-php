@@ -4,6 +4,7 @@
 #+ en remplaçant le nom du fichier par le jour voulu,
 #+ et en vidant le fichier.
 
+cd "/Users/frromain/Sites/Livrets/Data/Lectures/Tempo"
 find . -name 'pa_12_A_0_*' | while read
 do
 	f=`echo "$REPLY"`

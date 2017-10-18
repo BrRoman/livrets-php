@@ -4,7 +4,8 @@
 
 #+ First, we add insecable spaces before (or after) special characters,
 #+ and we replace strange accented vowels, which elsewhere don't exit accented:
-cd /Users/frromain/Informatique/Prog/LaTeX/Livrets_retraites/Data
+
+cd /Users/frromain/Sites/Livrets/Data
 find . \( -name '*.txt' -o -name '*.tex' \) | while read
 do
 	sed -i "" "s/ / /g" "$REPLY"
