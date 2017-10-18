@@ -7,7 +7,7 @@
 find . -name '0722_Marie_Mad_*' | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/0722_Marie_Mad_/1007_ND_Rosaire_/g'`
+	fn=`echo "$REPLY" | sed 's/0722_Marie_Mad_/1018_Luc_/g'`
     cp "$f" "$fn"
     echo "" > "$fn"
 done

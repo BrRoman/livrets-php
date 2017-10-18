@@ -7,7 +7,7 @@
 find . -name 'pa_14_1_5_*' | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/pa_14_1_5_/pa_26_1_4_/g'`
+	fn=`echo "$REPLY" | sed 's/pa_14_1_5_/pa_28_1_2_/g'`
     cp "$f" "$fn"
     echo "" > "$fn"
 done
