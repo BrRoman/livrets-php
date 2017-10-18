@@ -1,23 +1,28 @@
 // Fonctions liées au calendrier liturgique.
 
 function calculate_day(date){
+    var day = 24 * 3600 * 1000;
     var year = date.getFullYear();
     var noel = new Date(year - 1, 11, 25);
-    var paques = calculate_paques(year);
-    var pentecote = new Date(paques.getTime() + 49 * 24 * 3600 * 1000);
-    var next_noel = new Date(year, 11, 25);
-    console.log("pentec =", pentecote);
-    if(date.getTime() < paques.getTime()){
-        console.log("Before");
+    var noel_day = noel.getDay();
+    if(noel_day == 0){
+        var bapteme = new Date(noel.getTime() + (14 * day));
     }
     else{
-        if(date.getTime() > paques.getTime()){
-            console.log("After");
-        }
-        else{
-            console.log("Equal");
-        }
+        var bapteme = new Date(noel.getTime() + (14 * day) + ((7 - noel_day) * day));
     }
+    var paques = calculate_paques(year);
+    var cendres = new Date(paques.getTime() - (45 * day));
+    var pentecote = new Date(paques.getTime() + (49 * day));
+    var next_noel = new Date(year, 11, 25);
+    noel_day = next_noel.getDay();
+    if(noel_day == 0){
+        var adv_dim_1 = new Date(next_noel.getTime() - (28 * day));
+    }
+    else{
+        var adv_dim_1 = new Date(next_noel.getTime() - ((21 + noel_day) * day));
+    }
+    var christ_roi = new Date(adv_dim_1 - (7 * day));
 }
 
 function calculate_paques(year){
