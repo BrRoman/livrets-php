@@ -60,12 +60,12 @@ tr .label{
     justify-content: center;}
 
 #tex_area{
-    height: 1250px;
+    height: 720px;
     margin-bottom: 20px;
-    margin-top: 50px;
+    margin-top: 40px;
     font-family: monaco;
-    font-size: 11pt;
-    width: 600px;}
+    font-size: 10pt;
+    width: 450px;}
 
 .grid{
     align-items: center;
