@@ -1,30 +1,34 @@
 // Fonctions concernant le LaTeX.
 
-function write_tex(pages_json){
+function write_tex(data){
     var page = "";
     var tex = tex_header(Date.parse($("#date_debut").val()));
     for(var i = 0; i < 5; i++){
+        var data_day = data["day_" + i];
+        
+        // Jour civil :
+        tex += "\n\n\\section{" + day_data["civil_day"] + "}\n\n";
+        
         // Jour liturgique :
-        tex += "\n\n\\section{" + $("#jour_civil_" + i).text().substring(0, $("#jour_civil_" + i).text().lastIndexOf(" :")) + "}\n\n";
-        var jour_lit = "#jour_lit_" + i;
-        if($(jour_lit).val() != ""){
-            tex += "\\Saint{" + $(jour_lit).val() + "}{";
-            // Rang liturgique :
-            var rang = "#rang_" + i;
-            if($(rang).val() != ""){
-                tex += $(rang).val() + "}\n\n";
-                // Ouverture de la célébration :
-                tex += "\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n"
-            }
-            else{
-                tex += "}\n\n"
-            }
+        var jour_lit = day_data["lit_day"];
+        tex += "\\Saint{" + jour_lit + "}";
+
+        // Rang liturgique :
+        var rang = day_data["rang"];
+        if(rang != ""){
+            tex += "{" + rang + "}\n\n";
         }
+        else{
+            tex += "{}\n\n";
+        }
+
+        // Ouverture de la célébration :
+        tex += "\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n"
 
         // Introït :
         var introit = "#grid_value_" + i + "0";
         if($(introit).val() != ""){
-            var page = pages_json[introit];
+            page = day_data["pages"]["IN"];
             if(page[1] != ""){
                 tex += "\\TitreB{Antienne d'introït~:}\\Normal{\\textit{" + page[0] + "} (p. " + page[1] + ").}\n\n"
             }
@@ -35,52 +39,42 @@ function write_tex(pages_json){
         }
         
         // Tierce :
-        var tierce = "#tierce_" + i;
-        if($(tierce).val() != "AM/"){
-            tex += "\\Tierce{" + $(tierce).val() + "}"
-            var tierce_page = "#tierce_page_" + i;
-            if($(tierce_page).val() != ""){
-                tex += "{" + $(tierce_page).val() + "}\n\n";
-            }
-        }
+        var tierce = day_data["tierce"];
+        tex += "\\Tierce{" + tierce + "}"
+        var tierce_page = day_data["tierce_page"];
+        tex += "{" + tierce_page + "}\n\n";
         
         // Kyrie :
         var kyrie = "#grid_value_" + i + "5";
         if($(kyrie).val() != ""){
-            page = pages_json[kyrie];
-            tex += "\\TitreB{Kyrie " + $(kyrie).val() + "}\\Normal{(p. " + page[1] + ")}\n\n";
+            page = day_data["pages"]["KY"];
+            tex += "\\TitreB{Kyrie " + kyrie + "}\\Normal{(p. " + page[1] + ")}\n\n";
         }
         
         // Gloria :
         var gloria = "#grid_value_" + i + "6";
         if($(gloria).val() != ""){
-            page = pages_json[gloria];
-            tex += "\\TitreB{Gloria " + $(gloria).val() + "}\\Normal{(p. " + page[1] + ")}\n\n";
+            page = day_data["pages"]["GL"];
+            tex += "\\TitreB{Gloria " + gloria + "}\\Normal{(p. " + page[1] + ")}\n\n";
         }
         
         // Oraison :
-        if($("#or_mg_radio_" + i)[0].checked){
-            var or = "#or_mg_" + i;
-            if($(or).val() != ""){
-                tex += "\\TitreB{Oraison~:}\\Normal{p. " + $(or).val() + ".}\n\n";
-            }
+        var or = day_data["or"];
+        if(or[1] != ""){
+            tex += "\\TitreB{Oraison~:}\\Normal{p. " + or + ".}\n\n";
         }
-        if($("#or_files_radio_" + i)[0].checked){
-            var or = "#oraisons_files_" + i;
-            if($(or).val() != ""){
-                tex += "\\Oraison{Oraison}{or}{" + $(or).val() + "}\n\n";
-            }
+        else{
+            tex += "";
         }
 
         // 1ère lecture :
-        if($("#lectures_" + i).val() != ""){
-            tex += "\\Lecture{Première lecture}{" + $("#lectures_" + i).val() + "_1}\n\n";
-        }
+        var lect_1 = day_data["reading_1"];
+        tex += "\\Lecture{Première lecture}{" + reading_1 + "\n\n";
 
         // Graduel :
         var graduel = "#grid_value_" + i + "1";
         if($(graduel).val() != ""){
-            page = pages_json[graduel];
+            page = day_data["pages"]["GR"];
             if(page[1] != ""){
                 tex += "\\TitreB{Graduel~:}\\Normal{\\textit{" + page[0] + "} (p. " + page[1] + ").}\n\n"
             }
@@ -91,16 +85,13 @@ function write_tex(pages_json){
         }
 
         // 2e lecture :
-        if($("#nb_lect_" + i).val() == 2){
-            if($("#lectures_" + i).val() != ""){
-                tex += "\\Lecture{Deuxième lecture}{" + $("#lectures_" + i).val() + "_2}\n\n";
-            }
-        }
+        var lect_2 = day_data["reading_2"];
+        tex += "\\Lecture{Deuxième lecture}{" + reading_2 + "\n\n";
 
         // Alleluia :
         var alleluia = "#grid_value_" + i + "2";
         if($(alleluia).val() != ""){
-            page = pages_json[alleluia];
+            page = day_data["pages"]["AL"];
             if(page[1] != ""){
                 tex += "\\TitreB{Alleluia~:}\\Normal{\\textit{" + page[0] + "} (p. " + page[1] + ").}\n\n"
             }
@@ -111,21 +102,20 @@ function write_tex(pages_json){
         }
 
         // Évangile :
-        if($("#lectures_" + i).val() != ""){
-            tex += "\\Lecture{Évangile}{" + $("#lectures_" + i).val() + "_ev}\n\n";
-        }
+        var evg = day_data["evg"];
+        tex += "\\Lecture{Évangile}{" + $("#readings_" + i).val() + "_ev}\n\n";
 
         // Credo :
         var credo = "#grid_value_" + i + "8";
         if($(credo).val() != ""){
-            page = pages_json[credo];
+            page = day_data["pages"]["CR"];
             tex += "\\TitreB{Credo " + $(credo).val() + "} \\Normal{(p. " + page[1] + ").}\n\n"
         }
 
         // Antienne d'offertoire :
         var ant_off = "#grid_value_" + i + "3";
         if($(ant_off).val() != ""){
-            page = pages_json[ant_off];
+            page = day_data["pages"]["OF"];
             if(page[1] != ""){
                 tex += "\\TitreB{Antienne d'offertoire~:}\\Normal{\\textit{" + page[0] + "} (p. " + page[1] + ").}\n\n"
             }
@@ -136,37 +126,22 @@ function write_tex(pages_json){
         }
 
         // Super oblata :
-        if($("#or_mg_radio_" + i)[0].checked){
-            var so = "#so_mg_" + i;
-            if($(so).val() != ""){
-                tex += "\\TitreB{Prière sur les offrandes~:}\\Normal{p. " + $(so).val() + ".}\n\n";
-            }
-        }
-        if($("#or_files_radio_" + i)[0].checked){
-            var so = "#oraisons_files_" + i;
-            if($(so).val() != ""){
-                tex += "\\Oraison{Prière sur les offrandes}{so}{" + $(so).val() + "}\n\n";
-            }
-        }
+        var so = day_data["so"];
+        tex += "\\TitreB{Prière sur les offrandes~:}\\Normal{p. " + so + ".}\n\n";
 
         // Préface :
-        if($("#pref_norm_radio_" + i)[0].checked){
-            var pref = "#pref_norm_" + i;
-            if($(pref).val() != ""){
-                page = pages_json[pref];
-                if(page[1] != ""){
-                    tex += "\\TitreB{" + page[0] + "~:}\\Normal{p. " + page[1] + "}\n\n";
-                }
-                else{
-                    tex += "\\Preface{" + page[0] + "}{" + $(pref).val() + "}\n\n";
-                }
-            }
+        var pref = day_data["pref"];
+        if(pref[1] != ""){
+            tex += "\\TitreB{" + page[0] + "~:}\\Normal{p. " + page[1] + "}\n\n";
+        }
+        else{
+            tex += "\\Preface{" + page[0] + "}{" + $(pref).val() + "}\n\n";
         }
         
         // Sanctus-Agnus :
         var sanctus_agnus = "#grid_value_" + i + "7";
         if($(sanctus_agnus).val() != ""){
-            page = pages_json[sanctus_agnus]["SA"];
+            page = day_data["pages"]["SA"];
             tex += "\\TitreB{Sanctus " + $(sanctus_agnus).val() + "}\\Normal{(p. " + page[1] + ")}\n\n";
             tex += "\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22)}\n\n";
             tex += "\\TitreB{Rites de communion~:}\\Normal{(p. 41)}\n\n";
@@ -177,7 +152,7 @@ function write_tex(pages_json){
         // Antienne de communion :
         var comm = "#grid_value_" + i + "4";
         if($(comm).val() != ""){
-            var page = pages_json[comm];
+            var page = day_data["pages"]["CO"];
             if(page[1] != ""){
                 tex += "\\TitreB{Antienne de communion~:}\\Normal{\\textit{" + page[0] + "} (p. " + page[1] + ").}\n\n"
             }
@@ -188,20 +163,11 @@ function write_tex(pages_json){
         }
 
         // Postcommunion :
-        if($("#or_mg_radio_" + i)[0].checked){
-            var pc = "#pc_mg_" + i;
-            if($(pc).val() != ""){
-                tex += "\\TitreB{Prière après la communion~:}\\Normal{p. " + $(pc).val() + ".}\n\n";
-                tex += "\\TitreB{Conclusion :}{\\Normal{p. 47.}}\n\n";
-            }
-        }
-        if($("#or_files_radio_" + i)[0].checked){
-            var pc = "#oraisons_files_" + i;
-            if($(pc).val() != ""){
-                tex += "\\Oraison{Prière après la communion}{pc}{" + $(pc).val() + "}\n\n";
-                tex += "\\TitreB{Conclusion :}{\\Normal{p. 47.}}\n\n";
-            }
-        }
+        var pc = day_data["pc"];
+        tex += "\\TitreB{Prière après la communion~:}\\Normal{p. " + pc + ".}\n\n";
+
+        // Conclusion :
+        tex += "\\TitreB{Conclusion :}{\\Normal{p. 47.}}\n\n";
     }
     tex += "\n\n\n\n\\vspace{7cm}\n\n";
     tex += "\\begin{center}\n\n";
