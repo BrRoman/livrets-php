@@ -6,8 +6,12 @@ h1, h2{
     color: brown;
     text-align: center;}
 
-td .label{
-    width: 150px;}
+tr .info{
+    border: 1px solid white;
+    width: 350px;}
+
+tr .label{
+    width: 100px;}
 
 #data{
     width: 500px;}
@@ -88,14 +92,18 @@ td .label{
 .input_margin{
     margin-left: 8px;}
 
-.jour_civil{
+.civil_day{
     color: brown;
     font-weight: bold;
     margin-bottom: 8px;
     margin-left: 10px;
     margin-top: 30px;}
 
-.label{
+.info{
+    color: green;
+}
+
+.info, .label{
     font-size: 16px;}
 
 .label_cap{

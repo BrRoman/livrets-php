@@ -1,28 +1,33 @@
 $(document).ready(function(){
-    var jours_fr = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    var days_fr = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
     var months_fr = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 
-    // Quand une date est sélectionnée, le cas échéant faire apparaître le formulaire et afficher l'entête du LaTeX :
+    // Quand une date est sélectionnée, calculer les jours et mettre à jour le LaTeX :
     $("#date_debut").change(function(e){
         var date_timestamp = e.target.valueAsNumber;
         for(var i = 0; i < 5; i++){
             var date = new Date(date_timestamp + ((i + 1) * 24 * 3600 * 1000));
-            var weekday = jours_fr[date.getDay()];
+            var weekday = days_fr[date.getDay()];
             var day = date.getDate();
             if(day == 1){
                 day = "1er";
             }
             var month = months_fr[date.getMonth()];
             var year = date.getFullYear();
-            $("#jour_civil_" + i).text(weekday + " " + day + " " + month + " " + year + " :");
-            var liturgical_day = calculate_day(date);
-            fill_day(liturgical_day);
+            $("#civil_day_" + i).text(weekday + " " + day + " " + month + " " + year + " :");
+            var paques = calculate_paques(year);
+            var even = year % 2 == 0 ? "2" : "1";
+            var year_letters = ["A", "B", "C"];
+            var year_letter = year_letters[(year - 2011) % 3];
+            var liturgic = calculate_day(date, paques, year_letter, even);// Renvoie un objet contenant les données du jour.
+            $("#lit_day_" + i).text(liturgic["liturgical_day"]);
+            $("#readings_" + i).text(liturgic["readings"]);
         }
         $("#output").css("display", "flex");
         update_latex();
     });
 
-    // Mise à jour du LaTeX à chaque changement de pièce :
+    // À chaque changement de pièce, mise à jour du LaTeX :
     for(var i = 0; i < 5; i++){
         for(var j = 0; j < 9; j++){
             $("#grid_value_" + i + j).keyup(function(){
@@ -31,7 +36,7 @@ $(document).ready(function(){
         }
     }
 
-    // Clic sur les boutons "Compiler le pdf" et "Voir le pdf" des 2 overlays :
+    // Fonctions associées au clic sur les boutons "Compiler le pdf" et "Voir le pdf" des 2 overlays :
     $("#go").click(function(){
         $("#overlay_wait").css("display", "flex");
         $.post(
@@ -65,13 +70,15 @@ function request(grid_json){
         "request.php",
         grid_json,
         function(data){
+            console.log(data);
             write_tex(data);
         },
         "json"
     );
 }
 
-function fill_day(lit){
-    // Remplit les champs "Saint", "Rang" etc. en fonction du jour liturgique.
-}
+
+
+
+
 
