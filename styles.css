@@ -49,6 +49,11 @@ td .label{
     justify-content: center;
     width: 100%;}
 
+#sup{
+    display: inline !important;
+
+}
+
 #tex{
     align-items: center;
     display: flex;
