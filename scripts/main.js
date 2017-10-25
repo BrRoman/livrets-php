@@ -1,24 +1,15 @@
 $(document).ready(function(){
-    // Quand une date est sélectionnée, rafraîchir les dates, calculer le contenu des 5 jours et mettre à jour le LaTeX :
+    // Quand une date est sélectionnée, rafraîchir le formulaire et mettre à jour le LaTeX :
     $("#date_debut").change(function(e){
-        var data = {}
-        var date_timestamp = e.target.valueAsNumber;
-        for(var i = 0; i < 5; i++){
-            var date = new Date(date_timestamp + ((i + 1) * 24 * 3600 * 1000));
-            var day_data = calculate_day(date);// Renvoie un objet contenant les données du jour.
-            data["day_" + i] = day_data;
-            $("#civil_day_" + i).text(data["day_" + i]["civil_day"]);
-        }
         $("#output").css("display", "flex");
-        console.log(data);
-        write_latex(data);
+        update();
     });
 
-    // À chaque changement de pièce, mise à jour du LaTeX :
+    // Quand un chant 'pièce' (Introït, Kyrie, etc.) est modifié, mettre à jour le LaTeX :
     for(var i = 0; i < 5; i++){
         for(var j = 0; j < 9; j++){
             $("#grid_value_" + i + j).keyup(function(){
-                write_latex(data);
+                update();
             });
         }
     }
@@ -40,4 +31,45 @@ $(document).ready(function(){
         $("#overlay_download").css("display", "none");
     });
 });
+
+function update(){
+    var days_fr = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    var months_fr = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+    var data = {};
+    var start_date = $("#date_debut")[0].valueAsNumber;
+    for(var i = 0; i < 5; i++){
+        var date = new Date(start_date + ((i + 1) * 24 * 3600 * 1000));
+
+        // Jour civil :
+        var weekday = days_fr[date.getDay()];
+        var num_day = date.getDate();
+        if(num_day == 1){
+            num_day = "1er";
+        }
+        var month = months_fr[date.getMonth()];
+        var year = date.getFullYear();
+        var civil_day = weekday + " " + num_day + " " + month + " " + year + " :";
+        
+        // Jour liturgique :
+        var ref = calculate_ref(date);
+        var grid = {};
+        for(var j = 0; j < 10; j++){
+            grid["#grid_value_" + i + j] = [$("#grid_label_" + i + j).text(), $("#grid_value_" + i + j).val()];
+        }
+        data[ref] = grid;
+    }
+    request(data);
+}
+
+function request(data_json){
+    $.post(
+        "request.php",
+        data_json,
+        function(data){
+            console.log(data);
+            //write_latex(data);
+        },
+        "json"
+    );
+}
 

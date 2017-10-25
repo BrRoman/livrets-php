@@ -1,17 +1,16 @@
 // Fonctions concernant le LaTeX.
 
-function write_tex(data){
+function write_latex(data){
     var page = "";
     var tex = tex_header(Date.parse($("#date_debut").val()));
     for(var i = 0; i < 5; i++){
-        var data_day = data["day_" + i];
+        var day_data = data["day_" + i];
         
         // Jour civil :
         tex += "\n\n\\section{" + day_data["civil_day"] + "}\n\n";
         
         // Jour liturgique :
-        var jour_lit = day_data["lit_day"];
-        tex += "\\Saint{" + jour_lit + "}";
+        tex += "\\Saint{" + day_data["lit_day"] + "}";
 
         // Rang liturgique :
         var rang = day_data["rang"];
@@ -39,37 +38,32 @@ function write_tex(data){
         }
         
         // Tierce :
-        var tierce = day_data["tierce"];
-        tex += "\\Tierce{" + tierce + "}"
-        var tierce_page = day_data["tierce_page"];
-        tex += "{" + tierce_page + "}\n\n";
+        tex += "\\Tierce{" + day_data["tierce"] + "}"
+        tex += "{" + day_data["tierce_page"]+ "}\n\n";
         
         // Kyrie :
-        var kyrie = "#grid_value_" + i + "5";
-        if($(kyrie).val() != ""){
+        if($("#grid_value_" + i + "5").val()!= ""){
             page = day_data["pages"]["KY"];
-            tex += "\\TitreB{Kyrie " + kyrie + "}\\Normal{(p. " + page[1] + ")}\n\n";
+            tex += "\\TitreB{Kyrie " + page[0] + "}\\Normal{(p. " + page[1] + ")}\n\n";
         }
         
         // Gloria :
-        var gloria = "#grid_value_" + i + "6";
-        if($(gloria).val() != ""){
+        if($("#grid_value_" + i + "6").val() != ""){
             page = day_data["pages"]["GL"];
-            tex += "\\TitreB{Gloria " + gloria + "}\\Normal{(p. " + page[1] + ")}\n\n";
+            tex += "\\TitreB{Gloria " + page[0] + "}\\Normal{(p. " + page[1] + ")}\n\n";
         }
         
         // Oraison :
         var or = day_data["or"];
         if(or[1] != ""){
-            tex += "\\TitreB{Oraison~:}\\Normal{p. " + or + ".}\n\n";
+            tex += "\\TitreB{Oraison~:}\\Normal{p. " + or[1] + ".}\n\n";
         }
         else{
-            tex += "";
+            tex += "\\Oraison{Oraison}{or}{" + or[0] + "}\n\n";
         }
 
         // 1ère lecture :
-        var lect_1 = day_data["reading_1"];
-        tex += "\\Lecture{Première lecture}{" + reading_1 + "\n\n";
+        tex += "\\Lecture{Première lecture}{" + day_data["reading_1"]+ "\n\n";
 
         // Graduel :
         var graduel = "#grid_value_" + i + "1";
@@ -85,8 +79,7 @@ function write_tex(data){
         }
 
         // 2e lecture :
-        var lect_2 = day_data["reading_2"];
-        tex += "\\Lecture{Deuxième lecture}{" + reading_2 + "\n\n";
+        tex += "\\Lecture{Deuxième lecture}{" + day_data["reading_2"]+ "\n\n";
 
         // Alleluia :
         var alleluia = "#grid_value_" + i + "2";
@@ -102,14 +95,13 @@ function write_tex(data){
         }
 
         // Évangile :
-        var evg = day_data["evg"];
-        tex += "\\Lecture{Évangile}{" + $("#readings_" + i).val() + "_ev}\n\n";
+        tex += "\\Lecture{Évangile}{" + day_data["evg"] + "}\n\n";
 
         // Credo :
-        var credo = "#grid_value_" + i + "8";
-        if($(credo).val() != ""){
+        var credo = $("#grid_value_" + i + "8").val();
+        if(credo != ""){
             page = day_data["pages"]["CR"];
-            tex += "\\TitreB{Credo " + $(credo).val() + "} \\Normal{(p. " + page[1] + ").}\n\n"
+            tex += "\\TitreB{Credo " + credo + "} \\Normal{(p. " + page[1] + ").}\n\n"
         }
 
         // Antienne d'offertoire :
@@ -127,7 +119,12 @@ function write_tex(data){
 
         // Super oblata :
         var so = day_data["so"];
-        tex += "\\TitreB{Prière sur les offrandes~:}\\Normal{p. " + so + ".}\n\n";
+        if(so[1] != ""){
+            tex += "\\TitreB{Prière sur les offrandes~:}\\Normal{p. " + so[1] + ".}\n\n";
+        }
+        else{
+            tex += "\\Oraison{Prière sur les offrandes}{so}{" + so[0] + "}\n\n";
+        }
 
         // Préface :
         var pref = day_data["pref"];
@@ -135,18 +132,18 @@ function write_tex(data){
             tex += "\\TitreB{" + page[0] + "~:}\\Normal{p. " + page[1] + "}\n\n";
         }
         else{
-            tex += "\\Preface{" + page[0] + "}{" + $(pref).val() + "}\n\n";
+            tex += "\\Preface{" + page[0] + "}{" + pref + "}\n\n";
         }
         
         // Sanctus-Agnus :
         var sanctus_agnus = "#grid_value_" + i + "7";
         if($(sanctus_agnus).val() != ""){
             page = day_data["pages"]["SA"];
-            tex += "\\TitreB{Sanctus " + $(sanctus_agnus).val() + "}\\Normal{(p. " + page[1] + ")}\n\n";
+            tex += "\\TitreB{Sanctus " + page[0] + "}\\Normal{(p. " + page[1] + ")}\n\n";
             tex += "\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22)}\n\n";
             tex += "\\TitreB{Rites de communion~:}\\Normal{(p. 41)}\n\n";
-            page = pages_json[sanctus_agnus]["AG"];
-            tex += "\\TitreB{Agnus Dei " + $(sanctus_agnus).val() + "}\\Normal{(p. " + page[1] + ")}\n\n";
+            page = day_data["pages"]["AG"];
+            tex += "\\TitreB{Agnus Dei " + page[0] + "}\\Normal{(p. " + page[1] + ")}\n\n";
         }
         
         // Antienne de communion :
@@ -164,7 +161,12 @@ function write_tex(data){
 
         // Postcommunion :
         var pc = day_data["pc"];
-        tex += "\\TitreB{Prière après la communion~:}\\Normal{p. " + pc + ".}\n\n";
+        if(pc[1] != ""){
+            tex += "\\TitreB{Prière après la communion~:}\\Normal{p. " + pc[1] + ".}\n\n";
+        }
+        else{
+            tex += "\\Oraison{Prière après la Communion}{pc}{" + pc[0] + "}\n\n";
+        }
 
         // Conclusion :
         tex += "\\TitreB{Conclusion :}{\\Normal{p. 47.}}\n\n";

@@ -20,7 +20,7 @@
 
                 <div id="output">
                     <?php
-                        $tab_grid = array("IN", "GR", "AL", "OF", "CO", "KY", "GL", "SA", "CR");
+                        $tab_grid = array("IN", "GR", "AL", "OF", "CO", "KY", "GL", "SA", "CR", "TI");
                         for($i = 0; $i < 5; $i++){
                             $code = "";
                             //Jour civil :
@@ -29,7 +29,7 @@
                             // Grille des pièces :
                             $code = $code."<table class='grid'>";
                             $code = $code."<tr>";
-                            for($j = 0; $j < 9; $j++){
+                            for($j = 0; $j < 10; $j++){
                                 $code = $code."<td class='grid_elem'><div class='label_cap' id='grid_label_".$i.$j."'>".$tab_grid[$j]."</div><input type='text' id='grid_value_".$i.$j."' style='width:30px'></input></td>";}
                             $code = $code."</tr>";
                             $code = $code."</table>";
