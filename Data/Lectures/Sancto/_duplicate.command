@@ -1,13 +1,14 @@
 #!/bin/bash
 
-#  Ce script duplique toutes les lectures du 14e vendredi per annum impair,
+#  Ce script duplique toutes les lectures de sainte Marie-Madeleine,
 #+ en remplaçant le nom du fichier par le jour voulu,
 #+ et en vidant le fichier.
 
-find . -name '0722_Marie_Mad_*' | while read
+cd "/Users/frromain/Sites/Livrets/Data/Lectures/Sancto"
+find . -name '0722_*' | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/0722_Marie_Mad_/1007_ND_Rosaire_/g'`
+	fn=`echo "$REPLY" | sed 's/0722_/1101_/g'`
     cp "$f" "$fn"
     echo "" > "$fn"
 done
