@@ -5,10 +5,10 @@
 #+ et en vidant le fichier.
 
 cd "/Users/frromain/Sites/Livrets/Data/Lectures/Sancto"
-find . -name '0722_Marie_Mad_*' | while read
+find . -name '0722_*' | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/0722_Marie_Mad_/1101_Toussaint_/g'`
+	fn=`echo "$REPLY" | sed 's/0722_/1101_/g'`
     cp "$f" "$fn"
     echo "" > "$fn"
 done
