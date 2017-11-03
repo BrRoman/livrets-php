@@ -1,35 +1,44 @@
 body{
     background-color: rgb(250, 230, 210);
-    width: 95%;}
+    width: 95%;
+}
 
 h1, h2{
     color: brown;
-    text-align: center;}
+    text-align: center;
+}
 
 tr .info{
     border: 1px solid white;
-    width: 350px;}
+    width: 350px;
+}
 
 tr .label{
-    width: 100px;}
+    width: 100px;
+}
 
 #data{
-    width: 500px;}
+    width: 500px;
+}
 
 #date_debut{
-    margin-left: 10px;}
-
-#input, #output{
-    align-items: flex-start;
-    justify-content: flex-start;}
+    margin-left: 5px;
+}
 
 #input{
+    align-items: center;
     display: flex;
-    flex-direction: row;}
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 30px;
+}
 
 #output{
+    align-items: flex-start;
     display: none;
-    flex-direction: column;}
+    flex-direction: column;
+    justify-content: flex-start;
+}
 
 #overlay_download, #overlay_wait{
     background-color: rgba(0, 0, 0, 0.9);
@@ -43,7 +52,8 @@ tr .label{
     left: 0;
     position: fixed;
     top: 0;
-    width: 100%;}
+    width: 100%;
+}
 
 #page{
     align-items: flex-start;
@@ -51,66 +61,80 @@ tr .label{
     flex-direction: row;
     height: auto;
     justify-content: center;
-    width: 100%;}
+    width: 100%;
+}
 
 #tex{
     align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;}
+    justify-content: center;
+}
 
 #tex_area{
     height: 720px;
     margin-bottom: 20px;
+    margin-left: 30px;
     margin-top: 40px;
     font-family: monaco;
     font-size: 10pt;
-    width: 450px;}
-
-.grid{
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;}
-
-.grid tr{
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center}
-
-.grid td{
-    margin: 5px;
-    text-align: center;}
-
-.grid_elem{
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;}
-
-.input_margin{
-    margin-left: 8px;}
+    width: 450px;
+}
 
 .civil_day{
     color: brown;
     font-weight: bold;
     margin-bottom: 8px;
     margin-left: 10px;
-    margin-top: 30px;}
+    margin-top: 30px;
+}
+
+.grid{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.grid td{
+    margin: 5px;
+    text-align: center;
+}
+
+.grid tr{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center
+}
+
+.grid_elem{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
 
 .info{
     color: green;
+
 }
 
 .info, .label{
-    font-size: 16px;}
+    font-size: 16px;
+}
+
+.input_margin{
+    margin-left: 8px;
+}
 
 .label_cap{
-    font-size: 13px;}
+    font-size: 13px;
+}
 
 .radio{
-    margin-right: 5px;}
+    margin-right: 5px;
+}
 
 
 

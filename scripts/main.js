@@ -12,6 +12,9 @@ $(document).ready(function(){
                 update();
             });
         }
+        $("#tierce_page_" + i).change(function(){
+            update();
+        });
     }
 
     // Fonctions associées au clic sur les boutons "Compiler le pdf" et "Voir le pdf" des 2 overlays :
@@ -40,7 +43,7 @@ function update(){
     for(var i = 0; i < 5; i++){
         var date = new Date(start_date + ((i + 1) * 24 * 3600 * 1000));
 
-        // Jour civil :
+        // Update jour civil :
         var weekday = days_fr[date.getDay()];
         var num_day = date.getDate();
         if(num_day == 1){
@@ -49,24 +52,29 @@ function update(){
         var month = months_fr[date.getMonth()];
         var year = date.getFullYear();
         var civil_day = weekday + " " + num_day + " " + month + " " + year + " :";
+        $("#civil_day_" + i).text(civil_day);
         
-        // Jour liturgique :
-        var ref = calculate_ref(date);
+        // Mise en objet de toutes les données du formulaire :
         var grid = {};
-        for(var j = 0; j < 10; j++){
-            grid["#grid_value_" + i + j] = [$("#grid_label_" + i + j).text(), $("#grid_value_" + i + j).val()];
+        var ref = calculate_ref(date);
+        grid["ref"] = ref;
+        grid["civil_day"] = civil_day.substring(0, civil_day.lastIndexOf(" :"));
+        for(var j = 0; j < 9; j++){
+            grid[$("#grid_label_" + i + j).text()] = $("#grid_value_" + i + j).val();
         }
-        data[ref] = grid;
+        grid["tierce_page"] = $("#tierce_page_" + i).val();
+        data[i] = grid;
     }
     request(data);
 }
 
 function request(data_json){
+    console.log("Input =", data_json);
     $.post(
-        "request.php",
+        "scripts/request.php",
         data_json,
         function(data){
-            console.log(data);
+            console.log("Back =", data);
             //write_latex(data);
         },
         "json"
