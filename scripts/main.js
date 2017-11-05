@@ -56,8 +56,8 @@ function update(){
         
         // Mise en objet de toutes les données du formulaire :
         var grid = {};
-        var ref = calculate_ref(date);
-        grid["ref"] = ref;
+        var day_lit = calculate_day_lit(date);
+        grid["day_lit"] = day_lit;
         grid["civil_day"] = civil_day.substring(0, civil_day.lastIndexOf(" :"));
         for(var j = 0; j < 9; j++){
             grid[$("#grid_label_" + i + j).text()] = $("#grid_value_" + i + j).val();

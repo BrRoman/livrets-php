@@ -1,9 +1,10 @@
 // Calcul du jour liturgique demandé (date = jour civil),
 // renvoyé sous forme de référencee : "pa_30_0", "adv_3_2", etc.
 
-function calculate_ref(date){
+function calculate_day_lit(date){
+    var days_fr = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
     var latine_numbers = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXXIII", "XXXIV"];
-    var ref = "";
+    var day_lit = {};
 
     // Données liturgiques :
     var year = date.getFullYear();
@@ -40,10 +41,16 @@ function calculate_ref(date){
         dim_per_annum = 34 - Math.ceil(days_before_christ_roi / 7);
         var weekday = 7 - (days_before_christ_roi % 7);
         weekday = weekday == 7 ? 0 : weekday;
-        var ref = "pa_" + dim_per_annum + "_" + weekday;
+        day_lit["day_lit_ref"] = "pa_" + dim_per_annum + "_" + weekday;
+        if(weekday != 0){
+            day_lit["day_lit_letters"] = days_fr[weekday] + " de la\\par " + latine_numbers[dim_per_annum] + "\\textsuperscript{e} semaine\\par du Temps Ordinaire";
+        }
+        else{
+            day_lit["day_lit_letters"] = latine_numbers[dim_per_annum] + "\\textsuperscript{e} Dimanche\\par du Temps Ordinaire";
+        }
     }
 
-    return(ref);
+    return(day_lit);
 }
 
 function calculate_paques(year){
