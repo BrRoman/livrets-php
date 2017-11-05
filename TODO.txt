@@ -2,3 +2,6 @@
 - Prières après la communion.
 - Script cleaner : gabc : ae->æ ; aé->ã.
 - Remplacement des "Vel~:" et "Ou~:" dans les oraisons, après remplacement des retours chariot.
+
+Version auto :
+- 02/11 : pas d'antienne à Tierce.
