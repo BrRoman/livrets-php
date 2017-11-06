@@ -8,7 +8,7 @@ cd "/Users/frromain/Sites/Livrets/Data/Lectures/Sancto"
 find . -name '0722_*' | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/0722_/1101_/g'`
+	fn=`echo "$REPLY" | sed 's/0722_/1113_/g'`
     cp "$f" "$fn"
     echo "" > "$fn"
 done
