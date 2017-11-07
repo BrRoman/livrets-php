@@ -216,8 +216,8 @@
 \TitreB{#1~:}
 \LatinFrancais{\input{\FolderData/Prefaces/#2_la.txt}}{\input{\FolderData/Prefaces/#2_fr.txt}}}
 
-% Préfaces avec nom propre (texte, chemin, nom latin au génitif, nom français) :
-\newenvironment{PrefaceNom}[4]
+% Préfaces avec nom propre (texte, chemin, nom latin au génitif - "sancti Martíni", "beátæ mártyris Agnétis" - , nom français - "saint Martin", "sainte Agnès" -) :
+\newenvironment{PrefaceWithName}[4]
 {
 \TitreB{#1~:}
 \LatinFrancais{\input{\FolderData/Prefaces/#2_la_A.txt}#3\input{\FolderData/Prefaces/#2_la_B.txt}}{\input{\FolderData/Prefaces/#2_fr_A.txt}#4\input{\FolderData/Prefaces/#2_fr_B.txt}}}
