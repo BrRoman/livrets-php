@@ -41,7 +41,8 @@ function update(){
     var data = {};
     var start_date = $("#date_debut")[0].valueAsNumber;
     for(var i = 0; i < 5; i++){
-        var date = new Date(start_date + ((i + 1) * 24 * 3600 * 1000));
+        var date_timestamp = start_date + ((i + 1) * 24 * 3600 * 1000);
+        var date = new Date(date_timestamp);
 
         // Update jour civil :
         var weekday = days_fr[date.getDay()];
@@ -56,9 +57,11 @@ function update(){
         
         // Mise en objet de toutes les données du formulaire :
         var grid = {};
-        var day_lit = calculate_day_lit(date);
-        grid["day_lit"] = day_lit;
+        grid["timestamp"] = date_timestamp;
+        grid["paques"] = Date.parse(calculate_paques(year));
         grid["civil_day"] = civil_day.substring(0, civil_day.lastIndexOf(" :"));
+        var lit_day = calculate_lit_day(date);
+        grid["lit_day"] = lit_day;
         for(var j = 0; j < 9; j++){
             grid[$("#grid_label_" + i + j).text()] = $("#grid_value_" + i + j).val();
         }

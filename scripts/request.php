@@ -11,7 +11,28 @@
         $data_out[$i]["civil_day"] = $data_in[$i]["civil_day"];
 
         // Jour liturgique :
-        $data_out[$i]["liturg_day"] = $data_in[$i]["day_lit"]["day_lit_letters"];
+        $data_out[$i]["lit_day"] = $data_in[$i]["lit_day"]["lit_day_letters"];
+
+        // Asperges me :
+        $timestamp = $data_in[$i]["timestamp"] / 1000;
+        $paques = $data_in[$i]["paques"] / 1000;
+        $weekday = date("w", $timestamp);
+        $day = date("j", $timestamp);
+        $data_out[$i]["asp"] = "";
+        if($weekday == 0){
+            if(($timestamp >= $paques) && ($timestamp < ($paques + (49 * 24 * 3600)))){
+                $data_out[$i]["asp"] = "V"; // Vidi aquam.
+            }
+            else if(($timestamp < $paques) && ($timestamp >= ($paques - (46 * 24 * 3600)))){
+                $data_out[$i]["asp"] = "III"; // Carême.
+            }
+            if($day < 8){
+                $data_out[$i]["asp"] = "I";
+            }
+            else{
+                $data_out[$i]["asp"] = "II";
+            }
+        }
 
         // Traitement des 5 grilles ("IN", "GR", etc.) :
         $grid = array("IN", "GR", "AL", "OF", "CO", "KY", "GL", "SA", "CR");
@@ -27,8 +48,9 @@
             }
             $back->closeCursor();
         }
+
         // Traitement de Tierce (antienne et page) :
-        $back_day = $connect->query("SELECT * FROM Days WHERE Ref = '".$data_in[$i]["day_lit"]["day_lit_ref"]."';");
+        $back_day = $connect->query("SELECT * FROM Days WHERE Ref = '".$data_in[$i]["lit_day"]["lit_day_ref"]."';");
         if($rep_day = $back_day->fetch()){
             if($rep_day["Tierce"] == ""){
                 $back_tierce = $connect->query("SELECT * FROM Tierce WHERE Page = '".$data_in[$i]["tierce_page"]."';");
@@ -45,10 +67,11 @@
         $data_out[$i]["tierce_page"] = $data_in[$i]["tierce_page"];
 
         // Traitement de la préface :
-        $back_day = $connect->query("SELECT * FROM Days WHERE Ref = '".$data_in[$i]["day_lit"]["day_lit_ref"]."';");
+        $back_day = $connect->query("SELECT * FROM Days WHERE Ref = '".$data_in[$i]["lit_day"]["lit_day_ref"]."';");
         if($rep_day = $back_day->fetch()){
             $back_pref = $connect->query("SELECT * FROM Prefaces WHERE Ref = '".$rep_day["Pref"]."';");
             if($rep_pref = $back_pref->fetch()){
+                $data_out[$i]["back_day"] = $rep_pref["Page"];
                 $data_out[$i]["pref"] = array($rep_pref["Name"], $rep_pref["Page"]);
             }
             else{
