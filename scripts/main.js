@@ -58,10 +58,6 @@ function update(){
         // Mise en objet de toutes les données du formulaire :
         var grid = {};
         grid["timestamp"] = date_timestamp;
-        grid["paques"] = Date.parse(calculate_paques(year));
-        grid["civil_day"] = civil_day.substring(0, civil_day.lastIndexOf(" :"));
-        var lit_day = calculate_lit_day(date);
-        grid["lit_day"] = lit_day;
         for(var j = 0; j < 9; j++){
             grid[$("#grid_label_" + i + j).text()] = $("#grid_value_" + i + j).val();
         }

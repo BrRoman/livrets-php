@@ -1,36 +1,70 @@
 <?php
-    $connect = new PDO("mysql:host=localhost; dbname=livrets; charset=utf8", "root", "marie2017", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    include("calculate.php");
+
     $data_in = $_POST;
     $data_out = array();
+    $weekdays_fr = array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
+    $months_fr = array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre");
+
+    $connect = new PDO("mysql:host=localhost; dbname=livrets; charset=utf8", "root", "marie2017", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
     // Pour chaque jour de la retraite, création d'un array qui contiendra les retours de la base de données :
     for($i = 0; $i < 5; $i++){
-        $data_out[$i] = array();
+        $in = $data_in[$i];
+        $out = array();
+        $timestamp = $in["timestamp"] / 1000;
 
         // Jour civil :
-        $data_out[$i]["civil_day"] = $data_in[$i]["civil_day"];
+        $weekday = $weekdays_fr[(int) Date("w", $timestamp)];
+        $day = Date("j", $timestamp);
+        if($day == 1){
+            $day = "1\\textsuperscript{er}";
+        }
+        $month = $months_fr[Date("m", $timestamp) - 1];
+        $year = Date("Y", $timestamp);
+        $out["civil_day"] = $weekday." ".$day." ".$month." ".$year;
 
-        // Jour liturgique :
-        $data_out[$i]["lit_day"] = $data_in[$i]["lit_day"]["lit_day_letters"];
+        // Jour liturgique. Pour le déterminer, on compare le Tempo et le Sancto :
+        $tempo = calculate_tempo($timestamp);
+        $sancto = Date("m", $timestamp).Date("d", $timestamp);
+        $force_tempo = 0;
+        $force_sancto = 0;
+        $back = $connect->query("SELECT * FROM Days WHERE Ref = '".$tempo["ref"]."';");
+        if($rep = $back->fetch()){
+            $force_tempo = $rep["Precedence"];
+        }
+        $back->closeCursor();
+        $back = $connect->query("SELECT * FROM Days WHERE Ref = '".$sancto."';");
+        if($rep = $back->fetch()){
+            $force_sancto = $rep["Precedence"];
+        }
+        $back->closeCursor();
+        if($force_tempo > $force_sancto){
+            $day_ref = $tempo["ref"];
+            $out["lit_day_letters"] = $tempo["letters"];
+        }
+        else{
+            $day_ref = $sancto;
+            $out["lit_day_letters"] = $rep["Day"];
+        }
 
         // Asperges me :
-        $timestamp = $data_in[$i]["timestamp"] / 1000;
-        $paques = $data_in[$i]["paques"] / 1000;
-        $weekday = date("w", $timestamp);
-        $day = date("j", $timestamp);
-        $data_out[$i]["asp"] = "";
+        $paques = calculate_paques(Date("Y", $timestamp));
+        $weekday = Date("w", $timestamp);
+        $day = Date("j", $timestamp);
+        $out["asp"] = "";
         if($weekday == 0){
             if(($timestamp >= $paques) && ($timestamp < ($paques + (49 * 24 * 3600)))){
-                $data_out[$i]["asp"] = "V"; // Vidi aquam.
+                $out["asp"] = "V"; // Vidi aquam.
             }
             else if(($timestamp < $paques) && ($timestamp >= ($paques - (46 * 24 * 3600)))){
-                $data_out[$i]["asp"] = "III"; // Carême.
+                $out["asp"] = "III"; // Carême.
             }
             if($day < 8){
-                $data_out[$i]["asp"] = "I";
+                $out["asp"] = "I";
             }
             else{
-                $data_out[$i]["asp"] = "II";
+                $out["asp"] = "II";
             }
         }
 
@@ -38,48 +72,46 @@
         $grid = array("IN", "GR", "AL", "OF", "CO", "KY", "GL", "SA", "CR");
         for($g = 0; $g < count($grid); $g++){
             $label = $grid[$g];
-            $grid_ref = $data_in[$i][$label];
+            $grid_ref = $in[$label];
             $back = $connect->query("SELECT * FROM Scores WHERE Type = '".$label."' AND Ref = '".$grid_ref."';");
             if($rep = $back->fetch()){
-                $data_out[$i][$label] = array($rep["Name"], $rep["Page"]);
+                $out[$label] = array($rep["Name"], $rep["Page"]);
             }
             else{
-                $data_out[$i][$label] = array(str_replace(",", "_", $grid_ref), "");
+                $out[$label] = array(str_replace(",", "_", $grid_ref), "");
             }
             $back->closeCursor();
         }
 
         // Traitement de Tierce (antienne et page) :
-        $back_day = $connect->query("SELECT * FROM Days WHERE Ref = '".$data_in[$i]["lit_day"]["lit_day_ref"]."';");
+        $back_day = $connect->query("SELECT * FROM Days WHERE Ref = '".$day_ref."';");
         if($rep_day = $back_day->fetch()){
             if($rep_day["Tierce"] == ""){
-                $back_tierce = $connect->query("SELECT * FROM Tierce WHERE Page = '".$data_in[$i]["tierce_page"]."';");
+                $back_tierce = $connect->query("SELECT * FROM Tierce WHERE Page = '".$in["tierce_page"]."';");
                 if($rep_tierce = $back_tierce->fetch()){
-                    $data_out[$i]["tierce_ant"] = $rep_tierce["Antienne"];
+                    $out["tierce_ant"] = $rep_tierce["Antienne"];
                 }
                 $back_tierce->closeCursor();
             }
             else{
-                $data_out[$i]["tierce_ant"] = $rep_day["Tierce"];
+                $out["tierce_ant"] = $rep_day["Tierce"];
             }
         }
         $back_day->closeCursor();
-        $data_out[$i]["tierce_page"] = $data_in[$i]["tierce_page"];
+        $out["tierce_page"] = $in["tierce_page"];
 
         // Traitement de la préface :
-        $back_day = $connect->query("SELECT * FROM Days WHERE Ref = '".$data_in[$i]["lit_day"]["lit_day_ref"]."';");
+        $back_day = $connect->query("SELECT * FROM Days WHERE Ref = '".$day_ref."';");
         if($rep_day = $back_day->fetch()){
             $back_pref = $connect->query("SELECT * FROM Prefaces WHERE Ref = '".$rep_day["Pref"]."';");
             if($rep_pref = $back_pref->fetch()){
-                $data_out[$i]["back_day"] = $rep_pref["Page"];
-                $data_out[$i]["pref"] = array($rep_pref["Name"], $rep_pref["Page"]);
-            }
-            else{
-                $data_out[$i]["pref"] = array($rep_day["Pref"], "");
+                $out["pref"] = array($rep_day["Pref"], $rep_pref["Name"], $rep_pref["Page"], $rep_day["Pref_name_la"], $rep_day["Pref_name_fr"]);
             }
             $back_pref->closeCursor();
         }
         $back_day->closeCursor();
+
+        $data_out[$i] = $out;
     }
 
     print(json_encode($data_out));
