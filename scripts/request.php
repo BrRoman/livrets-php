@@ -55,16 +55,16 @@
         $out["asp"] = "";
         if($weekday == 0){
             if(($timestamp >= $paques) && ($timestamp < ($paques + (49 * 24 * 3600)))){
-                $out["asp"] = "V"; // Vidi aquam.
+                $out["asp"] = "\\TitreB{Vidi aquam}\\Normal{(p. 71).}"; // Vidi aquam.
             }
             else if(($timestamp < $paques) && ($timestamp >= ($paques - (46 * 24 * 3600)))){
-                $out["asp"] = "III"; // Carême.
+                $out["asp"] = "\\TitreB{Asperges me II}\\Normal{(p. 71).}"; // Carême.
             }
             if($day < 8){
-                $out["asp"] = "I";
+                $out["asp"] = "\\TitreB{Asperges me}\\Normal{(p. 70.}";
             }
             else{
-                $out["asp"] = "II";
+                $out["asp"] = "\\TitreB{Asperges me I}\\Normal{(p. 71).}";
             }
         }
 
