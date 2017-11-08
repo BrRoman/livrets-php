@@ -14,17 +14,8 @@
         $out = array();
         $timestamp = $in["timestamp"] / 1000;
 
-        // Jour civil :
-        $weekday = $weekdays_fr[(int) Date("w", $timestamp)];
-        $day = Date("j", $timestamp);
-        if($day == 1){
-            $day = "1\\textsuperscript{er}";
-        }
-        $month = $months_fr[Date("m", $timestamp) - 1];
-        $year = Date("Y", $timestamp);
-        $out["civil_day"] = $weekday." ".$day." ".$month." ".$year;
-
         // Données générales sur l'année :
+        $year = Date("Y", $timestamp);
         if($year % 2 == 0){
             $year_even = "2";
         }
@@ -34,6 +25,15 @@
         $year_letters = array("A", "B", "C");
         $year_letter = $year_letters[($year - 2011) % 3];
 
+        // Jour civil :
+        $weekday = $weekdays_fr[(int) Date("w", $timestamp)];
+        $day = Date("j", $timestamp);
+        if($day == 1){
+            $day = "1\\textsuperscript{er}";
+        }
+        $month = $months_fr[Date("m", $timestamp) - 1];
+        $out["civil_day"] = $weekday." ".$day." ".$month." ".$year;
+
         // Jour liturgique. Pour le déterminer, on compare le Tempo et le Sancto :
         $tempo = calculate_tempo($timestamp);
         $sancto = Date("m", $timestamp).Date("d", $timestamp);
@@ -42,29 +42,33 @@
         $back = $connect->query("SELECT * FROM Days WHERE Ref = '".$tempo["ref"]."';");
         if($rep = $back->fetch()){
             $force_tempo = $rep["Precedence"];
-            $out["orationes"] = $rep["Oraisons"];
+            $rang_tempo = $rep["Rang"];
+            $out["orationes"] = array("MG", $rep["Oraisons"]);
         }
         $back->closeCursor();
         $back = $connect->query("SELECT * FROM Days WHERE Ref = '".$sancto."';");
         if($rep = $back->fetch()){
             $force_sancto = $rep["Precedence"];
+            $rang_sancto = $rep["Rang"];
         }
         $back->closeCursor();
         if($force_tempo > $force_sancto){
             $day_ref = $tempo["ref"];
+            $out["rang"] = $rang_tempo;
             if(Date("w", $timestamp) == "0"){
                 $out["readings"] = "Tempo/".$day_ref."_".$year_letter;
             }
             else{
                 $out["readings"] = "Tempo/".$day_ref."_".$year_even;
             }
-            $out["lit_day_letters"] = $tempo["letters"];
+            $out["lit_day"] = $tempo["letters"];
         }
         else{
             $day_ref = $sancto;
-            $out["orationes"] = $day_ref;
+            $out["rang"] = $rang_sancto;
+            $out["orationes"] = array("Files", $day_ref);
             $out["readings"] = "Sancto/".$day_ref;
-            $out["lit_day_letters"] = $rep["Day"];
+            $out["lit_day"] = $rep["Day"];
         }
 
         // Asperges me :

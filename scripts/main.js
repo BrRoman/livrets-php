@@ -74,7 +74,7 @@ function request(data_json){
         data_json,
         function(data){
             console.log("Back =", data);
-            //write_latex(data);
+            write_latex(data);
         },
         "json"
     );

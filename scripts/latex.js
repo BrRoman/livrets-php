@@ -4,13 +4,16 @@ function write_latex(data){
     var page = "";
     var tex = tex_header(Date.parse($("#date_debut").val()));
     for(var i = 0; i < 5; i++){
-        var day_data = data["day_" + i];
+        var day_data = data[i];
+
+        // Oraisons :
+        var orationes = day_data["orationes"];
         
         // Jour civil :
         tex += "\n\n\\section{" + day_data["civil_day"] + "}\n\n";
-        
+
         // Jour liturgique :
-        tex += "\\Saint{" + day_data["lit_day"] + "}";
+        tex += "\\JourLiturgique{" + day_data["lit_day"] + "}";
 
         // Rang liturgique :
         var rang = day_data["rang"];
@@ -20,80 +23,79 @@ function write_latex(data){
         else{
             tex += "{}\n\n";
         }
-
         // Ouverture de la célébration :
         tex += "\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n"
 
         // Introït :
-        var introit = "#grid_value_" + i + "0";
-        if($(introit).val() != ""){
-            page = day_data["pages"]["IN"];
-            if(page[1] != ""){
-                tex += "\\TitreB{Antienne d'introït~:}\\Normal{\\textit{" + page[0] + "} (p. " + page[1] + ").}\n\n"
+        if($("#grid_value_" + i + "0").val() != ""){
+            var introit = day_data["IN"];
+            if(introit[1] != ""){
+                tex += "\\TitreB{Antienne d'introït~:}\\Normal{\\textit{" + introit[0] + "} (p. " + introit[1] + ").}\n\n"
             }
             else{
                 tex += "\\TitreB{Antienne d'introït~:}\\par\n";
-                tex += "\\Partoche{GR/in_" + $(introit).val().replace(",", "_") + "}\n\n";
+                tex += "\\Partoche{GR/in_" + introit[0] + "}";
             }
         }
-        
+
         // Tierce :
-        tex += "\\Tierce{" + day_data["tierce"] + "}"
-        tex += "{" + day_data["tierce_page"]+ "}\n\n";
+        if($("#tierce_page_" + i).val() != ""){
+            tex += "\\Tierce{" + day_data["tierce_ant"] + "}{" + day_data["tierce_page"]+ "}\n\n";
+        }
         
         // Kyrie :
         if($("#grid_value_" + i + "5").val()!= ""){
-            page = day_data["pages"]["KY"];
-            tex += "\\TitreB{Kyrie " + page[0] + "}\\Normal{(p. " + page[1] + ")}\n\n";
+            var kyrie = day_data["KY"];
+            tex += "\\TitreB{Kyrie " + kyrie[0] + "}\\Normal{(p. " + kyrie[1] + ")}\n\n";
         }
         
         // Gloria :
         if($("#grid_value_" + i + "6").val() != ""){
-            page = day_data["pages"]["GL"];
-            tex += "\\TitreB{Gloria " + page[0] + "}\\Normal{(p. " + page[1] + ")}\n\n";
+            var gloria = day_data["GL"];
+            tex += "\\TitreB{Gloria " + gloria[0] + "}\\Normal{(p. " + gloria[1] + ")}\n\n";
         }
         
         // Oraison :
-        var or = day_data["or"];
-        if(or[1] != ""){
-            tex += "\\TitreB{Oraison~:}\\Normal{p. " + or[1] + ".}\n\n";
+        if(orationes[0] == "MG"){
+            tex += "\\TitreB{Oraison~:}\\Normal{p. " + orationes[1].split("-")[0] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Oraison}{or}{" + or[0] + "}\n\n";
+            tex += "\\Oraison{Oraison}{or}{" + orationes[1] + "}\n\n";
         }
 
         // 1ère lecture :
-        tex += "\\Lecture{Première lecture}{" + day_data["reading_1"]+ "\n\n";
+        tex += "\\Lecture{Première lecture}{" + day_data["readings"] + "_1}" + "\n\n";
 
         // Graduel :
-        var graduel = "#grid_value_" + i + "1";
-        if($(graduel).val() != ""){
-            page = day_data["pages"]["GR"];
-            if(page[1] != ""){
-                tex += "\\TitreB{Graduel~:}\\Normal{\\textit{" + page[0] + "} (p. " + page[1] + ").}\n\n"
+        if($("#grid_value_" + i + "1").val() != ""){
+            var graduel = day_data["GR"];
+            if(graduel[1] != ""){
+                tex += "\\TitreB{Graduel~:}\\Normal{\\textit{" + graduel[0] + "} (p. " + graduel[1] + ").}\n\n"
             }
             else{
                 tex += "\\TitreB{Graduel~:}\\par\n";
-                tex += "\\Partoche{GR/gr_" + $(graduel).val().replace(",", "_") + "}\n\n";
+                tex += "\\Partoche{GR/gr_" + graduel[0] + "}\n\n";
             }
         }
-
+        
         // 2e lecture :
-        tex += "\\Lecture{Deuxième lecture}{" + day_data["reading_2"]+ "\n\n";
+        if(($("#grid_value_" + i + "1").val() != "") & ($("#grid_value_" + i + "2").val() != "")){
+            tex += "\\Lecture{Deuxième lecture}{" + day_data["readings"] + "_2}" + "\n\n";
+        }
 
         // Alleluia :
-        var alleluia = "#grid_value_" + i + "2";
-        if($(alleluia).val() != ""){
-            page = day_data["pages"]["AL"];
-            if(page[1] != ""){
-                tex += "\\TitreB{Alleluia~:}\\Normal{\\textit{" + page[0] + "} (p. " + page[1] + ").}\n\n"
+        if($("#grid_value_" + i + "2").val() != ""){
+            var alleluia = day_data["AL"];
+            if(alleluia[1] != ""){
+                tex += "\\TitreB{Alleluia~:}\\Normal{\\textit{" + alleluia[0] + "} (p. " + alleluia[1] + ").}\n\n"
             }
             else{
                 tex += "\\TitreB{Alleluia~:}\\par\n";
-                tex += "\\Partoche{GR/al_" + $(alleluia).val().replace(",", "_") + "}\n\n";
+                tex += "\\Partoche{GR/al_" + alleluia[0] + "}\n\n";
             }
         }
 
+/*
         // Évangile :
         tex += "\\Lecture{Évangile}{" + day_data["evg"] + "}\n\n";
 
@@ -170,6 +172,7 @@ function write_latex(data){
 
         // Conclusion :
         tex += "\\TitreB{Conclusion :}{\\Normal{p. 47.}}\n\n";
+        */
     }
     tex += "\n\n\n\n\\vspace{7cm}\n\n";
     tex += "\\begin{center}\n\n";
@@ -197,6 +200,7 @@ function write_latex(data){
 
 
     tex += "\\end{document}\n\n";
+
     $("#tex_area").val(tex);
 }
 
