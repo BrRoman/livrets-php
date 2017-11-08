@@ -1,7 +1,12 @@
-- Asperges me.
+- Asperges me :
+	• I = 70
+	• II = 71,1
+	• III = 71,2
+	• V = 71
 - Prières après la communion.
 - Script cleaner : gabc : ae->æ ; aé->ã.
 - Remplacement des "Vel~:" et "Ou~:" dans les oraisons, après remplacement des retours chariot.
 
 Version auto :
 - 02/11 : pas d'antienne à Tierce.
+- Fêtes du Seigneur si dimanche => Asperges me I.
