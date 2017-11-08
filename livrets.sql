@@ -1,54 +1,770 @@
--- MySQL dump 10.13  Distrib 5.7.19, for macos10.12 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 4.7.3
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: livrets
--- ------------------------------------------------------
--- Server version	5.7.19
+-- Hôte : localhost
+-- Généré le :  mer. 08 nov. 2017 à 15:20
+-- Version du serveur :  5.7.19
+-- Version de PHP :  5.5.36
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `Scores`
+-- Base de données :  `livrets`
 --
 
-DROP TABLE IF EXISTS `Scores`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Days`
+--
+
+CREATE TABLE `Days` (
+  `ID` int(11) NOT NULL,
+  `Ref` varchar(50) NOT NULL,
+  `Day` varchar(255) NOT NULL,
+  `Rang` enum('','Solennité','Fête','Mémoire majeure','Mémoire mineure') NOT NULL,
+  `Precedence` enum('130','120','110','100','90','80','70','60','50','40','30','20','10') NOT NULL DEFAULT '70',
+  `Tierce` varchar(255) NOT NULL,
+  `Oraisons` varchar(25) NOT NULL,
+  `Pref` varchar(25) NOT NULL,
+  `Pref_name_la` text NOT NULL,
+  `Pref_name_fr` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `Days`
+--
+
+INSERT INTO `Days` (`ID`, `Ref`, `Day`, `Rang`, `Precedence`, `Tierce`, `Oraisons`, `Pref`, `Pref_name_la`, `Pref_name_fr`) VALUES
+(1, 'pa_30_0', '', '', '80', 'Sancto/1211', '576/579/580', 'pa_dim_5', '', ''),
+(2, 'pa_29_6', '', '', '10', '', '576/579/580', 'com_5', '', ''),
+(3, 'pa_30_1', '', '', '10', '', '576/579/580', 'com_6', '', ''),
+(4, 'pa_30_2', '', '', '10', 'Communs/Apotres/euge_serve_bone', '576/579/580', 'com_6', '', ''),
+(5, 'pa_30_3', '', '', '10', '', '576/579/580', 'com_6', '', ''),
+(6, 'pa_30_4', '', '', '10', 'Communs/Apotres/euge_serve_bone', '100/101/102', 'com_1', '', ''),
+(7, 'pa_30_5', '', '', '10', '', '100/101/102', 'com_18', '', ''),
+(8, 'pa_30_6', '', '', '10', '', '100/101/102', 'com_18', '', ''),
+(9, 'pa_31_0', '', '', '80', '', '105/106/107', 'pa_dim_25', '', ''),
+(10, 'pa_31_1', '', '', '10', '', '105/106/107', 'com_181', '', ''),
+(11, '0815', 'Assomption de Notre-Dame', 'Solennité', '110', 'Sancto/0815_Assomption/assumpta_est', '525/526/527', 'marie_2', '', ''),
+(12, '1111', 'Saint Martin, évêque', 'Fête', '70', 'Sancto/1111/domine_si_adhuc', 'Sancto_1111', 'pasteurs', 'Martíni', 'Martin'),
+(13, '1113', 'Saint Bénigne,\\par évêque et martyr', 'Fête', '60', 'Communs/Martyrs/qui_sequitur_me', 'Sancto/1113', 'martyrs', 'beáti Mártyris Benígni', 'saint Bénigne');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Prefaces`
+--
+
+CREATE TABLE `Prefaces` (
+  `ID` int(11) NOT NULL,
+  `Ref` varchar(20) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Page` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `Prefaces`
+--
+
+INSERT INTO `Prefaces` (`ID`, `Ref`, `Name`, `Page`) VALUES
+(1, 'adv_1', 'Préface de l\'Avent I', '49'),
+(2, 'adv_2', 'Préface de l\'Avent II', '49'),
+(3, 'noel_1', 'Préface de Noël I', '50'),
+(4, 'noel_2', 'Préface de Noël II', '51'),
+(5, 'noel_3', 'Préface de Noël III', '51'),
+(6, 'epiph', 'Préface de l\'Épiphanie', '220'),
+(7, 'bapt', 'Préface du Baptême du Seigneur', '226'),
+(8, 'quadr_1', 'Préface du Carême I', '52'),
+(9, 'quadr_2', 'Préface du Carême II', '52'),
+(10, 'quadr_3', 'Préface du Carême III', '53'),
+(11, 'quadr_4', 'Préface du Carême IV', '53'),
+(12, 'quadr_dim_1', 'Préface du 1er dimanche de Carême', '245'),
+(13, 'quadr_dim_2', 'Préface du 2e dimanche de Carême', '251'),
+(14, 'quadr_dim_3', 'Préface du 3e dimanche de Carême', '257'),
+(15, 'quadr_dim_4', 'Préface du 4e dimanche de Carême', '263'),
+(16, 'quadr_dim_5', 'Préface du 5e dimanche de Carême', '270'),
+(17, 'rameaux', 'Préface du dimanche des Rameaux', '285'),
+(18, 'passion_1', 'Préface de la Passion I', '54'),
+(19, 'tp_1', 'Préface du Temps Pascal I', '55'),
+(20, 'tp_2', 'Préface du Temps Pascal II', '55'),
+(21, 'tp_3', 'Préface du Temps Pascal III', '56'),
+(22, 'tp_4', 'Préface du Temps Pascal IV', '56'),
+(23, 'tp_5', 'Préface du Temps Pascal V', '57'),
+(24, 'ascension_1', 'Préface de l\'Ascension I', '57'),
+(25, 'ascension_2', 'Préface de l\'Ascension II', '58'),
+(26, 'pent', 'Préface de la Pentecôte', '401'),
+(27, 'trinite', 'Préface de la Trinité', '411'),
+(28, 'sacre_coeur', 'Préface du Sacré-Cœur', '428'),
+(29, 'christ_roi', 'Préface du Christ-Roi', '601'),
+(30, 'pa_dim_1', 'Préface des dimanches ordinaires I', '59'),
+(31, 'pa_dim_2', 'Préface des dimanches ordinaires II', '59'),
+(32, 'pa_dim_3', 'Préface des dimanches ordinaires III', '60'),
+(33, 'pa_dim_4', 'Préface des dimanches ordinaires IV', '60'),
+(34, 'pa_dim_5', 'Préface des dimanches ordinaires V', '61'),
+(35, 'pa_dim_6', 'Préface des dimanches ordinaires VI', '62'),
+(36, 'pa_dim_7', 'Préface des dimanches ordinaires VII', '62'),
+(37, 'pa_dim_8', 'Préface des dimanches ordinaires VIII', '63'),
+(38, 'euch_1', 'Préface de l\'Eucharistie I', '63'),
+(39, 'euch_2', 'Préface de l\'Eucharistie II', '64'),
+(40, 'presentation', 'Préface de la Présentation', '614'),
+(41, 'saint_joseph', 'Préface de saint Joseph', '619'),
+(42, 'annonciation', 'Préface de l\'Annonciation', '626'),
+(43, 'saint_jean_bapt', 'Préface de saint Jean-Baptiste', '634'),
+(44, 'sts_pierre_paul', 'Préface des saints Pierre et Paul', '645'),
+(45, 'transfig', 'Préface de la Transfiguration', '648'),
+(46, 'assomption', 'Préface de l\'Assomption', '659'),
+(47, 'sainte_croix', 'Préface de la Sainte Croix', '663'),
+(48, 'toussaint', 'Préface de la Toussaint', '668'),
+(49, 'imm_conc', 'Préface de l\'Immaculée Conception', '677'),
+(50, 'dedic', 'Préface de la Dédicace', '686'),
+(51, 'def_1', 'Préface des défunts I', '65'),
+(52, 'def_2', 'Préface des défunts II', '65'),
+(53, 'def_3', 'Préface des défunts III', '66'),
+(54, 'def_4', 'Préface des défunts IV', '66'),
+(55, 'def_5', 'Préface des défunts V', '67'),
+(56, 'ap_1', 'Préface des Apôtres I', ''),
+(57, 'ap_2', 'Préface des Apôtres II', ''),
+(58, 'com_1', 'Préface commune I', ''),
+(59, 'com_2', 'Préface commune II', ''),
+(60, 'com_3', 'Préface commune III', ''),
+(61, 'com_4', 'Préface commune IV', ''),
+(62, 'com_5', 'Préface commune V', ''),
+(63, 'com_6', 'Préface commune VI', ''),
+(64, 'marie_1', 'Préface de la Sainte Vierge I', ''),
+(65, 'marie_2', 'Préface de la Sainte Vierge II', ''),
+(66, 'marie_mad', 'Préface de sainte Marie-Madeleine', ''),
+(67, 'saints_1', 'Préface des saints I', ''),
+(68, 'saints_2', 'Préface des saints II', ''),
+(69, 'virg', 'Préface des saintes vierges et des religieux', ''),
+(70, 'pasteurs', 'Préface des saints Pasteurs', ''),
+(71, 'martyrs', 'Préface des saints Martyrs', '');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Scores`
+--
+
 CREATE TABLE `Scores` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID` int(11) NOT NULL,
   `Type` enum('IN','GR','AL','OF','CO','KY','GL','SA','AG','CR','PR') NOT NULL DEFAULT 'IN',
   `Ref` varchar(20) NOT NULL,
   `Name` varchar(50) NOT NULL,
-  `Page` varchar(10) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=616 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `Page` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `Scores`
+-- Déchargement des données de la table `Scores`
 --
 
-LOCK TABLES `Scores` WRITE;
-/*!40000 ALTER TABLE `Scores` DISABLE KEYS */;
-INSERT INTO `Scores` VALUES (2,'KY','X','','110'),(3,'KY','I','','75'),(4,'KY','I A','','75'),(5,'KY','I B','','76'),(6,'GL','I','','77'),(7,'SA','I','','79'),(8,'AG','I','','79'),(9,'KY','II','','80'),(10,'GL','II','','80'),(11,'SA','II','','82'),(12,'AG','II','','83'),(13,'KY','III','','83'),(14,'GL','III','','84'),(15,'KY','III A','','86'),(16,'SA','III','','88'),(17,'AG','III','','89'),(18,'KY','IV','','90'),(19,'GL','IV','','90'),(20,'SA','IV','','92'),(21,'AG','IV','','92'),(22,'KY','V','','93'),(23,'GL','V','','93'),(24,'SA','V','','95'),(25,'AG','V','','95'),(26,'KY','VI','','96'),(27,'GL','VI','','97'),(28,'SA','VI','','98'),(29,'AG','VI','','99'),(30,'KY','VIII','','103'),(31,'GL','VIII','','103'),(32,'SA','VIII','','105'),(33,'AG','VIII','','105'),(34,'KY','IX','','106'),(35,'GL','IX','','107'),(36,'SA','IX','','108'),(37,'AG','IX','','109'),(38,'GL','X','','110'),(39,'SA','X','','112'),(40,'AG','X','','112'),(41,'KY','XI A','','113'),(42,'KY','XI B','','113'),(43,'GL','XI','','114'),(44,'SA','XI','','115'),(45,'AG','XI','','116'),(46,'KY','XII','','116'),(47,'GL','XII','','117'),(48,'SA','XII','','118'),(49,'AG','XII','','118'),(50,'KY','XIII','','119'),(51,'GL','XIII','','119'),(52,'SA','XIII','','121'),(53,'AG','XIII','','121'),(54,'KY','XIV','','122'),(55,'GL','XIV','','122'),(56,'SA','XIV','','124'),(57,'AG','XIV','','124'),(58,'KY','XV','','125'),(59,'GL','XV','','125'),(60,'SA','XV','','127'),(61,'AG','XV','','127'),(62,'KY','XVI','','128'),(63,'SA','XVI','','128'),(64,'AG','XVI','','128'),(65,'KY','XVII A','','129'),(66,'KY','XVII B','','129'),(67,'KY','XVII C','','130'),(68,'SA','XVII','','130'),(69,'AG','XVII','','131'),(70,'KY','XVIII A','','132'),(71,'KY','XVIII B','','132'),(72,'SA','XVIII','','132'),(73,'AG','XVIII','','133'),(74,'CR','I','','134'),(75,'CR','II','','136'),(76,'CR','III','','139'),(77,'CR','IV','','141'),(78,'CR','V','','144'),(79,'KY','IV*','','152'),(80,'KY','VII*','','153'),(81,'KY','VIII*','','153'),(82,'KY','IX*','','154'),(83,'IN','15','Ad te levavi','165'),(84,'GR','16','Universi','166'),(85,'AL','16','Ostende','167'),(86,'OF','17','Ad te Domine','167'),(87,'CO','17','Dominus dabit','168'),(88,'IN','18','Populus Sion','169'),(89,'GR','18','Ex Sion','170'),(90,'AL','19','Lætatus sum','171'),(91,'OF','20','Deus tu convertens','172'),(92,'CO','20','Jerusalem surge','173'),(93,'IN','21','Gaudete','174'),(94,'PR','adv_1','Préface de l\'Avent I','49'),(95,'PR','adv_2','Préface de l\'Avent II','49'),(96,'PR','noel_1','Préface de Noël I','50'),(97,'PR','noel_2','Préface de Noël II','51'),(98,'PR','noel_3','Préface de Noël III','51'),(99,'PR','epiph','Préface de l\'Épiphanie','220'),(100,'PR','bapt','Préface du Baptême du Seigneur','226'),(107,'PR','quadr_1','Préface du Carême I','52'),(108,'PR','quadr_2','Préface du Carême II','52'),(109,'PR','quadr_3','Préface du Carême III','53'),(110,'PR','quadr_4','Préface du Carême IV','53'),(123,'PR','quadr_dim_1','Préface du 1er dimanche de Carême','245'),(124,'PR','quadr_dim_2','Préface du 2e dimanche de Carême','251'),(125,'PR','quadr_dim_3','Préface du 3e dimanche de Carême','257'),(126,'PR','quadr_dim_4','Préface du 4e dimanche de Carême','263'),(127,'PR','quadr_dim_5','Préface du 5e dimanche de Carême','270'),(128,'PR','rameaux','Préface du dimanche des Rameaux','285'),(129,'PR','passion_1','Préface de la Passion I','54'),(130,'PR','tp_1','Préface du Temps Pascal I','55'),(131,'PR','tp_2','Préface du Temps Pascal II','55'),(132,'PR','tp_3','Préface du Temps Pascal III','56'),(133,'PR','tp_4','Préface du Temps Pascal IV','56'),(134,'PR','tp_5','Préface du Temps Pascal V','57'),(135,'PR','ascension_1','Préface de l\'Ascension I','57'),(136,'PR','ascension_2','Préface de l\'Ascension II','58'),(137,'PR','pent','Préface de la Pentecôte','401'),(138,'PR','trinite','Préface de la Trinité','411'),(139,'PR','sacre_coeur','Préface du Sacré-Cœur','428'),(140,'PR','christ_roi','Préface du Christ-Roi','601'),(141,'PR','pa_dim_1','Préface des dimanches ordinaires I','59'),(142,'PR','pa_dim_2','Préface des dimanches ordinaires II','59'),(143,'PR','pa_dim_3','Préface des dimanches ordinaires III','60'),(144,'PR','pa_dim_4','Préface des dimanches ordinaires IV','60'),(145,'PR','pa_dim_5','Préface des dimanches ordinaires V','61'),(146,'PR','pa_dim_6','Préface des dimanches ordinaires VI','62'),(147,'PR','pa_dim_7','Préface des dimanches ordinaires VII','62'),(148,'PR','pa_dim_8','Préface des dimanches ordinaires VIII','63'),(149,'PR','euch_1','Préface de l\'Eucharistie I','63'),(150,'PR','euch_2','Préface de l\'Eucharistie II','64'),(151,'PR','presentation','Préface de la Présentation','614'),(152,'PR','saint_joseph','Préface de saint Joseph','619'),(153,'PR','annonciation','Préface de l\'Annonciation','626'),(154,'PR','saint_jean_bapt','Préface de saint Jean-Baptiste','634'),(155,'PR','sts_pierre_paul','Préface des saints Pierre et Paul','645'),(156,'PR','transfig','Préface de la Transfiguration','648'),(157,'PR','assomption','Préface de l\'Assomption','659'),(158,'PR','sainte_croix','Préface de la Sainte Croix','663'),(159,'PR','toussaint','Préface de la Toussaint','668'),(160,'PR','imm_conc','Préface de l\'Immaculée Conception','677'),(161,'PR','dedic','Préface de la Dédicace','686'),(162,'PR','def_1','Préface des défunts I','65'),(163,'PR','def_2','Préface des défunts II','65'),(164,'PR','def_3','Préface des défunts III','66'),(165,'PR','def_4','Préface des défunts IV','66'),(166,'PR','def_5','Préface des défunts V','67'),(167,'GR','22','Qui sedes','175'),(168,'GR','569','Fuit homo','176'),(169,'AL','23','Excita Domine','177'),(170,'OF','23','Benedixisti Domine','178'),(171,'CO','23','Dicite Pusillanimes','179'),(172,'IN','34','Rorate','180'),(173,'GR','35','Prope est Dominus','181'),(174,'AL','36','Veni Domine','182'),(175,'OF','36','Ave Maria','183'),(176,'CO','37','Ecce Virgo concipiet','184'),(177,'IN','38','Hodie scietis','185'),(178,'GR','38','Hodie scietis','186'),(179,'AL','39','Crastina die','187'),(180,'OF','40','Tollite portas','188'),(181,'CO','40','Revelabitur','188'),(182,'IN','41','Dominus dixit ad me','189'),(183,'GR','42','Tecum Principium','190'),(184,'AL','43','Dominus dixit ad me','191'),(185,'OF','44','Lætentur cæli','192'),(186,'CO','44','In splendoribus','193'),(187,'IN','44','Lux fulgebit','193'),(188,'GR','45','Benedictus qui venit','194'),(189,'AL','46','Dominus regnavit','195'),(190,'OF','46','Deus enim','196'),(191,'CO','47','Exsulta filia Sion','197'),(192,'IN','47','Puer natus est','198'),(193,'GR','48','Viderunt','199'),(194,'AL','49','Dies sanctificatus','200'),(195,'OF','49','Tui sunt cæli','200'),(196,'CO','50','Viderunt','201'),(197,'IN','310','Deus in loco sancto suo','202'),(198,'GR','358','Unam petii','204'),(199,'AL','430','Gaudete justi','205'),(200,'OF','322','In te speravi','205'),(201,'CO','51,2','Tolle puerum','206'),(202,'CO','51,1','Fili quid fecisti','206'),(203,'IN','403,2','Salve sancta Parens','207'),(204,'GR','408,4','Diffusa est gratia','209'),(205,'AL','414,4','Post partum','210'),(206,'AL','52','Multifarie','210'),(207,'OF','422,4','Felix namque es','211'),(208,'IN','53','Dum medium silentium','213'),(209,'GR','54','Speciosus forma','215'),(210,'IN','56','Ecce advenit','217'),(211,'GR','57','Omnes de Saba','218'),(212,'AL','58','Vidimus stellam','219'),(213,'OF','58','Reges Tharsis','219'),(214,'CO','59','Vidimus stellam','221'),(215,'IN','498,1','Dilexisti justitiam','221'),(216,'GR','257','Benedictus','223'),(217,'GR','499','Dilexisti justitiam','224'),(218,'AL','59','Benedictus qui venit','224'),(219,'AL','446','Inveni David','225'),(220,'OF','60','Benedictus qui venit','226'),(221,'CO','61','Omnes qui in Christo','227'),(222,'IN','62','Misereris','229'),(223,'GR','63','Miserere','230'),(224,'AL','64','Domine non secundum','231'),(225,'OF','313','Exaltabo te','236'),(226,'CO','67','Qui meditabitur','237'),(227,'IN','71','Invocabit me','238'),(228,'GR','72','Angelis suis','239'),(229,'AL','73','Qui habitat','240'),(230,'OF','76','Scapulis suis','244'),(231,'CO','77','Scapulis suis','245'),(232,'IN','88','Tibi dixit','246'),(233,'IN','81','Reminiscere','247'),(234,'GR','88','Sciant gentes','248'),(235,'AL','89','Commovisti','249'),(237,'CO','90','Visionem','252'),(238,'IN','96','Oculi mei','252'),(239,'GR','96','Exsurge Domine','254'),(240,'AL','97','Ad te levavi','255'),(242,'CO','99,1','Qui biberit','258'),(243,'CO','99,2','Qui biberit','258'),(244,'IN','108','Lætare Jerusalem','259'),(245,'GR','336','Lætatus sum','260'),(246,'AL','109','Qui confidunt','261'),(247,'OF','110','Laudate Dominum','262'),(248,'CO','370','Jerusalem','263'),(249,'CO','111','Lutum fecit','264'),(250,'CO','95,2','Oportet te','264'),(251,'IN','120','Judica me','265'),(252,'GR','121','Eripe me','266'),(253,'AL','122','Sæpe expugnaverunt me','268'),(254,'OF','123','Confitebor tibi','269'),(255,'CO','484,3','Qui mihi ministrat','270'),(256,'CO','124,1','Videns Dominus','271'),(257,'CO','124,2','Nemo te condemnavit','272'),(258,'IN','143','Ingrediente Domino','277'),(259,'AL','144','Deus Deus meus','278'),(260,'GR','148','Christus factus est','282'),(261,'OF','148','Improperium','283'),(262,'CO','149','Pater','285'),(263,'IN','162','Nos autem gloriari','286'),(264,'GR','343','Oculi omnium','287'),(265,'AL','163','Ab ortu solis','288'),(266,'CO','170','Hoc corpus','297'),(267,'AL','172','Domine exaudi','302'),(268,'AL','191','Confitemini Domino','339'),(269,'OF','194','Dextera Domini','347'),(270,'IN','196','Resurrexi','349'),(271,'GR','196','Hæc dies','350'),(272,'AL','197','Pascha nostrum','351'),(273,'OF','199','Terra tremuit','353'),(274,'CO','199','Pascha nostrum','354'),(275,'IN','216','Quasi modo','355'),(276,'AL','216','In die resurrectionis','356'),(277,'AL','217','Post dies octo','357'),(278,'OF','217','Angelus Domini','357'),(279,'CO','218,1','Mitte manum tuam','358'),(280,'IN','219','Jubilate Deo','359'),(281,'AL','220,1','Cognoverunt discipuli','360'),(282,'AL','220,2','Oportebat','361'),(283,'OF','221','Lauda anima mea','362'),(284,'CO','202','Surrexit Dominus','363'),(285,'CO','222','Cantate Domino','363'),(287,'IN','222','Misericordia Domini','364'),(288,'AL','223,1','Redemptionem','365'),(289,'AL','223,2','Ego sum Pastor bonus','366'),(290,'OF','224','Deus Deus meus','366'),(291,'CO','224','Ego sum Pastor bonus','367'),(292,'IN','225','Cantate Domino','368'),(293,'AL','226,1','Dextera Dei','369'),(294,'AL','226,2','Christus resurgens','370'),(295,'OF','227','Jubilate Deo','371'),(296,'CO','560','Tanto tempore','372'),(297,'CO','228,1','Ego sum vitis vera','373'),(298,'IN','229','Vocem jucunditatis','374'),(299,'AL','230,1','Surrexit Christus','375'),(300,'AL','230,2','Exivi a Patre','376'),(301,'AL','429','Ego vos elegi','377'),(302,'AL','432,6','Spiritus Sanctus','377'),(303,'OF','231','Benedicite gentes','378'),(304,'CO','232,1','Non vos relinquam','379'),(305,'CO','436,2','Ego vos elegi','380'),(306,'CO','232,2','Spiritus Sanctus','380'),(307,'IN','235','Viri Galiæi','381'),(308,'AL','236,1','Ascendit Deus','382'),(309,'AL','236,2','Dominus in Sina','383'),(310,'OF','237,2','Viri Galilæi','383'),(311,'CO','213','Data est mihi','385'),(312,'CO','437,4','Signa eos','385'),(313,'CO','238','Psallite Domino','386'),(314,'IN','241','Exaudi Domine','387'),(315,'AL','242,1','Regnavit Dominus','388'),(316,'AL','242,2','Non vos relinquam','389'),(317,'OF','237,1','Ascendit Deus','389'),(318,'CO','243','Pater cum essem','390'),(319,'IN','249','Dum sanctificatus','391'),(320,'AL','249','Emitte Spiritum','393'),(321,'AL','250','Dum complerentur','393'),(322,'OF','250','Emitte Spiritum','394'),(323,'CO','251','Ultimo festivitatis','395'),(324,'IN','252','Spiritus Domini','396'),(325,'AL','252','Emitte Spiritum tuum','397'),(326,'AL','253','Veni Sancte Spiritus','398'),(327,'OF','255','Confirma hoc','401'),(328,'CO','256','Factus est repente','402'),(329,'IN','371','Benedicta sit','404'),(330,'IN','248','Caritas Dei','405'),(331,'GR','372','Benedictus es Domine','406'),(332,'AL','375','Benedictus es Domine','410'),(333,'OF','375','Benedictus sit','411'),(334,'CO','376','Benedicimus','412'),(335,'IN','377','Cibavit eos','413'),(336,'AL','378','Caro mea','415'),(337,'OF','207','Portas cæli','422'),(338,'CO','383','Qui manducat','423'),(339,'IN','384','Cogitationes','424'),(340,'GR','384','Dulcis et rectus','426'),(341,'AL','385','Tollite jugum','426'),(342,'OF','386','Improperium','428'),(343,'CO','387,1','Unus militum','429'),(344,'CO','387,2','Dico vobis','429'),(345,'IN','260','Omnis terra','431'),(346,'GR','261','Misit Dominus','432'),(347,'AL','262','Laudate Deum','433'),(349,'CO','263,1','Dicit Andreas','435'),(350,'CO','263,2','Dicit Dominus Implete','436'),(351,'IN','264,2','Dominus secus','437'),(352,'IN','264,1','Adorate Deum','438'),(353,'GR','265','Timebunt gentes','438'),(354,'AL','266','Dominus regnavit','439'),(355,'OF','267','Dextera Domini','440'),(356,'CO','267,2','Venite post me','441'),(357,'CO','268','Comedite pinguia','441'),(358,'IN','268','Lætetur cor','442'),(359,'GR','269','Quis sicut Dominus','443'),(360,'AL','270','Adorabo','444'),(361,'OF','270','Bonum est confiteri','445'),(362,'CO','271','Illumina','445'),(363,'IN','271','Venite adoremus','446'),(364,'GR','520','Dispersit','447'),(365,'GR','272','Tollite hostias','448'),(366,'AL','273','Laudate Dominum','449'),(367,'OF','273','Perfice','450'),(368,'CO','471,4','Multitudo','451'),(369,'CO','274,1','Introibo','451'),(370,'IN','275','Esto mihi','452'),(371,'GR','275','Tu es Deus','453'),(372,'AL','277','Cantate Domino','454'),(373,'OF','277','Benedictus es','455'),(374,'CO','278','Manducaverunt','456'),(375,'IN','278','Domine in tua misericordia','457'),(376,'GR','279','Ego dixi Domine','458'),(377,'AL','280','Verba mea','459'),(378,'OF','280','Intende','459'),(379,'CO','281','Narrabo','460'),(380,'IN','281','Factus est Dominus','461'),(381,'GR','282','Ad Dominum cum tribularer','462'),(382,'AL','282','Domine Deus meus','463'),(383,'OF','283','Domine convertere','464'),(384,'CO','283','Cantabo Domino','464'),(385,'IN','284','Respice in me','465'),(386,'GR','285','Jacta cogitatum tuum','466'),(387,'AL','286','Deus judex justus','467'),(388,'OF','286','Sperent in te','468'),(389,'CO','287','Ego clamavi','469'),(390,'IN','288','Dominus illuminatio','470'),(391,'GR','288','Propitius esto','471'),(392,'GR','112','Exaltabo te','472'),(393,'AL','289','Deus qui sedes','474'),(394,'OF','290','Illumina','475'),(395,'CO','290','Dominus firmamentum','476'),(396,'CO','515,8','Quicumque fecerit','476'),(397,'IN','291','Exaudi Domine','477'),(398,'GR','292','Protector noster','478'),(399,'AL','292','Domine in virtute tua','479'),(400,'OF','293','Benedicam Dominum','480'),(401,'CO','294','Unam petii','480'),(402,'IN','294','Dominus fortitudo','481'),(403,'GR','295','Convertere','483'),(404,'AL','296','In te Domine speravi','483'),(405,'CO','472','Quod dico vobis','485'),(406,'CO','297','Circuibo','486'),(407,'CO','484,4','Qui vult venire','486'),(408,'IN','297','Omnes gentes','487'),(409,'GR','298','Venite filii','488'),(410,'AL','298','Omnes gentes','489'),(411,'OF','299','Sicut in holocausto','489'),(412,'CO','207','Christus resurgens','490'),(413,'CO','300','Inclina aurem tuam','491'),(414,'IN','300','Suscepimus','492'),(415,'GR','301','Esto mihi','493'),(416,'AL','302','Magnus Dominus','494'),(417,'OF','302','Populum humilem','495'),(418,'CO','303','Gustate et videte','495'),(419,'IN','303','Dum clamarem','496'),(420,'IN','94','Ego autem cum justitia','497'),(421,'GR','304','Custodi me Domine','498'),(422,'GR','31','Ostende nobis','499'),(423,'AL','305','Te decet hymnus','500'),(424,'CO','306','Passer invenit sibi domum','502'),(425,'IN','307','Ecce Deus adjuvat me','503'),(426,'GR','308','Domine Dominus noster','504'),(427,'GR','125','Si ambulem','505'),(428,'AL','308','Eripe me','506'),(429,'OF','309','Justitiæ Domini','507'),(430,'CO','309','Acceptabis','507'),(431,'CO','507,2','Optimam partem','508'),(432,'GR','311','In Deo speravit cor meum','510'),(433,'AL','312','Exsultate Deo','511'),(435,'CO','519','Simile est regnum cælorum','513'),(436,'CO','314,1','Honora Dominum','513'),(437,'CO','314,2','Petite et accipietis','514'),(438,'IN','114','Sitientes','515'),(439,'IN','315','Deus in adjutorium','516'),(440,'GR','316','Benedicam Dominum','517'),(441,'AL','317','Domine Deus salutis meæ','518'),(442,'OF','317','Precatus est Moyses','519'),(443,'CO','319','Panem de cælo','521'),(444,'IN','319','Respice Domine','522'),(445,'GR','320','Respice Domine','523'),(446,'AL','321','Domine refugium','524'),(448,'CO','322','Panis','526'),(449,'CO','491,1','Beatus servus','526'),(450,'IN','323','Protector noster','527'),(451,'GR','324','Bonum est confidere','528'),(452,'AL','324','Venite exsultemus','529'),(453,'OF','325','Immittet angelus','530'),(454,'CO','325','Primum quærite','531'),(455,'IN','326','Inclina Domine','531'),(456,'GR','327','Bonum est confiteri','533'),(457,'AL','245','Spiritus est qui vivificat','534'),(458,'AL','327','Quoniam Deus magnus','534'),(459,'OF','328','Exspectans exspectavi','535'),(460,'CO','329','De fructu operum','536'),(461,'IN','330','Miserere mihi Domine','537'),(463,'AL','330','Cantate Domino','539'),(464,'OF','331','Domine in auxilium','540'),(465,'CO','332','Domine memorabor','541'),(466,'IN','332','Justus es Domine','542'),(467,'GR','333','Beata gens','543'),(468,'AL','334','Domine exaudi orationem meam','544'),(469,'OF','334','Oravi Deum meum','545'),(470,'CO','335','Vovete et reddite','546'),(471,'IN','336','Da pacem Domine','547'),(472,'AL','337','Timebunt gentes','549'),(473,'OF','338','Sanctificavit Moyses','549'),(474,'CO','338','Tollite hostias','551'),(475,'IN','339','Salus populi','552'),(476,'AL','340','Confitemini Domino','553'),(477,'OF','341','Si ambulavero','554'),(478,'CO','342','Tu mandasti','555'),(479,'IN','155','In nomine Domini','556'),(480,'IN','342','Omnia quæ fecisti','557'),(481,'AL','344','Paratum cor meum','558'),(482,'OF','345','Super flumina Babylonis','559'),(483,'CO','346','Memento verbi tui','560'),(484,'IN','346','In voluntate tua','561'),(485,'GR','347','Domine refugium','532'),(486,'AL','348','In exitu Israel','563'),(487,'OF','349','Vir erat','564'),(488,'CO','350','In salutari tuo','565'),(489,'IN','350','Si iniquitates','566'),(490,'GR','351','Ecce quam bonum','567'),(491,'AL','352','Qui timent Dominum','568'),(492,'OF','352','Recordare mei Domine','569'),(493,'CO','353','Aufer a me','570'),(494,'IN','354','Ego clamavi','571'),(495,'GR','354','Salvum fac populum tuum','572'),(496,'AL','355','Lauda anima mea','573'),(497,'OF','356','Meditabor in mandatis tuis','574'),(498,'CO','357','Domine Dominus noster','575'),(499,'IN','357','Lætetur cor','575'),(501,'GR','454','Clamaverunt justi','577'),(502,'AL','358','Lauda Jerusalem Dominum','578'),(503,'OF','359','Domine vivifica me','579'),(504,'CO','359','Lætabimur','580'),(505,'IN','360','Ne derelinquas me','581'),(506,'GR','360','Suscepimus Deus','582'),(507,'AL','361','Verbo Domini','583'),(508,'AL','517','O quam bonus','583'),(509,'OF','362','Benedic anima mea','584'),(510,'CO','362','Notas mihi fecisti','585'),(511,'IN','363','Intret oratio mea','586'),(512,'GR','363','Dirigatur oratio mea','587'),(513,'AL','502','Quinque prudentes virgines','587'),(514,'AL','364','Qui posuit fines tuos pacem','588'),(515,'OF','365','Gressus meos','589'),(516,'CO','507,3','Quinque prudentes virgines','590'),(517,'CO','365','Dominus regit me','590'),(518,'IN','366','Dicit Dominus Ego cogito','591'),(519,'GR','366','Liberasti nos Domine','592'),(520,'AL','367','De profundis clamavi','593'),(521,'OF','368','De profundis clamavi','594'),(522,'CO','515,3','Domine quinque talenta','595'),(523,'CO','368','Amen dico vobis Quidquid orantes','596'),(524,'IN','388','Dignus est Agnus','597'),(525,'GR','389','Dominabitur','598'),(526,'AL','389','Potestas ejus','599'),(527,'OF','390','Postula a me','600'),(528,'CO','79','Amen dico vobis Quod uni','602'),(529,'CO','391','Sedebit Dominus Rex','602'),(530,'AL','544','Senex puerum','612'),(531,'OF','421','Diffusa est gratia','613'),(532,'CO','544','Responsum accepit Simeon','614'),(533,'IN','508','Justus ut palma','615'),(534,'GR','509','Domine prævenisti eum','616'),(535,'AL','481','Beatus vir qui timet','617'),(536,'OF','483','Veritas mea','619'),(537,'CO','552','Joseph fili David','620'),(538,'GR','25','Tollite portas','622'),(539,'AL','412','Ave Maria','623'),(540,'AL','417','Audi filia et vide','623'),(541,'AL','416,7','Virga Jesse','625'),(542,'IN','568','Ne timeas Zacharia','627'),(543,'AL','511,2','Beatus vir qui timet Dominum','628'),(545,'CO','437,3','Magna est gloria ejus','630'),(546,'IN','570','De ventre','631'),(547,'GR','571','Priusquam te formarem','632'),(548,'AL','571','Tu puer','633'),(549,'OF','497','Justus ut palma florebit','633'),(550,'CO','572','Tu puer','635'),(551,'IN','573','Dicit Dominus Petro','636'),(552,'GR','427','In omnem terram','637'),(553,'AL','429','Constitues eos principes','638'),(554,'OF','435,4','Mihi autem','639'),(555,'CO','574','Simon Joannis','640'),(556,'IN','575','Nunc scio vere','641'),(557,'GR','576','Constitues eos principes','642'),(558,'AL','576','Tu es Petrus','643'),(559,'OF','434,1','Constitues eos principes','644'),(560,'CO','577','Tu es Petrus','645'),(561,'AL','585','Candor est lucis æternæ','647'),(562,'OF','434,2','Gloria et honore','647'),(563,'CO','585','Visionem quam vidistis','649'),(564,'IN','404','Vultum tuum','650'),(565,'GR','407','Benedicta et venerabilis','651'),(566,'AL','414,3','Felix es sacra Virgo Maria','652'),(567,'OF','420','Beata es Virgo Maria','653'),(568,'CO','423,1','Beata viscera Mariæ','654'),(569,'IN','590','Signum magnum','655'),(570,'GR','406','Audi filia et vide','657'),(571,'AL','591','Assumpta est Maria','658'),(572,'OF','592','Assumpta est Maria','658'),(573,'CO','592','Beatam me dicent','660'),(574,'AL','598','Dulce lignum','661'),(575,'OF','599','Protege Domine plebem tuam','662'),(576,'CO','600','Per signum Crucis','663'),(577,'IN','619','Gaudeamus','664'),(578,'GR','458','Timete Dominum','665'),(579,'AL','619','Venite ad me','666'),(580,'OF','468,5','Justorum animæ','667'),(581,'CO','514','Beati mundo corde','669'),(582,'AL','399','Bene fundata est','671'),(583,'OF','401','Domine Deus in simplicitate','672'),(584,'IN','628','Gaudens gaudebo','673'),(585,'GR','629','Benedicta es tu','674'),(586,'AL','630','Tota pulchra es','675'),(587,'OF','630','Ave Maria','676'),(588,'CO','631','Gloriosa dicta sunt de te','678'),(589,'IN','397','Terribilis est locus iste','679'),(590,'IN','398','Dicit Dominus Sermones mei','680'),(591,'AL','400','Domine dilexi decorem domus tuæ','683'),(592,'OF','610','Stetit angelus','684'),(593,'CO','402','Domus mea','686'),(594,'IN','669','Requiem æternam','688'),(595,'GR','670','Requiem æternam','689'),(596,'AL','671','Requiem æternam','690'),(597,'AL','672','Absolve Domine','691'),(598,'AL','673','De profundis','692'),(599,'OF','674','Domine Jesu Christe','693'),(600,'CO','676','Lux æterna','695'),(601,'PR','ap_1','Préface des Apôtres I',''),(602,'PR','ap_2','Préface des Apôtres II',''),(603,'PR','com_1','Préface commune I',''),(604,'PR','com_2','Préface commune II',''),(605,'PR','com_3','Préface commune III',''),(606,'PR','com_4','Préface commune IV',''),(607,'PR','com_5','Préface commune V',''),(608,'PR','com_6','Préface commune VI',''),(609,'PR','marie_1','Préface de la Sainte Vierge I',''),(610,'PR','marie_2','Préface de la Sainte Vierge II',''),(611,'PR','marie_mad','Préface de sainte Marie-Madeleine',''),(612,'PR','saints_1','Préface des saints I',''),(613,'PR','saints_2','Préface des saints II',''),(614,'PR','virg','Préface des saintes vierges et des religieux',''),(615,'OF','419','Ave Maria','183');
-/*!40000 ALTER TABLE `Scores` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `Scores` (`ID`, `Type`, `Ref`, `Name`, `Page`) VALUES
+(2, 'KY', 'X', 'Kyrie X', '110'),
+(3, 'KY', 'I', 'Kyrie I', '75'),
+(4, 'KY', 'I A', 'Kyrie I A', '75'),
+(5, 'KY', 'I B', 'Kyrie I B', '76'),
+(6, 'GL', 'I', 'Gloria I', '77'),
+(7, 'SA', 'I', 'Sanctus I', '79'),
+(8, 'AG', 'I', 'Agnus Dei I', '79'),
+(9, 'KY', 'II', 'Kyrie II', '80'),
+(10, 'GL', 'II', 'Gloria II', '80'),
+(11, 'SA', 'II', 'Sanctus II', '82'),
+(12, 'AG', 'II', 'Agnus Dei II', '83'),
+(13, 'KY', 'III', 'Kyrie III', '83'),
+(14, 'GL', 'III', 'Gloria III', '84'),
+(15, 'KY', 'III A', 'Kyrie III A', '86'),
+(16, 'SA', 'III', 'Sanctus III', '88'),
+(17, 'AG', 'III', 'Agnus Dei III', '89'),
+(18, 'KY', 'IV', 'Kyrie IV', '90'),
+(19, 'GL', 'IV', 'Gloria IV', '90'),
+(20, 'SA', 'IV', 'Sanctus IV', '92'),
+(21, 'AG', 'IV', 'Agnus Dei IV', '92'),
+(22, 'KY', 'V', 'Kyrie V', '93'),
+(23, 'GL', 'V', 'Gloria V', '93'),
+(24, 'SA', 'V', 'Sanctus V', '95'),
+(25, 'AG', 'V', 'Agnus Dei V', '95'),
+(26, 'KY', 'VI', 'Kyrie VI', '96'),
+(27, 'GL', 'VI', 'Gloria VI', '97'),
+(28, 'SA', 'VI', 'Sanctus VI', '98'),
+(29, 'AG', 'VI', 'Agnus Dei VI', '99'),
+(30, 'KY', 'VIII', 'Kyrie VIII', '103'),
+(31, 'GL', 'VIII', 'Gloria VIII', '103'),
+(32, 'SA', 'VIII', 'Sanctus VIII', '105'),
+(33, 'AG', 'VIII', 'Agnus Dei VIII', '105'),
+(34, 'KY', 'IX', 'Kyrie IX', '106'),
+(35, 'GL', 'IX', 'Gloria IX', '107'),
+(36, 'SA', 'IX', 'Sanctus IX', '108'),
+(37, 'AG', 'IX', 'Agnus Dei IX', '109'),
+(38, 'GL', 'X', 'Gloria X', '110'),
+(39, 'SA', 'X', 'Sanctus X', '112'),
+(40, 'AG', 'X', 'Agnus Dei X', '112'),
+(41, 'KY', 'XI A', 'Kyrie XI A', '113'),
+(42, 'KY', 'XI B', 'Kyrie XI B', '113'),
+(43, 'GL', 'XI', 'Gloria XI', '114'),
+(44, 'SA', 'XI', 'Sanctus XI', '115'),
+(45, 'AG', 'XI', 'Agnus Dei XI', '116'),
+(46, 'KY', 'XII', 'Kyrie XII', '116'),
+(47, 'GL', 'XII', 'Gloria XII', '117'),
+(48, 'SA', 'XII', 'Sanctus XII', '118'),
+(49, 'AG', 'XII', 'Agnus Dei XII', '118'),
+(50, 'KY', 'XIII', 'Kyrie XIII', '119'),
+(51, 'GL', 'XIII', 'Gloria XIII', '119'),
+(52, 'SA', 'XIII', 'Sanctus XIII', '121'),
+(53, 'AG', 'XIII', 'Agnus Dei XIII', '121'),
+(54, 'KY', 'XIV', 'Kyrie XIV', '122'),
+(55, 'GL', 'XIV', 'Gloria XIV', '122'),
+(56, 'SA', 'XIV', 'Sanctus XIV', '124'),
+(57, 'AG', 'XIV', 'Agnus Dei XIV', '124'),
+(58, 'KY', 'XV', 'Kyrie XV', '125'),
+(59, 'GL', 'XV', 'Gloria XV', '125'),
+(60, 'SA', 'XV', 'Sanctus XV', '127'),
+(61, 'AG', 'XV', 'Agnus Dei XV', '127'),
+(62, 'KY', 'XVI', 'Kyrie XVI', '128'),
+(63, 'SA', 'XVI', 'Sanctus XVI', '128'),
+(64, 'AG', 'XVI', 'Agnus Dei XVI', '128'),
+(65, 'KY', 'XVII A', 'Kyrie XVII A', '129'),
+(66, 'KY', 'XVII B', 'Kyrie XVII B', '129'),
+(67, 'KY', 'XVII C', 'Kyrie XVII C', '130'),
+(68, 'SA', 'XVII', 'Sanctus XVII', '130'),
+(69, 'AG', 'XVII', 'Agnus Dei XVII', '131'),
+(70, 'KY', 'XVIII A', 'Kyrie XVIII A', '132'),
+(71, 'KY', 'XVIII B', 'Kyrie XVIII B', '132'),
+(72, 'SA', 'XVIII', 'Sanctus XVIII', '132'),
+(73, 'AG', 'XVIII', 'Agnus Dei XVIII', '133'),
+(74, 'CR', 'I', 'Credo I', '134'),
+(75, 'CR', 'II', 'Credo II', '136'),
+(76, 'CR', 'III', 'Credo III', '139'),
+(77, 'CR', 'IV', 'Credo IV', '141'),
+(78, 'CR', 'V', 'Credo V', '144'),
+(79, 'KY', 'IV*', 'Kyrie IV*', '152'),
+(80, 'KY', 'VII*', 'Kyrie VII*', '153'),
+(81, 'KY', 'VIII*', 'Kyrie VIII*', '153'),
+(82, 'KY', 'IX*', 'Kyrie IX*', '154'),
+(83, 'IN', '15', 'Ad te levavi', '165'),
+(84, 'GR', '16', 'Universi', '166'),
+(85, 'AL', '16', 'Ostende', '167'),
+(86, 'OF', '17', 'Ad te Domine', '167'),
+(87, 'CO', '17', 'Dominus dabit', '168'),
+(88, 'IN', '18', 'Populus Sion', '169'),
+(89, 'GR', '18', 'Ex Sion', '170'),
+(90, 'AL', '19', 'Lætatus sum', '171'),
+(91, 'OF', '20', 'Deus tu convertens', '172'),
+(92, 'CO', '20', 'Jerusalem surge', '173'),
+(93, 'IN', '21', 'Gaudete', '174'),
+(167, 'GR', '22', 'Qui sedes', '175'),
+(168, 'GR', '569', 'Fuit homo', '176'),
+(169, 'AL', '23', 'Excita Domine', '177'),
+(170, 'OF', '23', 'Benedixisti Domine', '178'),
+(171, 'CO', '23', 'Dicite Pusillanimes', '179'),
+(172, 'IN', '34', 'Rorate', '180'),
+(173, 'GR', '35', 'Prope est Dominus', '181'),
+(174, 'AL', '36', 'Veni Domine', '182'),
+(175, 'OF', '36', 'Ave Maria', '183'),
+(176, 'CO', '37', 'Ecce Virgo concipiet', '184'),
+(177, 'IN', '38', 'Hodie scietis', '185'),
+(178, 'GR', '38', 'Hodie scietis', '186'),
+(179, 'AL', '39', 'Crastina die', '187'),
+(180, 'OF', '40', 'Tollite portas', '188'),
+(181, 'CO', '40', 'Revelabitur', '188'),
+(182, 'IN', '41', 'Dominus dixit ad me', '189'),
+(183, 'GR', '42', 'Tecum Principium', '190'),
+(184, 'AL', '43', 'Dominus dixit ad me', '191'),
+(185, 'OF', '44', 'Lætentur cæli', '192'),
+(186, 'CO', '44', 'In splendoribus', '193'),
+(187, 'IN', '44', 'Lux fulgebit', '193'),
+(188, 'GR', '45', 'Benedictus qui venit', '194'),
+(189, 'AL', '46', 'Dominus regnavit', '195'),
+(190, 'OF', '46', 'Deus enim', '196'),
+(191, 'CO', '47', 'Exsulta filia Sion', '197'),
+(192, 'IN', '47', 'Puer natus est', '198'),
+(193, 'GR', '48', 'Viderunt', '199'),
+(194, 'AL', '49', 'Dies sanctificatus', '200'),
+(195, 'OF', '49', 'Tui sunt cæli', '200'),
+(196, 'CO', '50', 'Viderunt', '201'),
+(197, 'IN', '310', 'Deus in loco sancto suo', '202'),
+(198, 'GR', '358', 'Unam petii', '204'),
+(199, 'AL', '430', 'Gaudete justi', '205'),
+(200, 'OF', '322', 'In te speravi', '205'),
+(201, 'CO', '51,2', 'Tolle puerum', '206'),
+(202, 'CO', '51,1', 'Fili quid fecisti', '206'),
+(203, 'IN', '403,2', 'Salve sancta Parens', '207'),
+(204, 'GR', '408,4', 'Diffusa est gratia', '209'),
+(205, 'AL', '414,4', 'Post partum', '210'),
+(206, 'AL', '52', 'Multifarie', '210'),
+(207, 'OF', '422,4', 'Felix namque es', '211'),
+(208, 'IN', '53', 'Dum medium silentium', '213'),
+(209, 'GR', '54', 'Speciosus forma', '215'),
+(210, 'IN', '56', 'Ecce advenit', '217'),
+(211, 'GR', '57', 'Omnes de Saba', '218'),
+(212, 'AL', '58', 'Vidimus stellam', '219'),
+(213, 'OF', '58', 'Reges Tharsis', '219'),
+(214, 'CO', '59', 'Vidimus stellam', '221'),
+(215, 'IN', '498,1', 'Dilexisti justitiam', '221'),
+(216, 'GR', '257', 'Benedictus', '223'),
+(217, 'GR', '499', 'Dilexisti justitiam', '224'),
+(218, 'AL', '59', 'Benedictus qui venit', '224'),
+(219, 'AL', '446', 'Inveni David', '225'),
+(220, 'OF', '60', 'Benedictus qui venit', '226'),
+(221, 'CO', '61', 'Omnes qui in Christo', '227'),
+(222, 'IN', '62', 'Misereris', '229'),
+(223, 'GR', '63', 'Miserere', '230'),
+(224, 'AL', '64', 'Domine non secundum', '231'),
+(225, 'OF', '313', 'Exaltabo te', '236'),
+(226, 'CO', '67', 'Qui meditabitur', '237'),
+(227, 'IN', '71', 'Invocabit me', '238'),
+(228, 'GR', '72', 'Angelis suis', '239'),
+(229, 'AL', '73', 'Qui habitat', '240'),
+(230, 'OF', '76', 'Scapulis suis', '244'),
+(231, 'CO', '77', 'Scapulis suis', '245'),
+(232, 'IN', '88', 'Tibi dixit', '246'),
+(233, 'IN', '81', 'Reminiscere', '247'),
+(234, 'GR', '88', 'Sciant gentes', '248'),
+(235, 'AL', '89', 'Commovisti', '249'),
+(237, 'CO', '90', 'Visionem', '252'),
+(238, 'IN', '96', 'Oculi mei', '252'),
+(239, 'GR', '96', 'Exsurge Domine', '254'),
+(240, 'AL', '97', 'Ad te levavi', '255'),
+(242, 'CO', '99,1', 'Qui biberit', '258'),
+(243, 'CO', '99,2', 'Qui biberit', '258'),
+(244, 'IN', '108', 'Lætare Jerusalem', '259'),
+(245, 'GR', '336', 'Lætatus sum', '260'),
+(246, 'AL', '109', 'Qui confidunt', '261'),
+(247, 'OF', '110', 'Laudate Dominum', '262'),
+(248, 'CO', '370', 'Jerusalem', '263'),
+(249, 'CO', '111', 'Lutum fecit', '264'),
+(250, 'CO', '95,2', 'Oportet te', '264'),
+(251, 'IN', '120', 'Judica me', '265'),
+(252, 'GR', '121', 'Eripe me', '266'),
+(253, 'AL', '122', 'Sæpe expugnaverunt me', '268'),
+(254, 'OF', '123', 'Confitebor tibi', '269'),
+(255, 'CO', '484,3', 'Qui mihi ministrat', '270'),
+(256, 'CO', '124,1', 'Videns Dominus', '271'),
+(257, 'CO', '124,2', 'Nemo te condemnavit', '272'),
+(258, 'IN', '143', 'Ingrediente Domino', '277'),
+(259, 'AL', '144', 'Deus Deus meus', '278'),
+(260, 'GR', '148', 'Christus factus est', '282'),
+(261, 'OF', '148', 'Improperium', '283'),
+(262, 'CO', '149', 'Pater', '285'),
+(263, 'IN', '162', 'Nos autem gloriari', '286'),
+(264, 'GR', '343', 'Oculi omnium', '287'),
+(265, 'AL', '163', 'Ab ortu solis', '288'),
+(266, 'CO', '170', 'Hoc corpus', '297'),
+(267, 'AL', '172', 'Domine exaudi', '302'),
+(268, 'AL', '191', 'Confitemini Domino', '339'),
+(269, 'OF', '194', 'Dextera Domini', '347'),
+(270, 'IN', '196', 'Resurrexi', '349'),
+(271, 'GR', '196', 'Hæc dies', '350'),
+(272, 'AL', '197', 'Pascha nostrum', '351'),
+(273, 'OF', '199', 'Terra tremuit', '353'),
+(274, 'CO', '199', 'Pascha nostrum', '354'),
+(275, 'IN', '216', 'Quasi modo', '355'),
+(276, 'AL', '216', 'In die resurrectionis', '356'),
+(277, 'AL', '217', 'Post dies octo', '357'),
+(278, 'OF', '217', 'Angelus Domini', '357'),
+(279, 'CO', '218,1', 'Mitte manum tuam', '358'),
+(280, 'IN', '219', 'Jubilate Deo', '359'),
+(281, 'AL', '220,1', 'Cognoverunt discipuli', '360'),
+(282, 'AL', '220,2', 'Oportebat', '361'),
+(283, 'OF', '221', 'Lauda anima mea', '362'),
+(284, 'CO', '202', 'Surrexit Dominus', '363'),
+(285, 'CO', '222', 'Cantate Domino', '363'),
+(287, 'IN', '222', 'Misericordia Domini', '364'),
+(288, 'AL', '223,1', 'Redemptionem', '365'),
+(289, 'AL', '223,2', 'Ego sum Pastor bonus', '366'),
+(290, 'OF', '224', 'Deus Deus meus', '366'),
+(291, 'CO', '224', 'Ego sum Pastor bonus', '367'),
+(292, 'IN', '225', 'Cantate Domino', '368'),
+(293, 'AL', '226,1', 'Dextera Dei', '369'),
+(294, 'AL', '226,2', 'Christus resurgens', '370'),
+(295, 'OF', '227', 'Jubilate Deo', '371'),
+(296, 'CO', '560', 'Tanto tempore', '372'),
+(297, 'CO', '228,1', 'Ego sum vitis vera', '373'),
+(298, 'IN', '229', 'Vocem jucunditatis', '374'),
+(299, 'AL', '230,1', 'Surrexit Christus', '375'),
+(300, 'AL', '230,2', 'Exivi a Patre', '376'),
+(301, 'AL', '429', 'Ego vos elegi', '377'),
+(302, 'AL', '432,6', 'Spiritus Sanctus', '377'),
+(303, 'OF', '231', 'Benedicite gentes', '378'),
+(304, 'CO', '232,1', 'Non vos relinquam', '379'),
+(305, 'CO', '436,2', 'Ego vos elegi', '380'),
+(306, 'CO', '232,2', 'Spiritus Sanctus', '380'),
+(307, 'IN', '235', 'Viri Galiæi', '381'),
+(308, 'AL', '236,1', 'Ascendit Deus', '382'),
+(309, 'AL', '236,2', 'Dominus in Sina', '383'),
+(310, 'OF', '237,2', 'Viri Galilæi', '383'),
+(311, 'CO', '213', 'Data est mihi', '385'),
+(312, 'CO', '437,4', 'Signa eos', '385'),
+(313, 'CO', '238', 'Psallite Domino', '386'),
+(314, 'IN', '241', 'Exaudi Domine', '387'),
+(315, 'AL', '242,1', 'Regnavit Dominus', '388'),
+(316, 'AL', '242,2', 'Non vos relinquam', '389'),
+(317, 'OF', '237,1', 'Ascendit Deus', '389'),
+(318, 'CO', '243', 'Pater cum essem', '390'),
+(319, 'IN', '249', 'Dum sanctificatus', '391'),
+(320, 'AL', '249', 'Emitte Spiritum', '393'),
+(321, 'AL', '250', 'Dum complerentur', '393'),
+(322, 'OF', '250', 'Emitte Spiritum', '394'),
+(323, 'CO', '251', 'Ultimo festivitatis', '395'),
+(324, 'IN', '252', 'Spiritus Domini', '396'),
+(325, 'AL', '252', 'Emitte Spiritum tuum', '397'),
+(326, 'AL', '253', 'Veni Sancte Spiritus', '398'),
+(327, 'OF', '255', 'Confirma hoc', '401'),
+(328, 'CO', '256', 'Factus est repente', '402'),
+(329, 'IN', '371', 'Benedicta sit', '404'),
+(330, 'IN', '248', 'Caritas Dei', '405'),
+(331, 'GR', '372', 'Benedictus es Domine', '406'),
+(332, 'AL', '375', 'Benedictus es Domine', '410'),
+(333, 'OF', '375', 'Benedictus sit', '411'),
+(334, 'CO', '376', 'Benedicimus', '412'),
+(335, 'IN', '377', 'Cibavit eos', '413'),
+(336, 'AL', '378', 'Caro mea', '415'),
+(337, 'OF', '207', 'Portas cæli', '422'),
+(338, 'CO', '383', 'Qui manducat', '423'),
+(339, 'IN', '384', 'Cogitationes', '424'),
+(340, 'GR', '384', 'Dulcis et rectus', '426'),
+(341, 'AL', '385', 'Tollite jugum', '426'),
+(342, 'OF', '386', 'Improperium', '428'),
+(343, 'CO', '387,1', 'Unus militum', '429'),
+(344, 'CO', '387,2', 'Dico vobis', '429'),
+(345, 'IN', '260', 'Omnis terra', '431'),
+(346, 'GR', '261', 'Misit Dominus', '432'),
+(347, 'AL', '262', 'Laudate Deum', '433'),
+(349, 'CO', '263,1', 'Dicit Andreas', '435'),
+(350, 'CO', '263,2', 'Dicit Dominus Implete', '436'),
+(351, 'IN', '264,2', 'Dominus secus', '437'),
+(352, 'IN', '264,1', 'Adorate Deum', '438'),
+(353, 'GR', '265', 'Timebunt gentes', '438'),
+(354, 'AL', '266', 'Dominus regnavit', '439'),
+(355, 'OF', '267', 'Dextera Domini', '440'),
+(356, 'CO', '267,2', 'Venite post me', '441'),
+(357, 'CO', '268', 'Comedite pinguia', '441'),
+(358, 'IN', '268', 'Lætetur cor', '442'),
+(359, 'GR', '269', 'Quis sicut Dominus', '443'),
+(360, 'AL', '270', 'Adorabo', '444'),
+(361, 'OF', '270', 'Bonum est confiteri', '445'),
+(362, 'CO', '271', 'Illumina', '445'),
+(363, 'IN', '271', 'Venite adoremus', '446'),
+(364, 'GR', '520', 'Dispersit', '447'),
+(365, 'GR', '272', 'Tollite hostias', '448'),
+(366, 'AL', '273', 'Laudate Dominum', '449'),
+(367, 'OF', '273', 'Perfice', '450'),
+(368, 'CO', '471,4', 'Multitudo', '451'),
+(369, 'CO', '274,1', 'Introibo', '451'),
+(370, 'IN', '275', 'Esto mihi', '452'),
+(371, 'GR', '275', 'Tu es Deus', '453'),
+(372, 'AL', '277', 'Cantate Domino', '454'),
+(373, 'OF', '277', 'Benedictus es', '455'),
+(374, 'CO', '278', 'Manducaverunt', '456'),
+(375, 'IN', '278', 'Domine in tua misericordia', '457'),
+(376, 'GR', '279', 'Ego dixi Domine', '458'),
+(377, 'AL', '280', 'Verba mea', '459'),
+(378, 'OF', '280', 'Intende', '459'),
+(379, 'CO', '281', 'Narrabo', '460'),
+(380, 'IN', '281', 'Factus est Dominus', '461'),
+(381, 'GR', '282', 'Ad Dominum cum tribularer', '462'),
+(382, 'AL', '282', 'Domine Deus meus', '463'),
+(383, 'OF', '283', 'Domine convertere', '464'),
+(384, 'CO', '283', 'Cantabo Domino', '464'),
+(385, 'IN', '284', 'Respice in me', '465'),
+(386, 'GR', '285', 'Jacta cogitatum tuum', '466'),
+(387, 'AL', '286', 'Deus judex justus', '467'),
+(388, 'OF', '286', 'Sperent in te', '468'),
+(389, 'CO', '287', 'Ego clamavi', '469'),
+(390, 'IN', '288', 'Dominus illuminatio', '470'),
+(391, 'GR', '288', 'Propitius esto', '471'),
+(392, 'GR', '112', 'Exaltabo te', '472'),
+(393, 'AL', '289', 'Deus qui sedes', '474'),
+(394, 'OF', '290', 'Illumina', '475'),
+(395, 'CO', '290', 'Dominus firmamentum', '476'),
+(396, 'CO', '515,8', 'Quicumque fecerit', '476'),
+(397, 'IN', '291', 'Exaudi Domine', '477'),
+(398, 'GR', '292', 'Protector noster', '478'),
+(399, 'AL', '292', 'Domine in virtute tua', '479'),
+(400, 'OF', '293', 'Benedicam Dominum', '480'),
+(401, 'CO', '294', 'Unam petii', '480'),
+(402, 'IN', '294', 'Dominus fortitudo', '481'),
+(403, 'GR', '295', 'Convertere', '483'),
+(404, 'AL', '296', 'In te Domine speravi', '483'),
+(405, 'CO', '472', 'Quod dico vobis', '485'),
+(406, 'CO', '297', 'Circuibo', '486'),
+(407, 'CO', '484,4', 'Qui vult venire', '486'),
+(408, 'IN', '297', 'Omnes gentes', '487'),
+(409, 'GR', '298', 'Venite filii', '488'),
+(410, 'AL', '298', 'Omnes gentes', '489'),
+(411, 'OF', '299', 'Sicut in holocausto', '489'),
+(412, 'CO', '207', 'Christus resurgens', '490'),
+(413, 'CO', '300', 'Inclina aurem tuam', '491'),
+(414, 'IN', '300', 'Suscepimus', '492'),
+(415, 'GR', '301', 'Esto mihi', '493'),
+(416, 'AL', '302', 'Magnus Dominus', '494'),
+(417, 'OF', '302', 'Populum humilem', '495'),
+(418, 'CO', '303', 'Gustate et videte', '495'),
+(419, 'IN', '303', 'Dum clamarem', '496'),
+(420, 'IN', '94', 'Ego autem cum justitia', '497'),
+(421, 'GR', '304', 'Custodi me Domine', '498'),
+(422, 'GR', '31', 'Ostende nobis', '499'),
+(423, 'AL', '305', 'Te decet hymnus', '500'),
+(424, 'CO', '306', 'Passer invenit sibi domum', '502'),
+(425, 'IN', '307', 'Ecce Deus adjuvat me', '503'),
+(426, 'GR', '308', 'Domine Dominus noster', '504'),
+(427, 'GR', '125', 'Si ambulem', '505'),
+(428, 'AL', '308', 'Eripe me', '506'),
+(429, 'OF', '309', 'Justitiæ Domini', '507'),
+(430, 'CO', '309', 'Acceptabis', '507'),
+(431, 'CO', '507,2', 'Optimam partem', '508'),
+(432, 'GR', '311', 'In Deo speravit cor meum', '510'),
+(433, 'AL', '312', 'Exsultate Deo', '511'),
+(435, 'CO', '519', 'Simile est regnum cælorum', '513'),
+(436, 'CO', '314,1', 'Honora Dominum', '513'),
+(437, 'CO', '314,2', 'Petite et accipietis', '514'),
+(438, 'IN', '114', 'Sitientes', '515'),
+(439, 'IN', '315', 'Deus in adjutorium', '516'),
+(440, 'GR', '316', 'Benedicam Dominum', '517'),
+(441, 'AL', '317', 'Domine Deus salutis meæ', '518'),
+(442, 'OF', '317', 'Precatus est Moyses', '519'),
+(443, 'CO', '319', 'Panem de cælo', '521'),
+(444, 'IN', '319', 'Respice Domine', '522'),
+(445, 'GR', '320', 'Respice Domine', '523'),
+(446, 'AL', '321', 'Domine refugium', '524'),
+(448, 'CO', '322', 'Panis', '526'),
+(449, 'CO', '491,1', 'Beatus servus', '526'),
+(450, 'IN', '323', 'Protector noster', '527'),
+(451, 'GR', '324', 'Bonum est confidere', '528'),
+(452, 'AL', '324', 'Venite exsultemus', '529'),
+(453, 'OF', '325', 'Immittet angelus', '530'),
+(454, 'CO', '325', 'Primum quærite', '531'),
+(455, 'IN', '326', 'Inclina Domine', '531'),
+(456, 'GR', '327', 'Bonum est confiteri', '533'),
+(457, 'AL', '245', 'Spiritus est qui vivificat', '534'),
+(458, 'AL', '327', 'Quoniam Deus magnus', '534'),
+(459, 'OF', '328', 'Exspectans exspectavi', '535'),
+(460, 'CO', '329', 'De fructu operum', '536'),
+(461, 'IN', '330', 'Miserere mihi Domine', '537'),
+(463, 'AL', '330', 'Cantate Domino', '539'),
+(464, 'OF', '331', 'Domine in auxilium', '540'),
+(465, 'CO', '332', 'Domine memorabor', '541'),
+(466, 'IN', '332', 'Justus es Domine', '542'),
+(467, 'GR', '333', 'Beata gens', '543'),
+(468, 'AL', '334', 'Domine exaudi orationem meam', '544'),
+(469, 'OF', '334', 'Oravi Deum meum', '545'),
+(470, 'CO', '335', 'Vovete et reddite', '546'),
+(471, 'IN', '336', 'Da pacem Domine', '547'),
+(472, 'AL', '337', 'Timebunt gentes', '549'),
+(473, 'OF', '338', 'Sanctificavit Moyses', '549'),
+(474, 'CO', '338', 'Tollite hostias', '551'),
+(475, 'IN', '339', 'Salus populi', '552'),
+(476, 'AL', '340', 'Confitemini Domino', '553'),
+(477, 'OF', '341', 'Si ambulavero', '554'),
+(478, 'CO', '342', 'Tu mandasti', '555'),
+(479, 'IN', '155', 'In nomine Domini', '556'),
+(480, 'IN', '342', 'Omnia quæ fecisti', '557'),
+(481, 'AL', '344', 'Paratum cor meum', '558'),
+(482, 'OF', '345', 'Super flumina Babylonis', '559'),
+(483, 'CO', '346', 'Memento verbi tui', '560'),
+(484, 'IN', '346', 'In voluntate tua', '561'),
+(485, 'GR', '347', 'Domine refugium', '532'),
+(486, 'AL', '348', 'In exitu Israel', '563'),
+(487, 'OF', '349', 'Vir erat', '564'),
+(488, 'CO', '350', 'In salutari tuo', '565'),
+(489, 'IN', '350', 'Si iniquitates', '566'),
+(490, 'GR', '351', 'Ecce quam bonum', '567'),
+(491, 'AL', '352', 'Qui timent Dominum', '568'),
+(492, 'OF', '352', 'Recordare mei Domine', '569'),
+(493, 'CO', '353', 'Aufer a me', '570'),
+(494, 'IN', '354', 'Ego clamavi', '571'),
+(495, 'GR', '354', 'Salvum fac populum tuum', '572'),
+(496, 'AL', '355', 'Lauda anima mea', '573'),
+(497, 'OF', '356', 'Meditabor in mandatis tuis', '574'),
+(498, 'CO', '357', 'Domine Dominus noster', '575'),
+(499, 'IN', '357', 'Lætetur cor', '575'),
+(501, 'GR', '454', 'Clamaverunt justi', '577'),
+(502, 'AL', '358', 'Lauda Jerusalem Dominum', '578'),
+(503, 'OF', '359', 'Domine vivifica me', '579'),
+(504, 'CO', '359', 'Lætabimur', '580'),
+(505, 'IN', '360', 'Ne derelinquas me', '581'),
+(506, 'GR', '360', 'Suscepimus Deus', '582'),
+(507, 'AL', '361', 'Verbo Domini', '583'),
+(508, 'AL', '517', 'O quam bonus', '583'),
+(509, 'OF', '362', 'Benedic anima mea', '584'),
+(510, 'CO', '362', 'Notas mihi fecisti', '585'),
+(511, 'IN', '363', 'Intret oratio mea', '586'),
+(512, 'GR', '363', 'Dirigatur oratio mea', '587'),
+(513, 'AL', '502', 'Quinque prudentes virgines', '587'),
+(514, 'AL', '364', 'Qui posuit fines tuos pacem', '588'),
+(515, 'OF', '365', 'Gressus meos', '589'),
+(516, 'CO', '507,3', 'Quinque prudentes virgines', '590'),
+(517, 'CO', '365', 'Dominus regit me', '590'),
+(518, 'IN', '366', 'Dicit Dominus Ego cogito', '591'),
+(519, 'GR', '366', 'Liberasti nos Domine', '592'),
+(520, 'AL', '367', 'De profundis clamavi', '593'),
+(521, 'OF', '368', 'De profundis clamavi', '594'),
+(522, 'CO', '515,3', 'Domine quinque talenta', '595'),
+(523, 'CO', '368', 'Amen dico vobis Quidquid orantes', '596'),
+(524, 'IN', '388', 'Dignus est Agnus', '597'),
+(525, 'GR', '389', 'Dominabitur', '598'),
+(526, 'AL', '389', 'Potestas ejus', '599'),
+(527, 'OF', '390', 'Postula a me', '600'),
+(528, 'CO', '79', 'Amen dico vobis Quod uni', '602'),
+(529, 'CO', '391', 'Sedebit Dominus Rex', '602'),
+(530, 'AL', '544', 'Senex puerum', '612'),
+(531, 'OF', '421', 'Diffusa est gratia', '613'),
+(532, 'CO', '544', 'Responsum accepit Simeon', '614'),
+(533, 'IN', '508', 'Justus ut palma', '615'),
+(534, 'GR', '509', 'Domine prævenisti eum', '616'),
+(535, 'AL', '481', 'Beatus vir qui timet', '617'),
+(536, 'OF', '483', 'Veritas mea', '619'),
+(537, 'CO', '552', 'Joseph fili David', '620'),
+(538, 'GR', '25', 'Tollite portas', '622'),
+(539, 'AL', '412', 'Ave Maria', '623'),
+(540, 'AL', '417', 'Audi filia et vide', '623'),
+(541, 'AL', '416,7', 'Virga Jesse', '625'),
+(542, 'IN', '568', 'Ne timeas Zacharia', '627'),
+(543, 'AL', '511,2', 'Beatus vir qui timet Dominum', '628'),
+(545, 'CO', '437,3', 'Magna est gloria ejus', '630'),
+(546, 'IN', '570', 'De ventre', '631'),
+(547, 'GR', '571', 'Priusquam te formarem', '632'),
+(548, 'AL', '571', 'Tu puer', '633'),
+(549, 'OF', '497', 'Justus ut palma florebit', '633'),
+(550, 'CO', '572', 'Tu puer', '635'),
+(551, 'IN', '573', 'Dicit Dominus Petro', '636'),
+(552, 'GR', '427', 'In omnem terram', '637'),
+(553, 'AL', '429', 'Constitues eos principes', '638'),
+(554, 'OF', '435,4', 'Mihi autem', '639'),
+(555, 'CO', '574', 'Simon Joannis', '640'),
+(556, 'IN', '575', 'Nunc scio vere', '641'),
+(557, 'GR', '576', 'Constitues eos principes', '642'),
+(558, 'AL', '576', 'Tu es Petrus', '643'),
+(559, 'OF', '434,1', 'Constitues eos principes', '644'),
+(560, 'CO', '577', 'Tu es Petrus', '645'),
+(561, 'AL', '585', 'Candor est lucis æternæ', '647'),
+(562, 'OF', '434,2', 'Gloria et honore', '647'),
+(563, 'CO', '585', 'Visionem quam vidistis', '649'),
+(564, 'IN', '404', 'Vultum tuum', '650'),
+(565, 'GR', '407', 'Benedicta et venerabilis', '651'),
+(566, 'AL', '414,3', 'Felix es sacra Virgo Maria', '652'),
+(567, 'OF', '420', 'Beata es Virgo Maria', '653'),
+(568, 'CO', '423,1', 'Beata viscera Mariæ', '654'),
+(569, 'IN', '590', 'Signum magnum', '655'),
+(570, 'GR', '406', 'Audi filia et vide', '657'),
+(571, 'AL', '591', 'Assumpta est Maria', '658'),
+(572, 'OF', '592', 'Assumpta est Maria', '658'),
+(573, 'CO', '592', 'Beatam me dicent', '660'),
+(574, 'AL', '598', 'Dulce lignum', '661'),
+(575, 'OF', '599', 'Protege Domine plebem tuam', '662'),
+(576, 'CO', '600', 'Per signum Crucis', '663'),
+(577, 'IN', '619', 'Gaudeamus', '664'),
+(578, 'GR', '458', 'Timete Dominum', '665'),
+(579, 'AL', '619', 'Venite ad me', '666'),
+(580, 'OF', '468,5', 'Justorum animæ', '667'),
+(581, 'CO', '514', 'Beati mundo corde', '669'),
+(582, 'AL', '399', 'Bene fundata est', '671'),
+(583, 'OF', '401', 'Domine Deus in simplicitate', '672'),
+(584, 'IN', '628', 'Gaudens gaudebo', '673'),
+(585, 'GR', '629', 'Benedicta es tu', '674'),
+(586, 'AL', '630', 'Tota pulchra es', '675'),
+(587, 'OF', '630', 'Ave Maria', '676'),
+(588, 'CO', '631', 'Gloriosa dicta sunt de te', '678'),
+(589, 'IN', '397', 'Terribilis est locus iste', '679'),
+(590, 'IN', '398', 'Dicit Dominus Sermones mei', '680'),
+(591, 'AL', '400', 'Domine dilexi decorem domus tuæ', '683'),
+(592, 'OF', '610', 'Stetit angelus', '684'),
+(593, 'CO', '402', 'Domus mea', '686'),
+(594, 'IN', '669', 'Requiem æternam', '688'),
+(595, 'GR', '670', 'Requiem æternam', '689'),
+(596, 'AL', '671', 'Requiem æternam', '690'),
+(597, 'AL', '672', 'Absolve Domine', '691'),
+(598, 'AL', '673', 'De profundis', '692'),
+(599, 'OF', '674', 'Domine Jesu Christe', '693'),
+(600, 'CO', '676', 'Lux æterna', '695'),
+(615, 'OF', '419', 'Ave Maria', '183');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Tierce`
+--
+
+CREATE TABLE `Tierce` (
+  `ID` int(11) NOT NULL,
+  `Page` enum('2','4','6','9','12','15','17') NOT NULL DEFAULT '2',
+  `Antienne` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `Tierce`
+--
+
+INSERT INTO `Tierce` (`ID`, `Page`, `Antienne`) VALUES
+(1, '2', 'Psautier/Tierce/alleluia_dim_per_annum'),
+(2, '4', 'Psautier/Tierce/adjuva_me'),
+(3, '6', 'Psautier/Tierce/clamavi'),
+(4, '9', 'Psautier/Tierce/servite_domino'),
+(5, '12', 'Psautier/Tierce/exsurge_domine'),
+(6, '15', 'Psautier/Tierce/inclina_domine');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `Days`
+--
+ALTER TABLE `Days`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Index pour la table `Prefaces`
+--
+ALTER TABLE `Prefaces`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Index pour la table `Scores`
+--
+ALTER TABLE `Scores`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Index pour la table `Tierce`
+--
+ALTER TABLE `Tierce`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `Days`
+--
+ALTER TABLE `Days`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT pour la table `Prefaces`
+--
+ALTER TABLE `Prefaces`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+--
+-- AUTO_INCREMENT pour la table `Scores`
+--
+ALTER TABLE `Scores`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=616;
+--
+-- AUTO_INCREMENT pour la table `Tierce`
+--
+ALTER TABLE `Tierce`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2017-10-21 19:04:47
