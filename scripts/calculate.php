@@ -1,20 +1,6 @@
 <?php
 // Fonctions sur les dates. //
 
-// Données générales concernant l'année liturgique entrée ($year) :
-function year_data($year){
-    $year = Date("Y", $date);
-    if($year % 2 == 0){
-        $year_even = True;
-    }
-    else{
-        $year_even = False;
-    }
-    $year_letters = array("A", "B", "C");
-    $year_letter = $year_letters[($year - 2011) % 3];
-    return(array($year_even, $year_letter));
-}
-
 // Calcul de la date de Pâques en fonction de l'année entrée :
 function calculate_paques($year){
     $var_1 = $year - 1900;

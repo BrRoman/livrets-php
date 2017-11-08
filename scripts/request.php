@@ -24,6 +24,16 @@
         $year = Date("Y", $timestamp);
         $out["civil_day"] = $weekday." ".$day." ".$month." ".$year;
 
+        // Données générales sur l'année :
+        if($year % 2 == 0){
+            $year_even = "2";
+        }
+        else{
+            $year_even = "1";
+        }
+        $year_letters = array("A", "B", "C");
+        $year_letter = $year_letters[($year - 2011) % 3];
+
         // Jour liturgique. Pour le déterminer, on compare le Tempo et le Sancto :
         $tempo = calculate_tempo($timestamp);
         $sancto = Date("m", $timestamp).Date("d", $timestamp);
@@ -32,6 +42,7 @@
         $back = $connect->query("SELECT * FROM Days WHERE Ref = '".$tempo["ref"]."';");
         if($rep = $back->fetch()){
             $force_tempo = $rep["Precedence"];
+            $out["orationes"] = $rep["Oraisons"];
         }
         $back->closeCursor();
         $back = $connect->query("SELECT * FROM Days WHERE Ref = '".$sancto."';");
@@ -41,10 +52,18 @@
         $back->closeCursor();
         if($force_tempo > $force_sancto){
             $day_ref = $tempo["ref"];
+            if(Date("w", $timestamp) == "0"){
+                $out["readings"] = "Tempo/".$day_ref."_".$year_letter;
+            }
+            else{
+                $out["readings"] = "Tempo/".$day_ref."_".$year_even;
+            }
             $out["lit_day_letters"] = $tempo["letters"];
         }
         else{
             $day_ref = $sancto;
+            $out["orationes"] = $day_ref;
+            $out["readings"] = "Sancto/".$day_ref;
             $out["lit_day_letters"] = $rep["Day"];
         }
 
