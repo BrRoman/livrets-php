@@ -163,8 +163,8 @@
 % Commande "Dossier où se trouvent les data" :
 \newcommand{\FolderData}{./Data}
 
-% Saint du jour (saint, rang) :
-\newenvironment{Saint}[2]
+% Jour (jour, rang) :
+\newenvironment{JourLiturgique}[2]
 {
 \begin{flushright}
 \parskip=.5\baselineskip
@@ -216,8 +216,8 @@
 \TitreB{#1~:}
 \LatinFrancais{\input{\FolderData/Prefaces/#2_la.txt}}{\input{\FolderData/Prefaces/#2_fr.txt}}}
 
-% Préfaces avec nom propre (texte, chemin, nom latin au génitif, nom français) :
-\newenvironment{PrefaceNom}[4]
+% Préfaces avec nom propre (texte, chemin, nom latin au génitif - "sancti Martíni", "beátæ mártyris Agnétis" - , nom français - "saint Martin", "sainte Agnès" -) :
+\newenvironment{PrefaceWithName}[4]
 {
 \TitreB{#1~:}
 \LatinFrancais{\input{\FolderData/Prefaces/#2_la_A.txt}#3\input{\FolderData/Prefaces/#2_la_B.txt}}{\input{\FolderData/Prefaces/#2_fr_A.txt}#4\input{\FolderData/Prefaces/#2_fr_B.txt}}}
@@ -240,7 +240,7 @@
 \thispagestyle{empty}
 \newgeometry{inner=0cm, outer=0cm, tmargin=4cm}
 \begin{center}
-\parbox[t]{14.85cm}{\centering\includegraphics[width=8cm]{./Data/Images/#1.jpg}\vspace{0cm}}
+\parbox[t]{14.85cm}{\centering\includegraphics[width=8cm]{./Data/Images/#1.jpg}\vspace{1cm}}
 \parbox{7cm}{\centering{\itshape{#2}}}
 \end{center}
 \restoregeometry}

@@ -8,7 +8,7 @@ cd "/Users/frromain/Sites/Livrets/Data/Lectures/Tempo"
 find . -name 'pa_12_0_A_*' | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/pa_12_0_A_/pa_29_0_A_/g'`
+	fn=`echo "$REPLY" | sed 's/pa_12_0_A_/pa_32_0_A_/g'`
     cp "$f" "$fn"
     echo "" > "$fn"
 done
