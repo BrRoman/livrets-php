@@ -96,14 +96,34 @@
         for($g = 0; $g < count($grid); $g++){
             $label = $grid[$g];
             $grid_ref = $in[$label];
-            $back = $connect->query("SELECT * FROM Scores WHERE Type = '".$label."' AND Ref = '".$grid_ref."';");
-            if($rep = $back->fetch()){
-                $out[$label] = array($rep["Name"], $rep["Page"]);
+            if($label == "SA"){
+                $back = $connect->query("SELECT * FROM Scores WHERE Type = 'SA' AND Ref = '".$grid_ref."';");
+                if($rep = $back->fetch()){
+                    $out["SA"] = array($rep["Name"], $rep["Page"]);
+                }
+                else{
+                    $out["SA"] = array("", "");
+                }
+                $back->closeCursor();
+                $back = $connect->query("SELECT * FROM Scores WHERE Type = 'AG' AND Ref = '".$grid_ref."';");
+                if($rep = $back->fetch()){
+                    $out["AG"] = array($rep["Name"], $rep["Page"]);
+                }
+                else{
+                    $out["AG"] = array("", "");
+                }
+                $back->closeCursor();
             }
             else{
-                $out[$label] = array(str_replace(",", "_", $grid_ref), "");
+                $back = $connect->query("SELECT * FROM Scores WHERE Type = '".$label."' AND Ref = '".$grid_ref."';");
+                if($rep = $back->fetch()){
+                    $out[$label] = array($rep["Name"], $rep["Page"]);
+                }
+                else{
+                    $out[$label] = array(str_replace(",", "_", $grid_ref), "");
+                }
+                $back->closeCursor();
             }
-            $back->closeCursor();
         }
 
         // Traitement de Tierce (antienne et page) :
@@ -128,7 +148,7 @@
         if($rep_day = $back_day->fetch()){
             $back_pref = $connect->query("SELECT * FROM Prefaces WHERE Ref = '".$rep_day["Pref"]."';");
             if($rep_pref = $back_pref->fetch()){
-                $out["pref"] = array($rep_day["Pref"], $rep_pref["Name"], $rep_pref["Page"], $rep_day["Pref_name_la"], $rep_day["Pref_name_fr"]);
+                $out["pref"] = array("ref" => $rep_day["Pref"], "name" => $rep_pref["Name"], "page" => $rep_pref["Page"], "name_la" => $rep_day["Pref_name_la"], "name_fr" => $rep_day["Pref_name_fr"]);
             }
             $back_pref->closeCursor();
         }

@@ -10,7 +10,7 @@ function write_latex(data){
         var orationes = day_data["orationes"];
         
         // Jour civil :
-        tex += "\n\n\\section{" + day_data["civil_day"] + "}\n\n";
+        tex += "\n\n%--------------------\n\n\\section{" + day_data["civil_day"] + "}\n\n";
 
         // Jour liturgique :
         tex += "\\JourLiturgique{" + day_data["lit_day"] + "}";
@@ -46,13 +46,13 @@ function write_latex(data){
         // Kyrie :
         if($("#grid_value_" + i + "5").val()!= ""){
             var kyrie = day_data["KY"];
-            tex += "\\TitreB{Kyrie " + kyrie[0] + "}\\Normal{(p. " + kyrie[1] + ")}\n\n";
+            tex += "\\TitreB{" + kyrie[0] + "}\\Normal{(p. " + kyrie[1] + ")}\n\n";
         }
         
         // Gloria :
         if($("#grid_value_" + i + "6").val() != ""){
             var gloria = day_data["GL"];
-            tex += "\\TitreB{Gloria " + gloria[0] + "}\\Normal{(p. " + gloria[1] + ")}\n\n";
+            tex += "\\TitreB{" + gloria[0] + "}\\Normal{(p. " + gloria[1] + ")}\n\n";
         }
         
         // Oraison :
@@ -95,84 +95,91 @@ function write_latex(data){
             }
         }
 
-/*
         // Évangile :
-        tex += "\\Lecture{Évangile}{" + day_data["evg"] + "}\n\n";
+        tex += "\\Lecture{Évangile}{" + day_data["readings"] + "_ev}\n\n";
 
         // Credo :
-        var credo = $("#grid_value_" + i + "8").val();
-        if(credo != ""){
-            page = day_data["pages"]["CR"];
-            tex += "\\TitreB{Credo " + credo + "} \\Normal{(p. " + page[1] + ").}\n\n"
+        if($("#grid_value_" + i + "8").val()!= ""){
+            var credo = day_data["CR"];
+            tex += "\\TitreB{" + credo[0] + "}\\Normal{(p. " + credo[1] + ").}\n\n"
         }
 
         // Antienne d'offertoire :
-        var ant_off = "#grid_value_" + i + "3";
-        if($(ant_off).val() != ""){
-            page = day_data["pages"]["OF"];
-            if(page[1] != ""){
-                tex += "\\TitreB{Antienne d'offertoire~:}\\Normal{\\textit{" + page[0] + "} (p. " + page[1] + ").}\n\n"
+        if($("#grid_value_" + i + "3").val() != ""){
+            var ant_off = day_data["OF"];
+            if(ant_off[1] != ""){
+                tex += "\\TitreB{Antienne d'offertoire~:}\\Normal{\\textit{" + ant_off[0] + "} (p. " + ant_off[1] + ").}\n\n"
             }
             else{
                 tex += "\\TitreB{Antienne d'offertoire~:}\\par\n";
-                tex += "\\Partoche{GR/of_" + $(ant_off).val().replace(",", "_") + "}\n\n";
+                tex += "\\Partoche{GR/of_" + ant_off[0] + "}\n\n";
             }
         }
 
         // Super oblata :
-        var so = day_data["so"];
-        if(so[1] != ""){
-            tex += "\\TitreB{Prière sur les offrandes~:}\\Normal{p. " + so[1] + ".}\n\n";
+        if(orationes[1] == "MG"){
+            tex += "\\TitreB{Prière sur les offrandes~:}\\Normal{p. " + orationes[1].split("-")[1] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Prière sur les offrandes}{so}{" + so[0] + "}\n\n";
+            tex += "\\Oraison{Prière sur les offrandes}{so}{" + orationes[1] + "}\n\n";
         }
 
         // Préface :
         var pref = day_data["pref"];
-        if(pref[1] != ""){
-            tex += "\\TitreB{" + page[0] + "~:}\\Normal{p. " + page[1] + "}\n\n";
+        if(pref["page"] != ""){
+            tex += "\\TitreB{" + pref["name"] + "~:}\\Normal{p. " + pref["page"] + "}\n\n";
         }
         else{
-            tex += "\\Preface{" + page[0] + "}{" + pref + "}\n\n";
+            if(pref["name_la"] != ""){
+                tex += "\\PrefaceNom{" + pref["name"] + "}{" + pref["ref"] + "}{" + pref["name_la"] + "}{" + pref["name_fr"] + "}\n\n";
+            }
+            else{
+                tex += "\\Preface{" + pref["name"] + "}{" + pref["ref"] + "}\n\n";
+            }
         }
         
-        // Sanctus-Agnus :
-        var sanctus_agnus = "#grid_value_" + i + "7";
-        if($(sanctus_agnus).val() != ""){
-            page = day_data["pages"]["SA"];
-            tex += "\\TitreB{Sanctus " + page[0] + "}\\Normal{(p. " + page[1] + ")}\n\n";
-            tex += "\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22)}\n\n";
-            tex += "\\TitreB{Rites de communion~:}\\Normal{(p. 41)}\n\n";
-            page = day_data["pages"]["AG"];
-            tex += "\\TitreB{Agnus Dei " + page[0] + "}\\Normal{(p. " + page[1] + ")}\n\n";
+        if($("#grid_value_" + i + "6").val() != ""){
+            var gloria = day_data["GL"];
+            tex += "\\TitreB{" + gloria[0] + "}\\Normal{(p. " + gloria[1] + ")}\n\n";
+        }
+        // Sanctus :
+        if($("#grid_value_" + i + "7").val() != ""){
+            var sanctus = day_data["SA"];
+            tex += "\\TitreB{" + sanctus[0] + "}\\Normal{(p. " + sanctus[1] + ")}\n\n";
+        }
+
+        // Canon :
+        tex += "\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22)}\n\n";
+        tex += "\\TitreB{Rites de communion~:}\\Normal{(p. 41)}\n\n";
+        
+        // Agnus Dei :
+        if($("#grid_value_" + i + "7").val() != ""){
+            var agnus = day_data["AG"];
+            tex += "\\TitreB{" + agnus[0] + "}\\Normal{(p. " + agnus[1] + ")}\n\n";
         }
         
         // Antienne de communion :
-        var comm = "#grid_value_" + i + "4";
-        if($(comm).val() != ""){
-            var page = day_data["pages"]["CO"];
-            if(page[1] != ""){
-                tex += "\\TitreB{Antienne de communion~:}\\Normal{\\textit{" + page[0] + "} (p. " + page[1] + ").}\n\n"
+        if($("#grid_value_" + i + "4").val() != ""){
+            var comm = day_data["CO"];
+            if(comm[1] != ""){
+                tex += "\\TitreB{Antienne de communion~:}\\Normal{\\textit{" + comm[0] + "} (p. " + comm[1] + ").}\n\n"
             }
             else{
                 tex += "\\TitreB{Antienne de communion~:}\\par\n";
-                tex += "\\Partoche{GR/co_" + $(comm).val().replace(",", "_") + "}\n\n";
+                tex += "\\Partoche{GR/co_" + comm[0] + "}\n\n";
             }
         }
 
         // Postcommunion :
-        var pc = day_data["pc"];
-        if(pc[1] != ""){
-            tex += "\\TitreB{Prière après la communion~:}\\Normal{p. " + pc[1] + ".}\n\n";
+        if(orationes[1] == "MG"){
+            tex += "\\TitreB{Prière après la communion~:}\\Normal{p. " + orationes[1].split("-")[2] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Prière après la Communion}{pc}{" + pc[0] + "}\n\n";
+            tex += "\\Oraison{Prière après la Communion}{pc}{" + orationes[1] + "}\n\n";
         }
 
         // Conclusion :
         tex += "\\TitreB{Conclusion :}{\\Normal{p. 47.}}\n\n";
-        */
     }
     tex += "\n\n\n\n\\vspace{7cm}\n\n";
     tex += "\\begin{center}\n\n";
@@ -191,13 +198,7 @@ function write_latex(data){
     tex += "Prières après la Communion\n"
     tex += "Acte de Foi et d’Adoration. – Ô Jésus, je le crois, c’est vous que je viens de recevoir, vous, mon Dieu, mon Créateur et mon Maître, vous qui, par amour pour moi, avez été, à votre naissance, couché sur la paille de la crèche, vous qui avez voulu mourir pour moi sur la Croix. J’ai été tiré du néant par votre toute-puissance, et vous venez habiter en moi ! Ô mon Dieu, saisi d’un profond respect, je me prosterne devant votre souveraine majesté, je vous adore, et je vous offre mes plus humbles louanges.\n"
     tex += "Acte de Reconnaissance et d’Amour. – Très doux Jésus, Dieu d’infinie bonté, je vous remercie de tout mon cœur, pour la grâce insigne que vous venez de me faire. Que vous rendrai-je pour un tel bienfait ? Je voudrais vous aimer, autant que vous êtes aimable, et vous servir, autant que vous méritez de l’être. Ô Dieu, qui êtes tout amour, apprenez-moi à vous aimer, d’une affection véritable et fidèle, et enseignez-moi à faire votre sainte volonté. Je m’offre tout entier à vous: mon corps, afin qu’il soit chaste; mon âme, afin qu’elle soit pure de tout péché; mon cœur, afin qu’il ne cesse de vous aimer. Vous vous êtes donné à moi, je me donne à vous pour toujours.\n"
-    tex += "Acte de Demande. – Vous êtes en moi, ô Jésus, vous qui avez dit: «Demandez et vous recevrez». Vous y êtes, rempli de bonté pour moi, les mains pleines de grâces ; daignez les répandre sur mon âme, qui en a tant besoin. Ôtez de mon cœur tout ce qui vous déplaît, mettez-y tout ce qui peut le rendre agréable à vos yeux. Appliquez-moi les mérites de votre vie et de votre mort, unissez-moi à vous, vivez en moi, faites que je vive par vous et pour vous. Accordez aussi, Dieu infiniment bon, les mêmes grâces à toutes les personnes pour lesquelles j’ai le devoir de prier, ou à qui j’ai promis particulièrement de le faire. – Cœur miséricordieux de Jésus, ayez pitié des pauvres âmes du purgatoire, et donnez-leur le repos éternel.\n"
-
-
-
-
-
-
+    tex += "Acte de Demande. – Vous êtes en moi, ô Jésus, vous qui avez dit: «Demandez et vous recevrez». Vous y êtes, rempli de bonté pour moi, les mains pleines de grâces ; daignez les répandre sur mon âme, qui en a tant besoin. Ôtez de mon cœur tout ce qui vous déplaît, mettez-y tout ce qui peut le rendre agréable à vos yeux. Appliquez-moi les mérites de votre vie et de votre mort, unissez-moi à vous, vivez en moi, faites que je vive par vous et pour vous. Accordez aussi, Dieu infiniment bon, les mêmes grâces à toutes les personnes pour lesquelles j’ai le devoir de prier, ou à qui j’ai promis particulièrement de le faire. – Cœur miséricordieux de Jésus, ayez pitié des pauvres âmes du purgatoire, et donnez-leur le repos éternel.\n\n"
 
     tex += "\\end{document}\n\n";
 
