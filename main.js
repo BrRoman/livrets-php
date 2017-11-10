@@ -24,6 +24,7 @@ $(document).ready(function(){
         "script.php",
         {"tex": $("#tex_area").val()},
         function(retour){
+            console.log(retour);
             $("#overlay_wait").css("display", "none");
             $("#overlay_download").css("display", "flex");
         },
@@ -72,7 +73,6 @@ function request(data_json){
         "request.php",
         data_json,
         function(data){
-            console.log("data =", data);
             write_latex(data);
         },
         "json"

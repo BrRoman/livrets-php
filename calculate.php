@@ -25,9 +25,6 @@ function calculate_paques($year){
 // Calcul du jour liturgique demandé ($date = timestamp du jour civil),
 // renvoyé sous forme de référencee : "pa_30_0", "adv_3_2", etc. :
 function calculate_tempo($timestamp){
-    $weekdays_fr = array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
-    $latine_numbers = array("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXXIII", "XXXIV");
-    $tempo = array();
     $day = 24 * 3600;
 
     // Calcul des grands jours liturgiques de l'année à laquelle appartient le jour concerné :
@@ -61,13 +58,7 @@ function calculate_tempo($timestamp){
         if($weekday == 7){
             $weekday = 0;
         }
-        $tempo["ref"] = "pa_".$dim_per_annum."_".$weekday;
-        if($weekday != 0){
-            $tempo["letters"] = $weekdays_fr[$weekday]." de la\\par ".$latine_numbers[$dim_per_annum]."\\textsuperscript{e} semaine\\par du Temps Ordinaire";
-        }
-        else{
-            $tempo["letters"] = $latine_numbers[$dim_per_annum]."\\textsuperscript{e} Dimanche\\par du Temps Ordinaire";
-        }
+        $tempo = "pa_".$dim_per_annum."_".$weekday;
     }
     return($tempo);
 }

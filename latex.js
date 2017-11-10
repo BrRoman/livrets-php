@@ -1,7 +1,6 @@
 // Fonctions concernant le LaTeX.
 
 function write_latex(data){
-    var page = "";
     var tex = tex_header(Date.parse($("#date_debut").val()));
     for(var i = 0; i < 5; i++){
         var day_data = data[i];
@@ -23,6 +22,7 @@ function write_latex(data){
         else{
             tex += "{}\n\n";
         }
+
         // Ouverture de la célébration :
         tex += "\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n"
 
@@ -34,10 +34,15 @@ function write_latex(data){
             }
             else{
                 tex += "\\TitreB{Antienne d'introït~:}\\par\n";
-                tex += "\\Partoche{GR/in_" + introit[0] + "}";
+                tex += "\\Partoche{GR/in_" + introit[0] + "}\n\n";
             }
         }
-
+        
+        // Asperges me :
+        if(day_data["asp"] != ""){
+            tex += day_data["asp"];
+        }
+        
         // Tierce :
         if($("#tierce_page_" + i).val() != ""){
             tex += "\\Tierce{" + day_data["tierce_ant"] + "}{" + day_data["tierce_page"]+ "}\n\n";
@@ -57,10 +62,10 @@ function write_latex(data){
         
         // Oraison :
         if(orationes[0] == "MG"){
-            tex += "\\TitreB{Oraison~:}\\Normal{p. " + orationes[1].split("-")[0] + ".}\n\n";
+            tex += "\\TitreB{Oraison~:}\\Normal{p. " + orationes[1][0] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Oraison}{or}{" + orationes[1] + "}\n\n";
+            tex += "\\Oraison{Oraison}{or}{" + orationes + "}\n\n";
         }
 
         // 1ère lecture :
@@ -117,11 +122,11 @@ function write_latex(data){
         }
 
         // Super oblata :
-        if(orationes[1] == "MG"){
-            tex += "\\TitreB{Prière sur les offrandes~:}\\Normal{p. " + orationes[1].split("-")[1] + ".}\n\n";
+        if(orationes[0] == "MG"){
+            tex += "\\TitreB{Prière sur les offrandes~:}\\Normal{p. " + orationes[1][1] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Prière sur les offrandes}{so}{" + orationes[1] + "}\n\n";
+            tex += "\\Oraison{Prière sur les offrandes}{so}{" + orationes + "}\n\n";
         }
 
         // Préface :
@@ -131,7 +136,7 @@ function write_latex(data){
         }
         else{
             if(pref["name_la"] != ""){
-                tex += "\\PrefaceNom{" + pref["name"] + "}{" + pref["ref"] + "}{" + pref["name_la"] + "}{" + pref["name_fr"] + "}\n\n";
+                tex += "\\PrefaceWithName{" + pref["name"] + "}{" + pref["ref"] + "}{" + pref["name_la"] + "}{" + pref["name_fr"] + "}\n\n";
             }
             else{
                 tex += "\\Preface{" + pref["name"] + "}{" + pref["ref"] + "}\n\n";
@@ -171,11 +176,11 @@ function write_latex(data){
         }
 
         // Postcommunion :
-        if(orationes[1] == "MG"){
-            tex += "\\TitreB{Prière après la communion~:}\\Normal{p. " + orationes[1].split("-")[2] + ".}\n\n";
+        if(orationes[0] == "MG"){
+            tex += "\\TitreB{Prière après la communion~:}\\Normal{p. " + orationes[1][2] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Prière après la Communion}{pc}{" + orationes[1] + "}\n\n";
+            tex += "\\Oraison{Prière après la Communion}{pc}{" + orationes + "}\n\n";
         }
 
         // Conclusion :
@@ -201,7 +206,6 @@ function write_latex(data){
     tex += "Acte de Demande. – Vous êtes en moi, ô Jésus, vous qui avez dit: «Demandez et vous recevrez». Vous y êtes, rempli de bonté pour moi, les mains pleines de grâces ; daignez les répandre sur mon âme, qui en a tant besoin. Ôtez de mon cœur tout ce qui vous déplaît, mettez-y tout ce qui peut le rendre agréable à vos yeux. Appliquez-moi les mérites de votre vie et de votre mort, unissez-moi à vous, vivez en moi, faites que je vive par vous et pour vous. Accordez aussi, Dieu infiniment bon, les mêmes grâces à toutes les personnes pour lesquelles j’ai le devoir de prier, ou à qui j’ai promis particulièrement de le faire. – Cœur miséricordieux de Jésus, ayez pitié des pauvres âmes du purgatoire, et donnez-leur le repos éternel.\n\n"
 
     tex += "\\end{document}\n\n";
-
     $("#tex_area").val(tex);
 }
 
@@ -246,7 +250,4 @@ function tex_header(timestamp_start){
 
     return(tex_header);
 }
-
-
-
 

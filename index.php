@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div id="tex">
-                <textarea id="tex_area">Fichier LaTeX</textarea>
+                <textarea id="tex_area">Sélectionnez une date et remplissez la grille des pièces de la Messe.</textarea>
                 <input type="button" id="go" value="Voir le pdf" style="width:300px; font-size:24px"></input>
             </div>
             <div id="overlay_wait">
