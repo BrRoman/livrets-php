@@ -68,12 +68,11 @@ function update(){
 }
 
 function request(data_json){
-    console.log("Input =", data_json);
     $.post(
-        "scripts/request.php",
+        "request.php",
         data_json,
         function(data){
-            console.log("Back =", data);
+            console.log("data =", data);
             write_latex(data);
         },
         "json"

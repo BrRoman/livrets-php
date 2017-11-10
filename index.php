@@ -54,8 +54,8 @@
             </form>
         </div>
 	</body>
-    <script src="scripts/jquery-3.2.1.js"></script>
-    <script src="scripts/latex.js"></script>
-    <script src="scripts/main.js"></script>
+    <script src="jquery-3.2.1.js"></script>
+    <script src="latex.js"></script>
+    <script src="main.js"></script>
 </html>
 
