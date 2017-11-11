@@ -6,7 +6,5 @@
 - Prières après la communion.
 - Script cleaner : gabc : ae->æ ; aé->ã.
 - Remplacement des "Vel~:" et "Ou~:" dans les oraisons, après remplacement des retours chariot.
-
-Version auto :
+- Essayer de mettre tous les scripts dans un dossier Scripts (aux derniers essais cela fait planter l'application).
 - 02/11 : pas d'antienne à Tierce.
-- Fêtes du Seigneur si dimanche => Asperges me I.

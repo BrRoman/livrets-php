@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div id="tex">
-                <textarea id="tex_area">Fichier LaTeX</textarea>
+                <textarea id="tex_area">Sélectionnez une date et remplissez la grille des pièces de la Messe.</textarea>
                 <input type="button" id="go" value="Voir le pdf" style="width:300px; font-size:24px"></input>
             </div>
             <div id="overlay_wait">
@@ -54,8 +54,8 @@
             </form>
         </div>
 	</body>
-    <script src="scripts/jquery-3.2.1.js"></script>
-    <script src="scripts/latex.js"></script>
-    <script src="scripts/main.js"></script>
+    <script src="jquery-3.2.1.js"></script>
+    <script src="latex.js"></script>
+    <script src="main.js"></script>
 </html>
 
