@@ -73,6 +73,7 @@ function request(data_json){
         "request.php",
         data_json,
         function(data){
+            console.log(data);
             write_latex(data);
         },
         "json"
