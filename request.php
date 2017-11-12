@@ -16,6 +16,12 @@
 
         // Données générales sur l'année :
         $year = Date("Y", $timestamp);
+        // Calcul du 1er dim. de l'Avent de l'année civile courante :
+        $current_adv = calculate_adv($year);
+        // Le timestamp est peut-être dans l'année liturgique suivante (année civile courante + 1) :
+        if($timestamp >= $current_adv){
+            $year++;
+        }
         $year_even = $year % 2 == 0 ? "2" : "1";
         $year_letters = array("A", "B", "C");
         $year_letter = $year_letters[($year - 2011) % 3];

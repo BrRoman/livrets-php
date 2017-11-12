@@ -1,6 +1,20 @@
 <?php
 // Fonctions sur les dates. //
 
+// Calcul du début de l'Avent de l'année civile courante :
+function calculate_adv($year){
+    $day = 24 * 3600;
+    $noel = mktime(0, 0, 0, 12, 25, $year);
+    $noel_weekday = (int) Date("w", $noel);
+    if($noel_weekday == 0){
+        $adv = $noel - (28 * $day);
+    }
+    else{
+        $adv = $noel - ((21 + $noel_weekday) * $day);
+    }
+    return($adv);
+}
+
 // Calcul de la date de Pâques en fonction de l'année entrée :
 function calculate_paques($year){
     $var_1 = $year - 1900;
@@ -22,39 +36,55 @@ function calculate_paques($year){
     return($paques);
 }
 
-// Calcul du jour liturgique demandé ($date = timestamp du jour civil),
+// Calcul du jour liturgique demandé (timestamp du jour civil),
 // renvoyé sous forme de référencee : "pa_30_0", "adv_3_2", etc. :
 function calculate_tempo($timestamp){
     $day = 24 * 3600;
+    $weekday = (int) Date("w", $timestamp);
 
     // Calcul des grands jours liturgiques de l'année à laquelle appartient le jour concerné :
     $year = Date("Y", $timestamp);
-    $paques = calculate_paques($year);
+    
+    // Calcul du 1er dim. de l'Avent de l'année civile courante :
+    $current_adv = calculate_adv($year);
+    // Le timestamp est peut-être dans l'année liturgique suivante (année civile courante + 1) :
+    if($timestamp >= $current_adv){
+        $year++;
+    }
     $noel = mktime(0, 0, 0, 12, 25, $year - 1);
     $noel_weekday = (int) Date("w", $noel);
     if($noel_weekday == 0){
+        $adv = $noel - (28 * $day);
         $bapteme = $noel + (14 * $day);
     }
     else{
-        $bapteme = $noel + (14 * $day) + ((7 - $noel_weekday) * $day);
+        $adv = $noel - ((21 + $noel_weekday) * $day);
+        $bapteme = $noel + (7 * $day) + ((7 - $noel_weekday) * $day);
     }
-    $cendres = $paques - (45 * $day);
+    $paques = calculate_paques($year);
+    $cendres = $paques - (46 * $day);
     $pentecote = $paques + (49 * $day);
-    $next_noel = mktime(0, 0, 0, 12, 25, $year);
-    $next_noel_weekday = (int) Date("w", $next_noel);
-    if($next_noel_weekday == 0){
-        $adv_dim_1 = $next_noel - (28 * $day);
+    $christ_roi = $next_adv - (7 * $day);
+
+    // Avent :
+    if($timestamp >= $adv and $timestamp < $noel){
+        $days_after_adv = ceil(($timestamp - $adv) / $day);
+        $dim_adv = floor($days_after_adv / 7) + 1;
+        if($weekday == 7){
+            $weekday = 0;
+        }
+        $tempo = "adv_".$dim_adv."_".$weekday;
     }
-    else{
-        $adv_dim_1 = $next_noel - ((21 + $next_noel_weekday) * $day);
+
+    // Temps après Noël :
+    if($timestamp >= $noel and $timestamp <= $bapteme){
+        //
     }
-    $christ_roi = $adv_dim_1 - (7 * $day);
 
     // Temps per Annum après la Pentecôte :
-    if($timestamp > $pentecote && $timestamp < $christ_roi){
-        $days_before_christ_roi = ceil(($christ_roi - $timestamp) / $day);
-        $dim_per_annum = 34 - ceil($days_before_christ_roi / 7);
-        $weekday = 7 - ($days_before_christ_roi % 7);
+    if($timestamp > $pentecote and $timestamp < $current_adv){
+        $days_before_current_adv = ceil(($current_adv - $timestamp) / $day);
+        $dim_per_annum = 34 - floor($days_before_current_adv / 7);
         if($weekday == 7){
             $weekday = 0;
         }
