@@ -34,29 +34,37 @@
         }
         $month = $months_fr[Date("m", $timestamp) - 1];
         $out["civil_day"] = $weekday." ".$day." ".$month." ".$year;
+
         // Jour liturgique :
         // On remplit le out comme s'il n'y avait que le Temporal :
         $tempo = calculate_tempo($timestamp);
+        $liturg_time = split("_", $tempo)[0];
         $back_tempo = $connect->query("SELECT * FROM Days WHERE Ref = '".$tempo."';");
         if($rep_tempo = $back_tempo->fetch()){
             $out["lit_day"] = $rep_tempo["Day"];
             $force_tempo = $rep_tempo["Precedence"];
             $out["rang"] = $rang_tempo;
+            
+            // Tierce :
+            if($rep_tempo["Tierce"] == ""){
+                $back_tierce = $connect->query("SELECT * FROM Tierce WHERE Page = '".$in["tierce_page"]."';");
+                if($rep_tierce = $back_tierce->fetch()){
+                    $out["tierce_ant"] = $rep_tierce["Antienne"];
+                }
+                $back_tierce->closeCursor();
+            }
+            else{
+                $out["tierce_ant"] = $rep_tempo["Tierce"];
+            }
+            $out["tierce_page"] = $in["tierce_page"];
 
             // Oraisons :
             if($rep_tempo["Oraisons"] != ""){
-                $out["orationes"] = array("MG", split("-", $rep_tempo["Oraisons"]));
+                $out["orationes"] = array("source" => "MG", "ref" => split("-", $rep_tempo["Oraisons"]));
             }
             else{
-                $out["orationes"] = array("Files", $rep_tempo["Ref"]);
+                $out["orationes"] = array("source" => "Files", "ref" => $rep_tempo["Ref"]);
             }
-            
-            // Préface :
-            $back_pref = $connect->query("SELECT * FROM Prefaces WHERE Ref = '".$rep_tempo["Pref"]."';");
-            if($rep_pref = $back_pref->fetch()){
-                $out["pref"] = array("ref" => $rep_tempo["Pref"], "name" => $rep_pref["Name"], "page" => $rep_pref["Page"], "name_la" => $rep_tempo["Pref_name_la"], "name_fr" => $rep_tempo["Pref_name_fr"]);
-            }
-            $back_pref->closeCursor();
             
             // Lectures :
             if($rep_tempo["Lect_cycle"] == "3"){
@@ -66,21 +74,20 @@
                 $out["readings"] = $rep_tempo["Ref"]."_".$year_even;
             }
             else{
-                $out["readings"] = $rep_tempo["Ref"]."xxx";
+                $out["readings"] = $rep_tempo["Ref"];
             }
             
-            // Tierce :
-            if($rep_tempo["Tierce"] == ""){
-                $back_tierce = $connect->query("SELECT * FROM Tierce WHERE Page = '".$in["tierce_page"]."';");
-                if($rep_tierce = $back_tierce->fetch()){
-                    $out["tierce_ant"] = "AM/Psautier/Tierce/".$rep_tierce["Antienne"];
+            // Préface :
+            if($rep_tempo["Pref"] != ""){
+                $back_pref = $connect->query("SELECT * FROM Prefaces WHERE Ref = '".$rep_tempo["Pref"]."';");
+                if($rep_pref = $back_pref->fetch()){
+                    $out["pref"] = array("ref" => $rep_tempo["Pref"], "name" => $rep_pref["Name"], "page" => $rep_pref["Page"], "name_la" => $rep_tempo["Pref_name_la"], "name_fr" => $rep_tempo["Pref_name_fr"]);
                 }
-                $back_tierce->closeCursor();
+                $back_pref->closeCursor();
             }
             else{
-                $out["tierce_ant"] = "AM/".$rep_day["Tierce"];
+                // Semaine 3 de l'Avent : préface I ou II de l'Avent, selon que…
             }
-            $out["tierce_page"] = $in["tierce_page"];
         }
         $back_tempo->closeCursor();
         
@@ -94,10 +101,10 @@
                 $out["lit_day"] = $rep_sancto["Day"];
                 $out["rang"] = $rep_sancto["Rang"];
                 if($rep_sancto["Oraisons"] != ""){
-                    $out["orationes"] = $rep_sancto["Oraisons"];
+                    $out["orationes"] = array("source" => "MG", "ref" => split("-", $rep_sancto["Oraisons"]));
                 }
                 else{
-                    $out["orationes"] = $rep_sancto["Ref"];
+                    $out["orationes"] = array("source" => "Files", "ref" => $rep_sancto["Ref"]);
                 }
                 if($rep_sancto["Lect_propres"] == "True"){
                     $out["propre"] = "True";
@@ -124,18 +131,16 @@
         $back_sancto->closeCursor();
 
         // Asperges me :
-        $paques = calculate_paques(Date("Y", $timestamp));
         $weekday = Date("w", $timestamp);
-        $day = Date("j", $timestamp);
         $out["asp"] = "";
         if($weekday == 0){
-            if(($timestamp >= $paques) && ($timestamp < ($paques + (49 * 24 * 3600)))){
+            if($liturg_time == "tp"){
                 $out["asp"] = "\\TitreB{Vidi aquam}\\Normal{(p. 71).}"; // Vidi aquam.
             }
-            else if(($timestamp < $paques) && ($timestamp >= ($paques - (46 * 24 * 3600)))){
-                $out["asp"] = "\\TitreB{Asperges me II}\\Normal{(p. 71).}"; // Carême.
+            else if($liturg_time == "adv" or $liturg_time == "qua"){
+                $out["asp"] = "\\TitreB{Asperges me II}\\Normal{(p. 71).}"; // Avent et Carême.
             }
-            if($day < 8){
+            else if($day < 8){
                 $out["asp"] = "\\TitreB{Asperges me}\\Normal{(p. 70.}";
             }
             else{

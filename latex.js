@@ -40,7 +40,7 @@ function write_latex(data){
         
         // Asperges me :
         if(day_data["asp"] != ""){
-            tex += day_data["asp"];
+            tex += day_data["asp"] + "\n\n";
         }
         
         // Tierce :
@@ -61,11 +61,11 @@ function write_latex(data){
         }
         
         // Oraison :
-        if(orationes[0] == "MG"){
-            tex += "\\TitreB{Oraison~:}\\Normal{p. " + orationes[1][0] + ".}\n\n";
+        if(orationes["source"] == "MG"){
+            tex += "\\TitreB{Oraison~:}\\Normal{p. " + orationes["ref"][0] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Oraison}{or}{" + orationes + "}\n\n";
+            tex += "\\Oraison{Oraison}{or}{" + orationes["ref"] + "}\n\n";
         }
 
         // 1ère lecture :
@@ -122,11 +122,11 @@ function write_latex(data){
         }
 
         // Super oblata :
-        if(orationes[0] == "MG"){
-            tex += "\\TitreB{Prière sur les offrandes~:}\\Normal{p. " + orationes[1][1] + ".}\n\n";
+        if(orationes["source"] == "MG"){
+            tex += "\\TitreB{Prière sur les offrandes~:}\\Normal{p. " + orationes["ref"][1] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Prière sur les offrandes}{so}{" + orationes + "}\n\n";
+            tex += "\\Oraison{Prière sur les offrandes}{so}{" + orationes["ref"] + "}\n\n";
         }
 
         // Préface :
@@ -176,11 +176,11 @@ function write_latex(data){
         }
 
         // Postcommunion :
-        if(orationes[0] == "MG"){
-            tex += "\\TitreB{Prière après la communion~:}\\Normal{p. " + orationes[1][2] + ".}\n\n";
+        if(orationes["source"] == "MG"){
+            tex += "\\TitreB{Prière après la communion~:}\\Normal{p. " + orationes["ref"][2] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Prière après la Communion}{pc}{" + orationes + "}\n\n";
+            tex += "\\Oraison{Prière après la Communion}{pc}{" + orationes["ref"] + "}\n\n";
         }
 
         // Conclusion :
