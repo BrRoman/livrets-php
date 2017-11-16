@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  jeu. 16 nov. 2017 à 11:20
+-- Généré le :  jeu. 16 nov. 2017 à 20:37
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.5.36
 
@@ -76,31 +76,31 @@ INSERT INTO `Days` (`ID`, `Ref`, `Day`, `Rang`, `Precedence`, `Tierce`, `Oraison
 (3403, 'adv_4_4', 'Jeudi de la\\par IV\\textsuperscript{e} semaine\\par de l\'Avent', '', '10', '', '', 'True', '1', '', '', ''),
 (3404, 'adv_4_5', 'Vendredi de la\\par IV\\textsuperscript{e} semaine\\par de l\'Avent', '', '10', '', '', 'True', '1', '', '', ''),
 (3405, 'adv_4_6', 'Samedi de la\\par IV\\textsuperscript{e} semaine\\par de l\'Avent', '', '10', '', '', 'True', '1', '', '', ''),
-(3406, 'noel_1_0', 'Dimanche dans l\'octave de Noël', '', '80', '', '203/206/207', 'True', '3', '', '', ''),
-(3407, 'noel_1_1', 'Lundi dans l\'octave de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3408, 'noel_1_2', 'Mardi dans l\'octave de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3409, 'noel_1_3', 'Mercredi dans l\'octave de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3410, 'noel_1_4', 'Jeudi dans l\'octave de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3411, 'noel_1_5', 'Vendredi dans l\'octave de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3412, 'noel_1_6', 'Samedi dans l\'octave de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3413, 'noel_2_0', 'II\\textsuperscript{e} dimanche\\par après Noël', '', '80', '', '214/216/216', 'True', '3', '', '', ''),
-(3414, 'noel_2_1', 'Lundi de la\\par II\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3415, 'noel_2_2', 'Mardi de la\\par II\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3416, 'noel_2_3', 'Mercredi de la\\par II\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3417, 'noel_2_4', 'Jeudi de la\\par II\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3418, 'noel_2_5', 'Vendredi de la\\par II\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3419, 'noel_2_6', 'Samedi de la\\par II\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3420, 'noel_3_0', 'Fête du Baptême du Seigneur', '', '80', '', '222/226/227', 'True', '3', '', '', ''),
+(3406, 'ste_famille_dim', 'Dimanche de la Sainte Famille', 'Fête', '90', '', '203/206/207', 'True', '3', 'ste_famille', '', ''),
+(3407, 'noel_1_1', 'Lundi de la I\\textsuperscript{re} semaine après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3408, 'noel_1_2', 'Mardi de la I\\textsuperscript{re} semaine après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3409, 'noel_1_3', 'Mercredi de la I\\textsuperscript{re} semaine après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3410, 'noel_1_4', 'Jeudi de la I\\textsuperscript{re} semaine après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3411, 'noel_1_5', 'Vendredi de la I\\textsuperscript{re} semaine après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3412, 'noel_1_6', 'Samedi de la I\\textsuperscript{re} semaine après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3413, 'noel_2_0', 'II\\textsuperscript{e} dimanche après Noël', '', '80', '', '214/216/216', 'True', '3', '', '', ''),
+(3414, 'noel_2_1', 'Lundi de la I\\textsuperscript{re} semaine après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3415, 'noel_2_2', 'Mardi de la I\\textsuperscript{re} semaine après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3416, 'noel_2_3', 'Mercredi de la\\par II\\textsuperscript{e} semaine\\par après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3417, 'noel_2_4', 'Jeudi de la\\par II\\textsuperscript{e} semaine\\par après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3418, 'noel_2_5', 'Vendredi de la\\par II\\textsuperscript{e} semaine\\par après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3419, 'noel_2_6', 'Samedi de la\\par II\\textsuperscript{e} semaine\\par après Noël', '', '10', '', '', 'True', '1', '', '', ''),
+(3420, 'bapt', 'Fête du Baptême du Seigneur', '', '80', '', '222/226/227', 'True', '3', 'bapt', '', ''),
 (3421, 'noel_3_1', 'Lundi de la\\par III\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
 (3422, 'noel_3_2', 'Mardi de la\\par III\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
 (3423, 'noel_3_3', 'Mercredi de la\\par III\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
 (3424, 'noel_3_4', 'Jeudi de la\\par III\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
 (3425, 'noel_3_5', 'Vendredi de la\\par III\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
 (3426, 'noel_3_6', 'Samedi de la\\par III\\textsuperscript{e} semaine\\par de Noël', '', '10', '', '', 'True', '1', '', '', ''),
-(3427, 'cendres_1', 'Mercredi des Cendres', '', '120', '', '230/237/237', 'True', '1', 'qua_4', '', ''),
-(3428, 'cendres_2', 'Jeudi après les Cendres', '', '50', '', '', 'True', '1', 'qua_4', '', ''),
-(3429, 'cendres_3', 'Vendredi après les Cendres', '', '50', '', '', 'True', '1', 'qua_4', '', ''),
-(3430, 'cendres_4', 'Samedi après les Cendres', '', '50', '', '', 'True', '1', 'qua_4', '', ''),
+(3427, 'cendres_0', 'Mercredi des Cendres', '', '120', '', '230/237/237', 'True', '1', 'qua_4', '', ''),
+(3428, 'cendres_1', 'Jeudi après les Cendres', '', '50', '', '', 'True', '1', 'qua_4', '', ''),
+(3429, 'cendres_2', 'Vendredi après les Cendres', '', '50', '', '', 'True', '1', 'qua_4', '', ''),
+(3430, 'cendres_3', 'Samedi après les Cendres', '', '50', '', '', 'True', '1', 'qua_4', '', ''),
 (3431, 'qua_1_0', 'I\\textsuperscript{er} dimanche\\par de Carême', '', '120', '', '238/245/246', 'True', '3', 'qua_dim_1', '', ''),
 (3432, 'qua_1_1', 'Lundi de la\\par I\\textsuperscript{re} semaine\\par de Carême', '', '50', '', '', 'True', '1', 'qua_1', '', ''),
 (3433, 'qua_1_2', 'Mardi de la\\par I\\textsuperscript{re} semaine\\par de Carême', '', '50', '', '', 'True', '1', 'qua_1', '', ''),
@@ -397,10 +397,10 @@ INSERT INTO `Days` (`ID`, `Ref`, `Day`, `Rang`, `Precedence`, `Tierce`, `Oraison
 (3725, 'pa_32_0', 'XXXII\\textsuperscript{e} dimanche\\par du Temps Ordinaire', '', '80', '', '586/589/591', 'True', '3', 'pa_dim_7', '', ''),
 (3726, 'pa_32_1', 'Lundi de la\\par XXXII\\textsuperscript{e} semaine\\par du Temps Ordinaire', '', '10', '', '586/589/591', 'True', '2', 'com_2', '', ''),
 (3727, 'pa_32_2', 'Mardi de la\\par XXXII\\textsuperscript{e} semaine\\par du Temps Ordinaire', '', '10', '', '586/589/591', 'True', '2', 'com_2', '', ''),
-(3728, 'pa_32_3', 'Mercredi de la\\par XXXII\\textsuperscript{e} semaine\\par du Temps Ordinaire', '', '10', '', '586/589/591', 'True', '2', 'com_2', '', ''),
-(3729, 'pa_32_4', 'Jeudi de la\\par XXXII\\textsuperscript{e} semaine\\par du Temps Ordinaire', '', '10', '', '586/589/591', 'True', '2', 'com_2', '', ''),
-(3730, 'pa_32_5', 'Vendredi de la\\par XXXII\\textsuperscript{e} semaine\\par du Temps Ordinaire', '', '10', '', '586/589/591', 'True', '2', 'com_2', '', '');
+(3728, 'pa_32_3', 'Mercredi de la\\par XXXII\\textsuperscript{e} semaine\\par du Temps Ordinaire', '', '10', '', '586/589/591', 'True', '2', 'com_2', '', '');
 INSERT INTO `Days` (`ID`, `Ref`, `Day`, `Rang`, `Precedence`, `Tierce`, `Oraisons`, `Lect_propres`, `Lect_cycle`, `Pref`, `Pref_name_la`, `Pref_name_fr`) VALUES
+(3729, 'pa_32_4', 'Jeudi de la\\par XXXII\\textsuperscript{e} semaine\\par du Temps Ordinaire', '', '10', '', '586/589/591', 'True', '2', 'com_2', '', ''),
+(3730, 'pa_32_5', 'Vendredi de la\\par XXXII\\textsuperscript{e} semaine\\par du Temps Ordinaire', '', '10', '', '586/589/591', 'True', '2', 'com_2', '', ''),
 (3731, 'pa_32_6', 'Samedi de la\\par XXXII\\textsuperscript{e} semaine\\par du Temps Ordinaire', '', '10', '', '586/589/591', 'True', '2', 'com_2', '', ''),
 (3732, 'pa_33_0', 'XXXIII\\textsuperscript{e} dimanche\\par du Temps Ordinaire', '', '80', '', '592/595/596', 'True', '3', 'pa_dim_8', '', ''),
 (3733, 'pa_33_1', 'Lundi de la\\par XXXIII\\textsuperscript{e} semaine\\par du Temps Ordinaire', '', '10', '', '592/595/596', 'True', '2', 'com_3', '', ''),
@@ -427,7 +427,16 @@ INSERT INTO `Days` (`ID`, `Ref`, `Day`, `Rang`, `Precedence`, `Tierce`, `Oraison
 (3754, 'pentec', 'Dimanche de la Pentecôte', 'Solennité', '120', 'spiritus_domini', '397/401/403', 'True', '3', 'pent', '', ''),
 (3755, 'trinite', 'Dimanche de la Très Sainte Trinité', 'Solennité', '70', '', '405/411/413', 'True', '3', 'trinite', '', ''),
 (3756, 'fete_dieu', 'Solennité du Corps\\par et du Sang du Seigneur', 'Solennité', '110', '', '414/423/424', 'True', '3', 'euch_2', '', ''),
-(3757, 'sacre_coeur', 'Solennité du Sacré-Cœur de Jésus', 'Solennité', '110', '', '425/428/430', 'True', '3', 'sacre_coeur', '', '');
+(3757, 'sacre_coeur', 'Solennité du Sacré-Cœur de Jésus', 'Solennité', '110', '', '425/428/430', 'True', '3', 'sacre_coeur', '', ''),
+(3758, 'noel_0_0', 'Noël', 'Solennité', '120', '', '198/201/202', 'True', '3', 'noel_2', '', ''),
+(3759, 'noel_0_1', 'Octave de Noël', '', '50', '', '', 'True', '1', 'noel_2', '', ''),
+(3760, 'noel_0_2', 'Octave de Noël', '', '50', '', '', 'True', '1', 'noel_2', '', ''),
+(3761, 'noel_0_3', 'Octave de Noël', '', '50', '', '', 'True', '1', 'noel_2', '', ''),
+(3762, 'noel_0_4', 'Octave de Noël', '', '50', '', '', 'True', '1', 'noel_2', '', ''),
+(3763, 'noel_0_5', 'Octave de Noël', '', '50', '', '', 'True', '1', 'noel_2', '', ''),
+(3764, 'noel_0_6', 'Octave de Noël', '', '50', '', '', 'True', '1', 'noel_2', '', ''),
+(3765, 'ste_famille_fete', 'Sainte Famille', 'Fête', '90', '', '203/206/207', 'True', '2', 'ste_famille', '', ''),
+(3767, 'noel_1_0', 'I\\textsuperscript{e} dimanche après Noël', '', '80', '', '214/216/216', 'True', '3', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1117,7 +1126,7 @@ ALTER TABLE `Tierce`
 -- AUTO_INCREMENT pour la table `Days`
 --
 ALTER TABLE `Days`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3758;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3768;
 --
 -- AUTO_INCREMENT pour la table `Prefaces`
 --

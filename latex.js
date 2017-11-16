@@ -1,4 +1,4 @@
-// Fonctions concernant le LaTeX.
+// Fonctions écrivant le contenu du fichier tex à partir du retour de request.php.
 
 function write_latex(data){
     var tex = tex_header(Date.parse($("#date_debut").val()));
@@ -16,7 +16,7 @@ function write_latex(data){
 
         // Rang liturgique :
         var rang = day_data["rang"];
-        if(rang != ""){
+        if(rang != "" && rang != null){
             tex += "{" + rang + "}\n\n";
         }
         else{

@@ -36,58 +36,110 @@ function calculate_paques($year){
     return($paques);
 }
 
-// Calcul du jour liturgique demandé (timestamp du jour civil),
-// renvoyé sous forme de référencee : "pa_30_0", "adv_3_2", etc. :
+// Calcul du jour liturgique demandé, renvoyé sous forme de référencee : "pa_30_0", "adv_3_2", etc.
+// En entrée : timestamp du jour civil.
 function calculate_tempo($timestamp){
     $day = 24 * 3600;
     $weekday = (int) Date("w", $timestamp);
 
     // Calcul des grands jours liturgiques de l'année à laquelle appartient le jour concerné :
     $year = Date("Y", $timestamp);
+    $lit_year = $year;
     
     // Calcul du 1er dim. de l'Avent de l'année civile courante :
     $current_adv = calculate_adv($year);
     // Le timestamp est peut-être dans l'année liturgique suivante (année civile courante + 1) :
     if($timestamp >= $current_adv){
-        $year++;
+        $lit_year++;
     }
-    $noel = mktime(0, 0, 0, 12, 25, $year - 1);
+    $noel = mktime(0, 0, 0, 12, 25, $lit_year - 1);
     $noel_weekday = (int) Date("w", $noel);
     if($noel_weekday == 0){
         $adv = $noel - (28 * $day);
+        $ste_famille = $noel + (5 * $day);
         $bapteme = $noel + (14 * $day);
     }
     else{
         $adv = $noel - ((21 + $noel_weekday) * $day);
+        $ste_famille = $noel + ((7 - $noel_weekday) * $day);
         $bapteme = $noel + (7 * $day) + ((7 - $noel_weekday) * $day);
     }
-    $paques = calculate_paques($year);
+    $paques = calculate_paques($lit_year);
     $cendres = $paques - (46 * $day);
+    $quadr_dim_1 = $cendres + (4 * $day);
     $pentecote = $paques + (49 * $day);
     $christ_roi = $next_adv - (7 * $day);
 
     // Avent :
     if($timestamp >= $adv and $timestamp < $noel){
         $days_after_adv = ceil(($timestamp - $adv) / $day);
-        $dim_adv = floor($days_after_adv / 7) + 1;
-        if($weekday == 7){
-            $weekday = 0;
-        }
+        $dim_adv = ceil($days_after_adv / 7);
         $tempo = "adv_".$dim_adv."_".$weekday;
     }
 
-    // Temps après Noël :
+    // Temps de Noël :
     if($timestamp >= $noel and $timestamp <= $bapteme){
-        //
+        $days_after_noel = ceil(($timestamp - $noel) / $day);
+        if($noel_weekday == 0){
+            if($timestamp == $ste_famille){
+                $tempo = "ste_famille_fete";
+            }
+            else{
+                $dim_after_noel = floor($days_after_noel / 7);
+                $tempo = "noel_".$dim_after_noel."_".$weekday;
+            }
+        }
+        else{
+            if($timestamp == $ste_famille){
+                $tempo = "ste_famille_dim";
+            }
+            else if($timestamp < $ste_famille){
+                $tempo = "noel_0_".$days_after_noel;
+            }
+            else{
+                $dim_after_noel = $noel + ((7 - $noel_weekday) * $day);
+                $days_after_dim_after_noel = ceil(($timestamp - $dim_after_noel) / $day);
+                $dim_after_noel = ceil($days_after_dim_after_noel / 7);
+                $tempo = "noel_".$dim_after_noel."_".$weekday;
+            }
+        }
+    }
+    // Baptême :
+    if($timestamp == $bapteme){
+        $tempo = "bapt";
+    }
+
+    // Temps per Annum avant le Carême :
+    if($timestamp > $bapteme and $timestamp < $cendres){
+        $days_after_bapt = ceil(($timestamp - $bapteme) / $day);
+        $dim_per_annum = ceil($days_after_bapt / 7) + 1;
+        $tempo = "pa_".$dim_per_annum."_".$weekday;
+    }
+
+    // Féries après les Cendres :
+    if($timestamp >= $cendres and $timestamp < $quadr_dim_1){
+        $days_after_cendres = ceil(($timestamp - $cendres) / $day);
+        $tempo = "cendres_".$days_after_cendres;
+    }
+
+    // Carême :
+    if($timestamp >= $quadr_dim_1 and $timestamp < $paques){
+        $days_careme = ceil(($timestamp - $quadr_dim_1) / $day);
+        $dim_careme = ceil($days_careme / 7);
+        $tempo = "qua_".$dim_careme."_".$weekday;
+    }
+
+    // Temps pascal :
+    if($timestamp >= $paques and $timestamp < $pentecote){
+        $days_after_paques = ceil(($timestamp - $paques) / $day);
+        $dim_paques = ceil($days_after_paques / 7);
+        $tempo = "tp_".$dim_paques."_".$weekday;
     }
 
     // Temps per Annum après la Pentecôte :
     if($timestamp > $pentecote and $timestamp < $current_adv){
         $days_before_current_adv = ceil(($current_adv - $timestamp) / $day);
         $dim_per_annum = 34 - floor($days_before_current_adv / 7);
-        if($weekday == 7){
-            $weekday = 0;
-        }
         $tempo = "pa_".$dim_per_annum."_".$weekday;
     }
     return($tempo);

@@ -16,15 +16,16 @@
 
         // Données générales sur l'année :
         $year = Date("Y", $timestamp);
+        $lit_year = $year;
         // Calcul du 1er dim. de l'Avent de l'année civile courante :
         $current_adv = calculate_adv($year);
         // Le timestamp est peut-être dans l'année liturgique suivante (année civile courante + 1) :
         if($timestamp >= $current_adv){
-            $year++;
+            $lit_year++;
         }
-        $year_even = $year % 2 == 0 ? "2" : "1";
+        $year_even = $lit_year % 2 == 0 ? "2" : "1";
         $year_letters = array("A", "B", "C");
-        $year_letter = $year_letters[($year - 2011) % 3];
+        $year_letter = $year_letters[($lit_year - 2011) % 3];
 
         // Jour civil :
         $weekday = $weekdays_fr[(int) Date("w", $timestamp)];
@@ -38,12 +39,13 @@
         // Jour liturgique :
         // On remplit le out comme s'il n'y avait que le Temporal :
         $tempo = calculate_tempo($timestamp);
+        $out["tempo"] = $tempo;
         $liturg_time = split("_", $tempo)[0];
         $back_tempo = $connect->query("SELECT * FROM Days WHERE Ref = '".$tempo."';");
         if($rep_tempo = $back_tempo->fetch()){
             $out["lit_day"] = $rep_tempo["Day"];
             $force_tempo = $rep_tempo["Precedence"];
-            $out["rang"] = $rang_tempo;
+            $out["rang"] = $rep_tempo["rang"];
             
             // Tierce :
             if($rep_tempo["Tierce"] == ""){
@@ -60,7 +62,7 @@
 
             // Oraisons :
             if($rep_tempo["Oraisons"] != ""){
-                $out["orationes"] = array("source" => "MG", "ref" => split("-", $rep_tempo["Oraisons"]));
+                $out["orationes"] = array("source" => "MG", "ref" => split("/", $rep_tempo["Oraisons"]));
             }
             else{
                 $out["orationes"] = array("source" => "Files", "ref" => $rep_tempo["Ref"]);
@@ -79,15 +81,26 @@
             
             // Préface :
             if($rep_tempo["Pref"] != ""){
-                $back_pref = $connect->query("SELECT * FROM Prefaces WHERE Ref = '".$rep_tempo["Pref"]."';");
-                if($rep_pref = $back_pref->fetch()){
-                    $out["pref"] = array("ref" => $rep_tempo["Pref"], "name" => $rep_pref["Name"], "page" => $rep_pref["Page"], "name_la" => $rep_tempo["Pref_name_la"], "name_fr" => $rep_tempo["Pref_name_fr"]);
-                }
-                $back_pref->closeCursor();
+                $pref = $rep_tempo["Pref"];
             }
             else{
-                // Semaine 3 de l'Avent : préface I ou II de l'Avent, selon que…
+                // Avent : préface I ou II de l'Avent, selon que avant ou après 17/12 :
+                if($liturg_time == "adv"){
+                    $pref = $day < 17 ? "adv_1" : "adv_2";
+                }
+                // Noël : préface III de Noël ou Épiphanie, selon que avant ou après le 06/01 :
+                if($liturg_time == "noel"){
+                    $pref = $day < 6 ? "noel_3" : "epiph";
+                }
             }
+            $back_pref = $connect->query("SELECT * FROM Prefaces WHERE Ref = '".$pref."';");
+            if($rep_pref = $back_pref->fetch()){
+                $out["pref"] = array("ref" => $rep_tempo["Pref"], "name" => $rep_pref["Name"], "page" => $rep_pref["Page"], "name_la" => $rep_tempo["Pref_name_la"], "name_fr" => $rep_tempo["Pref_name_fr"]);
+            }
+            else{
+                $out["pref"] = $pref;
+            }
+            $back_pref->closeCursor();
         }
         $back_tempo->closeCursor();
         
