@@ -73,7 +73,7 @@ function calculate_tempo($timestamp){
     // Avent :
     if($timestamp >= $adv and $timestamp < $noel){
         $days_after_adv = ceil(($timestamp - $adv) / $day);
-        $dim_adv = ceil($days_after_adv / 7);
+        $dim_adv = floor($days_after_adv / 7) + 1;
         $tempo = "adv_".$dim_adv."_".$weekday;
     }
 
@@ -99,7 +99,7 @@ function calculate_tempo($timestamp){
             else{
                 $dim_after_noel = $noel + ((7 - $noel_weekday) * $day);
                 $days_after_dim_after_noel = ceil(($timestamp - $dim_after_noel) / $day);
-                $dim_after_noel = ceil($days_after_dim_after_noel / 7);
+                $dim_after_noel = floor($days_after_dim_after_noel / 7) + 1;
                 $tempo = "noel_".$dim_after_noel."_".$weekday;
             }
         }
@@ -112,7 +112,7 @@ function calculate_tempo($timestamp){
     // Temps per Annum avant le Carême :
     if($timestamp > $bapteme and $timestamp < $cendres){
         $days_after_bapt = ceil(($timestamp - $bapteme) / $day);
-        $dim_per_annum = ceil($days_after_bapt / 7) + 1;
+        $dim_per_annum = floor($days_after_bapt / 7) + 1;
         $tempo = "pa_".$dim_per_annum."_".$weekday;
     }
 
@@ -125,21 +125,21 @@ function calculate_tempo($timestamp){
     // Carême :
     if($timestamp >= $quadr_dim_1 and $timestamp < $paques){
         $days_careme = ceil(($timestamp - $quadr_dim_1) / $day);
-        $dim_careme = ceil($days_careme / 7);
+        $dim_careme = floor($days_careme / 7) + 1;
         $tempo = "qua_".$dim_careme."_".$weekday;
     }
 
     // Temps pascal :
     if($timestamp >= $paques and $timestamp < $pentecote){
         $days_after_paques = ceil(($timestamp - $paques) / $day);
-        $dim_paques = ceil($days_after_paques / 7);
+        $dim_paques = floor($days_after_paques / 7) + 1;
         $tempo = "tp_".$dim_paques."_".$weekday;
     }
 
     // Temps per Annum après la Pentecôte :
     if($timestamp > $pentecote and $timestamp < $current_adv){
         $days_before_current_adv = ceil(($current_adv - $timestamp) / $day);
-        $dim_per_annum = 34 - floor($days_before_current_adv / 7);
+        $dim_per_annum = 35 - ceil($days_before_current_adv / 7);
         $tempo = "pa_".$dim_per_annum."_".$weekday;
     }
     return($tempo);

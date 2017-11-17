@@ -39,13 +39,12 @@
         // Jour liturgique :
         // On remplit le out comme s'il n'y avait que le Temporal :
         $tempo = calculate_tempo($timestamp);
-        $out["tempo"] = $tempo;
         $liturg_time = split("_", $tempo)[0];
         $back_tempo = $connect->query("SELECT * FROM Days WHERE Ref = '".$tempo."';");
         if($rep_tempo = $back_tempo->fetch()){
             $out["lit_day"] = $rep_tempo["Day"];
             $force_tempo = $rep_tempo["Precedence"];
-            $out["rang"] = $rep_tempo["rang"];
+            $out["rang"] = $rep_tempo["Rang"];
             
             // Tierce :
             if($rep_tempo["Tierce"] == ""){
