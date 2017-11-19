@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  Dim 19 nov. 2017 à 14:03
+-- Généré le :  Dim 19 nov. 2017 à 17:36
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.5.36
 
@@ -21,6 +21,63 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `livrets`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `BMV`
+--
+
+CREATE TABLE `BMV` (
+  `ID` int(11) NOT NULL,
+  `Ref` varchar(10) NOT NULL,
+  `Title` varchar(255) NOT NULL,
+  `CM` varchar(5) NOT NULL,
+  `Preface` enum('marie_1','marie_2') NOT NULL DEFAULT 'marie_1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `BMV`
+--
+
+INSERT INTO `BMV` (`ID`, `Ref`, `Title`, `CM`, `Preface`) VALUES
+(1, '1_2', 'Sainte Marie, Mère de Dieu', '4', 'marie_1'),
+(2, '1_3', 'Sainte Marie, Mère du Sauveur', '5', 'marie_1'),
+(3, '1_4', 'Notre-Dame de Nazareth', '8', 'marie_1'),
+(4, '1_5', 'Notre-Dame de Cana', '9', 'marie_1'),
+(5, '2_2', 'Sainte Marie, disciple du Seigneur', '10', 'marie_1'),
+(6, '2_3', 'Marie près de la Croix du Seigneur', '11', 'marie_1'),
+(7, '2_4', 'Sainte Marie, Source du Salut', '31', 'marie_1'),
+(8, '5_2', 'Sainte Marie, Reine des Apôtres', '18', 'marie_1'),
+(9, '5_3', 'Sainte Marie au Cénacle', '17', 'marie_1'),
+(10, '5_4', 'Sainte Marie, Secours des chrétiens', '42', 'marie_1'),
+(11, '5_5', 'Sainte Marie, Mère du Bel Amour', '36', 'marie_1'),
+(12, '6_2', 'Sainte Marie, Mère du Bon Conseil', '33', 'marie_1'),
+(13, '6_3', 'Sainte Marie, Mère et Médiatrice de la grâce', '30', 'marie_1'),
+(14, '6_4', 'Sainte Marie, Source de lumière et de vie', '16', 'marie_1'),
+(15, '6_5', 'Sainte Marie, Nouvelle Ève', '20', 'marie_1'),
+(16, '7_2', 'Sainte Marie, Reine et Mère de miséricorde', '39', 'marie_1'),
+(17, '7_3', 'Sainte Marie, servante du Seigneur', '22', 'marie_1'),
+(18, '7_4', 'Sainte Marie, Temple du Seigneur', '23', 'marie_1'),
+(19, '7_5', 'Sainte Marie, Trône de la Sagesse', '24', 'marie_1'),
+(20, '8_2', 'Sainte Marie, Mère de consolation', '41', 'marie_1'),
+(21, '8_3', 'Sainte Marie, Salut des infirmes', '44', 'marie_1'),
+(22, '8_4', 'Sainte Marie, Mère de la réconciliation', '14', 'marie_1'),
+(23, '8_5', 'Sainte Marie, Image et Mère de l\'Église', '25', 'marie_1'),
+(24, '9_2', 'Sainte Marie, Mère du Bel Amour', '36', 'marie_1'),
+(25, '9_3', 'Notre-Dame de la Merci', '43', 'marie_1'),
+(26, '9_4', 'Sainte Marie, Cause de notre joie', '34', 'marie_1'),
+(27, '9_5', 'Sainte Marie, Rempart de la foi', '35', 'marie_1'),
+(28, '10_2', 'Sainte Marie, Reine de la paix', '45', 'marie_1'),
+(29, '10_3', 'Marie près de la Croix du Seigneur', '12', 'marie_1'),
+(30, '10_4', 'Sainte Marie, Mère du Seigneur', '19', 'marie_1'),
+(31, '10_5', 'Sainte Marie, servante du Seigneur', '22', 'marie_1'),
+(32, '11_2', 'Sainte Marie, Mère de la divine Providence', '40', 'marie_1'),
+(33, '11_3', 'Sainte Marie, Porte du Ciel', '46', 'marie_1'),
+(34, '11_4', 'Sainte Marie, Image et Mère de l\'Église', '27', 'marie_1'),
+(35, '11_5', 'Sainte Marie, Reine de l\'univers', '29', 'marie_1'),
+(36, '12_1', 'Sainte Marie, Reine de l\'univers', '29', 'marie_1'),
+(37, 'icm', 'Commémoraison du\\par Cœur Immaculé de Marie', '28', 'marie_1');
 
 -- --------------------------------------------------------
 
@@ -1282,6 +1339,12 @@ INSERT INTO `Tierce` (`ID`, `Page`, `Antienne`) VALUES
 --
 
 --
+-- Index pour la table `BMV`
+--
+ALTER TABLE `BMV`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Index pour la table `Days`
 --
 ALTER TABLE `Days`
@@ -1309,6 +1372,11 @@ ALTER TABLE `Tierce`
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
+--
+-- AUTO_INCREMENT pour la table `BMV`
+--
+ALTER TABLE `BMV`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT pour la table `Days`
 --

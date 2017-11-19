@@ -36,6 +36,9 @@
         $month = $months_fr[Date("m", $timestamp) - 1];
         $out["civil_day"] = $weekday." ".$day." ".$month." ".$year;
 
+        // Page de Tierce :
+        $out["tierce_page"] = $in["tierce_page"];
+
         // Jour liturgique :
         // On remplit le out comme s'il n'y avait que le Temporal :
         $tempo = calculate_tempo($timestamp);
@@ -46,7 +49,7 @@
             $force_tempo = $rep_tempo["Precedence"];
             $out["rang"] = $rep_tempo["Rang"];
             
-            // Tierce :
+            // Antienne de Tierce :
             if($rep_tempo["Tierce"] == ""){
                 $back_tierce = $connect->query("SELECT * FROM Tierce WHERE Page = '".$in["tierce_page"]."';");
                 if($rep_tierce = $back_tierce->fetch()){
@@ -57,7 +60,6 @@
             else{
                 $out["tierce_ant"] = $rep_tempo["Tierce"];
             }
-            $out["tierce_page"] = $in["tierce_page"];
 
             // Oraisons :
             if($rep_tempo["Oraisons"] != ""){
@@ -112,6 +114,9 @@
             if($force_sancto > $force_tempo){
                 $out["lit_day"] = $rep_sancto["Day"];
                 $out["rang"] = $rep_sancto["Rang"];
+                if($rep_sancto["Tierce"] != ""){
+                    $out["tierce_ant"] = $rep_sancto["Tierce"];
+                }
                 if($rep_sancto["Oraisons"] != ""){
                     $out["orationes"] = array("source" => "MG", "ref" => split("-", $rep_sancto["Oraisons"]));
                 }
@@ -135,17 +140,31 @@
                     $out["pref"] = array("ref" => $rep_sancto["Pref"], "name" => $rep_pref["Name"], "page" => $rep_pref["Page"], "name_la" => $rep_sancto["Pref_name_la"], "name_fr" => $rep_sancto["Pref_name_fr"]);
                 }
                 $back_pref->closeCursor();
-                if($rep_sancto["Tierce"] != ""){
-                    $out["tierce_ant"] = "AM/".$rep_sancto["Tierce"];
-                }
             }
         }
         $back_sancto->closeCursor();
 
+        // On cherche s'il y a une mémoire de la Ste Vierge :
+        if($weekday == "Samedi" and $force_tempo < 30 and $force_sancto < 30){
+            $bmv = ceil(Date("j", $timestamp) / 7) < 8 ? "icm" : Date("n", $timestamp)."_".ceil(Date("j", $timestamp) / 7);
+            $back = $connect->query("SELECT * FROM BMV WHERE Ref = '".$bmv."';");
+            if($rep = $back->fetch()){
+                $out["lit_day"] = $rep["Title"];
+                $out["rang"] = "Mémoire majeure";
+                $out["tierce_ant"] = $timestamp < mktime(0, 0, 0, 2, 2, $year) ? "quando_natus_es" : "laeva_ejus";
+                $out["orationes"] = array("source" => "Files", "ref" => "bmv_".$rep["CM"]);
+                $back_pref = $connect->query("SELECT * FROM Prefaces WHERE Ref = '".$rep["Preface"]."';");
+                if($rep_pref = $back_pref->fetch()){
+                    $out["pref"] = array("ref" => $rep["Preface"], "name" => $rep_pref["Name"], "page" => $rep_pref["Page"], "name_la" => "", "name_fr" => "");
+                }
+                $back_pref->closeCursor();
+            }
+            $back->closeCursor();
+        }
+
         // Asperges me :
-        $weekday = Date("w", $timestamp);
         $out["asp"] = "";
-        if($weekday == 0){
+        if($weekday == "Dimanche"){
             if($liturg_time == "tp"){
                 $out["asp"] = "\\TitreB{Vidi aquam}\\Normal{(p. 71).}"; // Vidi aquam.
             }
