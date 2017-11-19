@@ -8,3 +8,6 @@
 - Remplacement des "Vel~:" et "Ou~:" dans les oraisons, après remplacement des retours chariot.
 - Essayer de mettre tous les scripts dans un dossier Scripts (aux derniers essais cela fait planter l'application).
 - 02/11 : pas d'antienne à Tierce.
+- 08/12 : attention si dimanche.
+- Tierce : 2 janvier, 3 janvier, 14 février.
+- Féries du Temps de Noël : préciser antienne de Tierce.
