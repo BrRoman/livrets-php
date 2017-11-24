@@ -42,6 +42,7 @@
         // Jour liturgique :
         // On remplit le out comme s'il n'y avait que le Temporal :
         $tempo = calculate_tempo($timestamp);
+        $out["tempo"] = $tempo;
         $liturg_time = split("_", $tempo)[0];
         $back_tempo = $connect->query("SELECT * FROM Days WHERE Ref = '".$tempo."';");
         if($rep_tempo = $back_tempo->fetch()){
@@ -118,7 +119,7 @@
                     $out["tierce_ant"] = $rep_sancto["Tierce"];
                 }
                 if($rep_sancto["Oraisons"] != ""){
-                    $out["orationes"] = array("source" => "MG", "ref" => split("-", $rep_sancto["Oraisons"]));
+                    $out["orationes"] = array("source" => "MG", "ref" => split("/", $rep_sancto["Oraisons"]));
                 }
                 else{
                     $out["orationes"] = array("source" => "Files", "ref" => $rep_sancto["Ref"]);
@@ -145,8 +146,9 @@
         $back_sancto->closeCursor();
 
         // On cherche s'il y a une mémoire de la Ste Vierge :
+        $out["tempo"] = $tempo;
         if($weekday == "Samedi" and $force_tempo < 30 and $force_sancto < 30){
-            $bmv = ceil(Date("j", $timestamp) / 7) < 8 ? "icm" : Date("n", $timestamp)."_".ceil(Date("j", $timestamp) / 7);
+            $bmv = Date("j", $timestamp) < 8 ? "icm" : Date("n", $timestamp)."_".ceil(Date("j", $timestamp) / 7);
             $back = $connect->query("SELECT * FROM BMV WHERE Ref = '".$bmv."';");
             if($rep = $back->fetch()){
                 $out["lit_day"] = $rep["Title"];

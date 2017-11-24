@@ -104,6 +104,7 @@ function calculate_tempo($timestamp){
             }
         }
     }
+
     // Baptême :
     if($timestamp == $bapteme){
         $tempo = "bapt";
