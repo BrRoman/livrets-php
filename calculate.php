@@ -68,7 +68,7 @@ function calculate_tempo($timestamp){
     $cendres = $paques - (46 * $day);
     $quadr_dim_1 = $cendres + (4 * $day);
     $pentecote = $paques + (49 * $day);
-    $christ_roi = $next_adv - (7 * $day);
+    $christ_roi = $current_adv - (7 * $day);
 
     // Avent :
     if($timestamp >= $adv and $timestamp < $noel){
@@ -104,6 +104,7 @@ function calculate_tempo($timestamp){
             }
         }
     }
+
     // Baptême :
     if($timestamp == $bapteme){
         $tempo = "bapt";
@@ -142,6 +143,12 @@ function calculate_tempo($timestamp){
         $dim_per_annum = 35 - ceil($days_before_current_adv / 7);
         $tempo = "pa_".$dim_per_annum."_".$weekday;
     }
+
+    // Christ-Roi :
+    if($timestamp == $christ_roi){
+        $tempo = "christ_roi";
+    }
+    
     return($tempo);
 }
 ?>
