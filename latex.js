@@ -101,7 +101,13 @@ function write_latex(data){
         }
 
         // Évangile :
-        tex += "\\Lecture{Évangile}{" + day_data["readings"] + "_ev}\n\n";
+        if(day_data["readings"].indexOf("pa_") == 0 && day_data["readings"].indexOf("_0_") == -1){
+            tex += "\\Lecture{Évangile}{" + day_data["readings"].slice(0, -2) + "_ev}\n\n";// Féries du Temps per Annum : on omet la distinction années paires/impaires.
+        }
+        else{
+            tex += "\\Lecture{Évangile}{" + day_data["readings"] + "_ev}\n\n";
+        }
+
 
         // Credo :
         if($("#grid_value_" + i + "8").val()!= ""){
