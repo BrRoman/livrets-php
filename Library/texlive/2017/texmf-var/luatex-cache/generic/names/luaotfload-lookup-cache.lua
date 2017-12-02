@@ -23,6 +23,7 @@ return {
  ["ArnoPro:mode=node;script=latn;language=DFLT;+tlig;#655360"]={ "ArnoPro-SmText.otf", false },
  ["ArnoPro:mode=node;script=latn;language=DFLT;+tlig;#720896"]={ "ArnoPro-SmText.otf", false },
  ["ArnoPro:mode=node;script=latn;language=DFLT;+tlig;#786432"]={ "ArnoPro-Regular.otf", false },
+ ["ArnoPro:mode=node;script=latn;language=DFLT;+tlig;#825750"]={ "ArnoPro-Regular.otf", false },
  ["ArnoPro:mode=node;script=latn;language=DFLT;+tlig;#851968"]={ "ArnoPro-Regular.otf", false },
  ["ArnoPro:mode=node;script=latn;language=DFLT;+tlig;#917504"]={ "ArnoPro-Regular.otf", false },
  ["ArnoPro:mode=node;script=latn;language=DFLT;+tlig;+smcp;#524288"]={ "ArnoPro-Caption.otf", false },

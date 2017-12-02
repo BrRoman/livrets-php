@@ -1,4 +1,4 @@
-// Fonctions concernant le LaTeX.
+// Fonctions écrivant le contenu du fichier tex à partir du retour de request.php.
 
 function write_latex(data){
     var tex = tex_header(Date.parse($("#date_debut").val()));
@@ -16,7 +16,7 @@ function write_latex(data){
 
         // Rang liturgique :
         var rang = day_data["rang"];
-        if(rang != ""){
+        if(rang != "" && rang != null){
             tex += "{" + rang + "}\n\n";
         }
         else{
@@ -101,7 +101,13 @@ function write_latex(data){
         }
 
         // Évangile :
-        tex += "\\Lecture{Évangile}{" + day_data["readings"] + "_ev}\n\n";
+        if(day_data["readings"].indexOf("pa_") == 0 && day_data["readings"].indexOf("_0_") == -1){
+            tex += "\\Lecture{Évangile}{" + day_data["readings"].slice(0, -2) + "_ev}\n\n";// Féries du Temps per Annum : on omet la distinction années paires/impaires.
+        }
+        else{
+            tex += "\\Lecture{Évangile}{" + day_data["readings"] + "_ev}\n\n";
+        }
+
 
         // Credo :
         if($("#grid_value_" + i + "8").val()!= ""){
