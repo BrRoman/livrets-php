@@ -24,6 +24,7 @@ $(document).ready(function(){
         "script.php",
         {"tex": $("#tex_area").val()},
         function(retour){
+            console.log("Back from compilation:", retour);
             $("#overlay_wait").css("display", "none");
             $("#overlay_download").css("display", "flex");
         },
