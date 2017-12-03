@@ -52,11 +52,31 @@
             
             // Antienne de Tierce :
             if($rep_tempo["Tierce"] == ""){
-                $back_tierce = $connect->query("SELECT * FROM Tierce WHERE Page = '".$in["tierce_page"]."';");
-                if($rep_tierce = $back_tierce->fetch()){
-                    $out["tierce_ant"] = $rep_tierce["Antienne"];
+                if($liturg_time == "adv"){
+                    $adv_hebd = split("_", $tempo)[1];
+                    if($adv_hebd == "1"){
+                        $out["tierce_ant"] = "jucundare";
+                    }
+                    else if($adv_hebd == "2"){
+                        $out["tierce_ant"] = "urbs_fortitudinis";
+                    }
+                    else if($adv_hebd == "3"){
+                        $out["tierce_ant"] = "jerusalem_gaude";
+                    }
                 }
-                $back_tierce->closeCursor();
+                else if($liturg_time == "quadr"){
+                    $out["tierce_ant"] = "advenerunt_nobis";
+                }
+                else if($liturg_time == "pass"){
+                    $out["tierce_ant"] = "judicasti_domine";
+                }
+                else{
+                    $back_tierce = $connect->query("SELECT * FROM Tierce WHERE Page = '".$in["tierce_page"]."';");
+                    if($rep_tierce = $back_tierce->fetch()){
+                        $out["tierce_ant"] = $rep_tierce["Antienne"];
+                    }
+                    $back_tierce->closeCursor();
+                }
             }
             else{
                 $out["tierce_ant"] = $rep_tempo["Tierce"];
