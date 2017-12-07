@@ -137,11 +137,11 @@ function write_latex(data){
 
         // Préface :
         var pref = day_data["pref"];
-        if(pref["page"] != ""){
+        if(pref["page"] != null){
             tex += "\\TitreB{" + pref["name"] + "~:}\\Normal{p. " + pref["page"] + "}\n\n";
         }
         else{
-            if(pref["name_la"] != ""){
+            if(pref["name_la"] != null){
                 tex += "\\PrefaceWithName{" + pref["name"] + "}{" + pref["ref"] + "}{" + pref["name_la"] + "}{" + pref["name_fr"] + "}\n\n";
             }
             else{

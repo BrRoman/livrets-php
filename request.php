@@ -51,7 +51,7 @@
             $out["rang"] = $rep_tempo["Rang"];
             
             // Antienne de Tierce :
-            if($rep_tempo["Tierce"] == ""){
+            if($rep_tempo["Tierce"] == NULL){
                 if($liturg_time == "adv"){
                     $adv_hebd = split("_", $tempo)[1];
                     if($adv_hebd == "1"){
@@ -83,8 +83,8 @@
             }
 
             // Oraisons :
-            if($rep_tempo["Oraisons"] != ""){
-                $out["orationes"] = array("source" => "MG", "ref" => split("/", $rep_tempo["Oraisons"]));
+            if($rep_tempo["Oraisons_MG"] != NULL){
+                $out["orationes"] = array("source" => "MG", "ref" => split("/", $rep_tempo["Oraisons_MG"]));
             }
             else{
                 $out["orationes"] = array("source" => "Files", "ref" => $rep_tempo["Ref"]);
@@ -102,7 +102,7 @@
             }
             
             // Préface :
-            if($rep_tempo["Pref"] != ""){
+            if($rep_tempo["Pref"] != NULL){
                 $pref = $rep_tempo["Pref"];
             }
             else{
@@ -135,11 +135,11 @@
             if($force_sancto > $force_tempo){
                 $out["lit_day"] = $rep_sancto["Day"];
                 $out["rang"] = $rep_sancto["Rang"];
-                if($rep_sancto["Tierce"] != ""){
+                if($rep_sancto["Tierce"] != NULL){
                     $out["tierce_ant"] = $rep_sancto["Tierce"];
                 }
-                if($rep_sancto["Oraisons"] != ""){
-                    $out["orationes"] = array("source" => "MG", "ref" => split("/", $rep_sancto["Oraisons"]));
+                if($rep_sancto["Oraisons_MG"] != NULL){
+                    $out["orationes"] = array("source" => "MG", "ref" => split("/", $rep_sancto["Oraisons_MG"]));
                 }
                 else{
                     $out["orationes"] = array("source" => "Files", "ref" => $rep_sancto["Ref"]);
