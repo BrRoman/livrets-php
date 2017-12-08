@@ -10,4 +10,9 @@
 - 02/11 : pas d'antienne à Tierce.
 - 08/12 : attention si dimanche.
 - Tierce : 2 janvier, 3 janvier, 14 février.
-- Féries du Temps de Noël : préciser antienne de Tierce.
+- Noël et Ste Famille : ne pas préciser semaine psaumes à Vigiles si pas nécessaire (voir PBJ pour supprimer le "année paire/impaire" à Noël.
+- "In feriis:" : même police que rubriques "In officio:" (+ espace après ?).
+- Lectures propres 22 et 23/11.
+- Temps de Noël (après 1er janvier) :
+	• Lectures : "0102", "0103" etc. (Reste seulement à faire à partir du 8 janvier)
+	• Oraisons : "noel_time_before_ep_2", "noel_time_after_ep_5" etc.

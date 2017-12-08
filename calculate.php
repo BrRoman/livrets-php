@@ -62,7 +62,7 @@ function calculate_tempo($timestamp){
     else{
         $adv = $noel - ((21 + $noel_weekday) * $day);
         $ste_famille = $noel + ((7 - $noel_weekday) * $day);
-        $bapteme = $noel + (7 * $day) + ((7 - $noel_weekday) * $day);
+        $bapteme = $noel_weekday == 1 ? $noel + (13 * $day) : $noel + (14 * $day) + ((7 - $noel_weekday) * $day);
     }
     $paques = calculate_paques($lit_year);
     $cendres = $paques - (46 * $day);
@@ -78,31 +78,22 @@ function calculate_tempo($timestamp){
     }
 
     // Temps de Noël :
-    if($timestamp >= $noel and $timestamp <= $bapteme){
+    if($timestamp >= $noel and $timestamp < $bapteme){
         $days_after_noel = ceil(($timestamp - $noel) / $day);
-        if($noel_weekday == 0){
-            if($timestamp == $ste_famille){
-                $tempo = "ste_famille_fete";
-            }
-            else{
-                $dim_after_noel = floor($days_after_noel / 7);
-                $tempo = "noel_".$dim_after_noel."_".$weekday;
-            }
+        if($days_after_noel < 7){ // Octave de Noël.
+            $tempo = "noel_time_1"; 
         }
-        else{
-            if($timestamp == $ste_famille){
-                $tempo = "ste_famille_dim";
-            }
-            else if($timestamp < $ste_famille){
-                $tempo = "noel_0_".$days_after_noel;
-            }
-            else{
-                $dim_after_noel = $noel + ((7 - $noel_weekday) * $day);
-                $days_after_dim_after_noel = ceil(($timestamp - $dim_after_noel) / $day);
-                $dim_after_noel = floor($days_after_dim_after_noel / 7) + 1;
-                $tempo = "noel_".$dim_after_noel."_".$weekday;
-            }
+        else if($days_after_noel < 12){ // Avant l'Épiphanie.
+            $tempo = $weekday == 0 ? "noel_dim_2" : "noel_time_2";
         }
+        else{ // Après l'Épiphanie.
+            $tempo = "noel_time_3";
+        }
+    }
+    
+    // Sainte Famille :
+    if($timestamp == $ste_famille){
+        $tempo = $noel_weekday == 0 ? "ste_famille_fete" : "ste_famille_dim";
     }
 
     // Baptême :

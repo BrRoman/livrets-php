@@ -87,7 +87,17 @@
                 $out["orationes"] = array("source" => "MG", "ref" => split("/", $rep_tempo["Oraisons_MG"]));
             }
             else{
-                $out["orationes"] = array("source" => "Files", "ref" => $rep_tempo["Ref"]);
+                if($liturg_time == "noel" && split("_", $tempo)[1] == "time"){
+                    if(split("_", $tempo)[2] == "2"){ // Temps avant l'Épiphanie.
+                        $out["orationes"] = array("source" => "Files", "ref" => "noel_time_before_ep_".Date("w", $timestamp));
+                    }
+                    else if(split("_", $tempo)[2] == "3"){ // Temps après l'Épiphanie.
+                        $out["orationes"] = array("source" => "Files", "ref" => "noel_time_after_ep_".Date("w", $timestamp));
+                    }
+                }
+                else{
+                    $out["orationes"] = array("source" => "Files", "ref" => $rep_tempo["Ref"]);
+                }
             }
             
             // Lectures :
@@ -98,7 +108,12 @@
                 $out["readings"] = $rep_tempo["Ref"]."_".$year_even;
             }
             else{
-                $out["readings"] = $rep_tempo["Ref"];
+                if($liturg_time == "noel" && split("_", $tempo)[1] == "time"){
+                    $out["readings"] = Date("m", $timestamp).Date("d", $timestamp);
+                }
+                else{
+                    $out["readings"] = $rep_tempo["Ref"];
+                }
             }
             
             // Préface :
@@ -109,10 +124,6 @@
                 // Avent : préface I ou II de l'Avent, selon que avant ou après 17/12 :
                 if($liturg_time == "adv"){
                     $pref = $day < 17 ? "adv_1" : "adv_2";
-                }
-                // Noël : préface III de Noël ou Épiphanie, selon que avant ou après le 06/01 :
-                if($liturg_time == "noel"){
-                    $pref = $day < 6 ? "noel_3" : "epiph";
                 }
             }
             $back_pref = $connect->query("SELECT * FROM Prefaces WHERE Ref = '".$pref."';");
@@ -177,7 +188,7 @@
                 $out["orationes"] = array("source" => "Files", "ref" => "bmv_".$rep["CM"]);
                 $back_pref = $connect->query("SELECT * FROM Prefaces WHERE Ref = '".$rep["Preface"]."';");
                 if($rep_pref = $back_pref->fetch()){
-                    $out["pref"] = array("ref" => $rep["Preface"], "name" => $rep_pref["Name"], "page" => $rep_pref["Page"], "name_la" => "", "name_fr" => "");
+                    $out["pref"] = array("ref" => $rep["Preface"], "name" => $rep_pref["Name"], "page" => $rep_pref["Page"], "name_la" => NULL, "name_fr" => NULL);
                 }
                 $back_pref->closeCursor();
             }
