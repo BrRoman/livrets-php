@@ -65,7 +65,7 @@ function write_latex(data){
             tex += "\\TitreB{Oraison~:}\\Normal{p. " + orationes["ref"][0] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Oraison}{or}{" + orationes["ref"] + "}\n\n";
+            tex += "\\Oraison{Oraison}{1}{" + orationes["ref"] + "}\n\n";
         }
 
         // 1ère lecture :
@@ -132,7 +132,7 @@ function write_latex(data){
             tex += "\\TitreB{Prière sur les offrandes~:}\\Normal{p. " + orationes["ref"][1] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Prière sur les offrandes}{so}{" + orationes["ref"] + "}\n\n";
+            tex += "\\Oraison{Prière sur les offrandes}{2}{" + orationes["ref"] + "}\n\n";
         }
 
         // Préface :
@@ -186,7 +186,7 @@ function write_latex(data){
             tex += "\\TitreB{Prière après la communion~:}\\Normal{p. " + orationes["ref"][2] + ".}\n\n";
         }
         else{
-            tex += "\\Oraison{Prière après la Communion}{pc}{" + orationes["ref"] + "}\n\n";
+            tex += "\\Oraison{Prière après la Communion}{3}{" + orationes["ref"] + "}\n\n";
         }
 
         // Conclusion :
