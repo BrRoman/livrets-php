@@ -93,7 +93,7 @@ function calculate_tempo($timestamp){
     
     // Sainte Famille :
     if($timestamp == $ste_famille){
-        $tempo = $noel_weekday == 0 ? "ste_famille_fete" : "ste_famille_dim";
+        $tempo = $noel_weekday == 0 ? "ste_famille_fer" : "ste_famille_dim";
     }
 
     // Baptême :
