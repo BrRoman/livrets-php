@@ -87,6 +87,7 @@
                 $out["orationes"] = array("source" => "MG", "ref" => split("/", $rep_tempo["Oraisons_MG"]));
             }
             else{
+                // Temps de Noël :
                 if($liturg_time == "noel" && split("_", $tempo)[1] == "time"){
                     if(split("_", $tempo)[2] == "2"){ // Temps avant l'Épiphanie.
                         $out["orationes"] = array("source" => "Files", "ref" => "noel_time_before_ep_".Date("w", $timestamp));
@@ -95,6 +96,11 @@
                         $out["orationes"] = array("source" => "Files", "ref" => "noel_time_after_ep_".Date("w", $timestamp));
                     }
                 }
+                // Temps per annum :
+                else if($liturg_time == "pa"){ // Ne concerne que la 1ère semaine Per annum (toutes les autres sont dans le MG).
+                    $out["orationes"] = array("source" => "Files", "ref" => "pa_".split("_", $tempo)[1]);
+                }
+                // Tout le reste (carême, tp, etc.) :
                 else{
                     $out["orationes"] = array("source" => "Files", "ref" => $rep_tempo["Ref"]);
                 }
