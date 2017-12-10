@@ -190,7 +190,7 @@ function write_latex(data){
         }
 
         // Conclusion :
-        tex += "\\TitreB{Conclusion :}{\\Normal{p. 47.}}\n\n";
+        tex += "\\TitreB{Conclusion~:}{\\Normal{p. 47.}}\n\n";
     }
     tex += "\n\n\n\n\\vspace{7cm}\n\n";
     tex += "\\begin{center}\n\n";
