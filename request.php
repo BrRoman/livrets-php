@@ -43,7 +43,7 @@
         // On remplit le out comme s'il n'y avait que le Temporal :
         $tempo = calculate_tempo($timestamp);
         $out["tempo"] = $tempo;
-        $liturg_time = split("_", $tempo)[0];
+        $liturg_time = explode("_", $tempo)[0];
         $back_tempo = $connect->query("SELECT * FROM Days WHERE Ref = '".$tempo."';");
         if($rep_tempo = $back_tempo->fetch()){
             $out["lit_day"] = $rep_tempo["Day"];
@@ -53,7 +53,7 @@
             // Antienne de Tierce :
             if($rep_tempo["Tierce"] == NULL){
                 if($liturg_time == "adv"){
-                    $adv_hebd = split("_", $tempo)[1];
+                    $adv_hebd = explode("_", $tempo)[1];
                     if($adv_hebd == "1"){
                         $out["tierce_ant"] = "jucundare";
                     }
@@ -84,21 +84,21 @@
 
             // Oraisons :
             if($rep_tempo["Oraisons_MG"] != NULL){
-                $out["orationes"] = array("source" => "MG", "ref" => split("/", $rep_tempo["Oraisons_MG"]));
+                $out["orationes"] = array("source" => "MG", "ref" => explode("/", $rep_tempo["Oraisons_MG"]));
             }
             else{
                 // Temps de Noël :
-                if($liturg_time == "noel" && split("_", $tempo)[1] == "time"){
-                    if(split("_", $tempo)[2] == "2"){ // Temps avant l'Épiphanie.
+                if($liturg_time == "noel" && explode("_", $tempo)[1] == "time"){
+                    if(explode("_", $tempo)[2] == "2"){ // Temps avant l'Épiphanie.
                         $out["orationes"] = array("source" => "Files", "ref" => "noel_time_before_ep_".Date("w", $timestamp));
                     }
-                    else if(split("_", $tempo)[2] == "3"){ // Temps après l'Épiphanie.
+                    else if(explode("_", $tempo)[2] == "3"){ // Temps après l'Épiphanie.
                         $out["orationes"] = array("source" => "Files", "ref" => "noel_time_after_ep_".Date("w", $timestamp));
                     }
                 }
                 // Temps per annum :
                 else if($liturg_time == "pa"){ // Ne concerne que la 1ère semaine Per annum (toutes les autres sont dans le MG).
-                    $out["orationes"] = array("source" => "Files", "ref" => "pa_".split("_", $tempo)[1]);
+                    $out["orationes"] = array("source" => "Files", "ref" => "pa_".explode("_", $tempo)[1]);
                 }
                 // Tout le reste (carême, tp, etc.) :
                 else{
@@ -114,7 +114,7 @@
                 $out["readings"] = $rep_tempo["Ref"]."_".$year_even;
             }
             else{
-                if($liturg_time == "noel" && split("_", $tempo)[1] == "time"){
+                if($liturg_time == "noel" && explode("_", $tempo)[1] == "time"){
                     $out["readings"] = Date("m", $timestamp).Date("d", $timestamp);
                 }
                 else{
@@ -156,7 +156,7 @@
                     $out["tierce_ant"] = $rep_sancto["Tierce"];
                 }
                 if($rep_sancto["Oraisons_MG"] != NULL){
-                    $out["orationes"] = array("source" => "MG", "ref" => split("/", $rep_sancto["Oraisons_MG"]));
+                    $out["orationes"] = array("source" => "MG", "ref" => explode("/", $rep_sancto["Oraisons_MG"]));
                 }
                 else{
                     $out["orationes"] = array("source" => "Files", "ref" => $rep_sancto["Ref"]);
