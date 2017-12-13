@@ -6,7 +6,7 @@
     $weekdays_fr = array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
     $months_fr = array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre");
 
-    $connect = new PDO("mysql:host=localhost; dbname=livrets; charset=utf8", "root", "marie2017", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    $connect = new PDO("mysql:host=localhost; dbname=livrets; charset=utf8", "root", "sql", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
     // Pour chaque jour de la retraite, création d'un array qui contiendra les retours de la base de données :
     for($i = 0; $i < 5; $i++){
