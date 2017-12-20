@@ -5,7 +5,7 @@
 function calculate_adv($year){
     $day = 24 * 3600;
     $noel = mktime(0, 0, 0, 12, 25, $year);
-    $noel_weekday = (int) Date("w", $noel);
+    $noel_weekday = (int) date("w", $noel);
     if($noel_weekday == 0){
         $adv = $noel - (28 * $day);
     }
@@ -40,10 +40,10 @@ function calculate_paques($year){
 // En entrée : timestamp du jour civil.
 function calculate_tempo($timestamp){
     $day = 24 * 3600;
-    $weekday = (int) Date("w", $timestamp);
+    $weekday = (int) date("w", $timestamp);
 
     // Calcul des grands jours liturgiques de l'année à laquelle appartient le jour concerné :
-    $year = Date("Y", $timestamp);
+    $year = date("Y", $timestamp);
     $lit_year = $year;
     
     // Calcul du 1er dim. de l'Avent de l'année civile courante :
@@ -53,7 +53,7 @@ function calculate_tempo($timestamp){
         $lit_year++;
     }
     $noel = mktime(0, 0, 0, 12, 25, $lit_year - 1);
-    $noel_weekday = (int) Date("w", $noel);
+    $noel_weekday = (int) date("w", $noel);
     if($noel_weekday == 0){
         $adv = $noel - (28 * $day);
         $ste_famille = $noel + (5 * $day);
