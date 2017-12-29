@@ -222,15 +222,15 @@
 \TitreB{#1~:}
 \LatinFrancais{\input{\FolderData/Prefaces/#2_la_A.txt}#3\input{\FolderData/Prefaces/#2_la_B.txt}}{\input{\FolderData/Prefaces/#2_fr_A.txt}#4\input{\FolderData/Prefaces/#2_fr_B.txt}}}
 
-% Citation :
-\newenvironment{Citation}[1]
+% Références :
+\newenvironment{Reference}[1]
 {\fontsize{9}{10}\selectfont
 \hfill\parbox{6cm}{\begin{flushright}\itshape{#1}\end{flushright}}\par}
 
 % Lectures (nom de la lecture, chemin) :
 \newenvironment{Lecture}[2]
 {
-\TitreB{#1~:}\hfill\Citation{\input{\FolderData/Lectures/#2.ref}}
+\TitreB{#1~:}\hfill\Reference{\input{\FolderData/Lectures/#2.ref}}
 \Normal{\input{\FolderData/Lectures/#2.txt}}}
 
 % Images (réf., commentaire) :
