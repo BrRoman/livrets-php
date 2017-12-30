@@ -4,18 +4,35 @@
 \usepackage{geometry}
 \geometry{paperwidth=14.85cm, paperheight=21cm, inner=1cm, outer=1.5cm, tmargin=1cm, bmargin=1.5cm, includehead}
 
-% Polices :
 % Choix d'une police principale :
 \usepackage{luatextra}
 \setmainfont{Arno Pro}% Serveur : "Amiri".
-% Pour autoriser toutes les tailles de polices :
-%\usepackage{lmodern}
-% Redéfinition de la taille des polices :
-\renewcommand{\small}{\fontsize{11}{11}\selectfont}
 
-% Césures etc. :
+% Langues latin et français (Césures, accents etc.) :
 \usepackage[latin, frenchb]{babel}
 \selectlanguage{frenchb}
+\frenchbsetup{ThinColonSpace=true}
+
+% Accès aux polices Opentype :
+\usepackage{fontspec}
+
+% Définition de polices :
+\newfontfamily{\GregPlantin}[BoldFont = GregPlantin Bold,ItalicFont = GregPlantin Italic,BoldItalicFont = GregPlantin Bolditalic]{GregPlantin Regular}
+\newfontfamily{\Brioso}{Brioso Pro SemiboldDisp}
+\newfontfamily{\FlavGaramond}{FlavGaramond}
+\newfontfamily{\Lettrines}{Plantin Std}
+
+% Pour pouvoir insérer des expressions (et non pas seulement des valeurs) dans des commandes telles que \setlength, \addtolength, etc. :
+\usepackage{calc}
+
+% Symboles :
+\usepackage{pifont}
+
+% Textes en parallèle :
+\usepackage{parallel}
+
+% Pour augmenter l'approche des caractères :
+\usepackage{soul}
 
 % Mise en forme des titres de sections :
 \usepackage[explicit]{titlesec}
@@ -27,9 +44,6 @@
 \parbox{6cm}{\centering\textbf{#1}}
 \end{flushright}}
 \titlespacing{\section}{0cm}{0cm}{-.8cm}
-
-% Textes en parallèle :
-\usepackage{parallel}
 
 % Entêtes et pieds de pages :
 \usepackage{fancyhdr}
@@ -44,73 +58,87 @@
 \setlength{\parindent}{0cm}
 \setlength{\headsep}{0.5cm} % Distance entre le header et le corps du texte.
 
-% Pour forcer l'usage des césures (cf. mail Thierry Masson) :
-%\pretolerance = -1
-%\tolerance = 2000
+% Textes en parallèle :
+\usepackage{parallel}
 
-% Pour augmenter l'approche des caractères :
-\usepackage{soul}
 
-% Gregorio :
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Gregorio %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \usepackage[autocompile]{gregoriotex}
 \grechangedim{commentaryraise}{.4cm}{scalable}
-\grechangestyle{modeline}{\small\scshape}
+\grechangestyle{modeline}{\fontsize{11}{11}\selectfont\scshape}
+\grechangestyle{initial}{\fontsize{36}{36}\color{rougeliturgique}\Lettrines}
+\grechangedim{afterinitialshift}{2.2mm}{fixed}
+\grechangedim{beforeinitialshift}{3mm}{fixed}
+\newbox\scorebox
+\gresetheadercapture{commentary}{grecommentary}{string}
+\let\grevanillacommentary\grecommentary
+\def\grecommentary#1{\grevanillacommentary{#1\kern 0.3mm}}
+\grechangestaffsize{16}% Taille des portées
+\gresetbarspacing{new}
+\grechangedim{bar@maior@standalone@notext}{0.3 cm}{scalable}
+\grechangedim{spacebeforeeolcustos}{0.3 cm}{scalable}
 
-\usepackage{fontspec}
-\usepackage{calc}
-\usepackage{pifont}
-\frenchbsetup{ThinColonSpace=true}
-\newfontfamily{\GregPlantin}[BoldFont = GregPlantin Bold,ItalicFont = GregPlantin Italic,BoldItalicFont = GregPlantin Bolditalic]{GregPlantin Regular}
-\newfontfamily{\PlantinStd}{Plantin Std}
-\newfontfamily{\GaramondPremierPro}[Numbers=OldStyle]{Garamond Premier Pro}
-\newfontfamily{\GaramondPremierProCaption}[Numbers=OldStyle]{GaramondPremrPro-Capt}
-\newfontfamily{\GaramondPremierProMediumCaption}[Numbers=OldStyle]{GaramondPremrPro-MedCapt}
-\newfontfamily{\GaramondPremierProItCaption}[Numbers=OldStyle]{GaramondPremrPro-ItCapt}
-%\newfontfamily{\GaramondPremierProIt}{GaramondPremrPro-It}
-\newfontfamily{\GaramondPremierProMediumIt}{GaramondPremrPro-MedIt}
-\newfontfamily{\FlavGaramond}{FlavGaramond}
+% Couleur rouge :
 \definecolor{rougeliturgique}{cmyk}{0.15,1,1,0}
-\renewcommand{\Rbar}{\textbf{\color{rougeliturgique}\GregPlantin\symbol{164}}}
+
+% Style pour les références des partitions :
+\grechangestyle{commentary}{\color{rougeliturgique}\itshape\fontsize{9}{8}\selectfont}
+
+% Verset :
 \renewcommand{\Vbar}{\textbf{\color{rougeliturgique}\GregPlantin\symbol{8730}}}
-\renewcommand{\GreDagger}{\textrm{\color{rougeliturgique}\FlavGaramond \symbol{8224}}}
-\catcode`\®=\active
-\def®{\Rbar}
 \catcode`\√=\active
 \def√{\Vbar}
-\catcode`\©=\active
-\def©{\hspace{-1.2ex}}
+
+% Répons :
+\renewcommand{\Rbar}{\textbf{\color{rougeliturgique}\GregPlantin\symbol{164}}}
+\catcode`\®=\active
+\def®{\Rbar}
+
+% Croix haute :
+\renewcommand{\GreDagger}{\textrm{\color{rougeliturgique}\FlavGaramond \symbol{8224}}}
 \catcode`\†=\active
 \def†{\GreDagger}
+
+% Croix de Malte:
+\catcode`\+=\active
+\def+{{\fontspec{Menlo} \symbol{10016}}}
+
+% Étoile :
+\def\GreStar{{\color{rougeliturgique}\tiny\raisebox{1.5ex}{\ding{72}}}\relax}
+\catcode`\*=\active
+\def*{\GreStar}
+
+% Antienne :
+\catcode`\ø=\active
+\defø{{\fontspec{FlavGaramond} \symbol{8721}}}
+
+% Caractères composés (æ, œ, y) + accent aigu :
 \makeatletter
 \def\accentaigucaractere{\makebox[0pt][c]{´}}
 \newcommand\accentaigu[1]{\setlength{\@tempdima}{\widthof{#1}}\hbox{#1\kern-0.5\@tempdima\accentaigucaractere\kern0.5\@tempdima}}
 \makeatother
-\def\espacefine{\hspace{0.035cm}}
 \catcode`\ã=\active% Tilde-a
 \defã{\accentaigu{æ}}
 \catcode`\õ=\active% Tilde-o
 \defõ{\accentaigu{œ}}
 \catcode`\Ï=\active% Alt-j
 \defÏ{\accentaigu{y}}
+
+% Divers symboles liturgiques :
 \catcode`\™=\active% Alt-Maj-t
 \def™{\textit{\color{rougeliturgique}T.P.}}
 \catcode`\∏=\active% Alt-Maj-p
 \def∏{\textit{\color{rougeliturgique}Ps.}}
-\def\GreStar{
-{\color{rougeliturgique}\tiny\raisebox{1.5ex}{\ding{72}}}
-  \relax
-}
-\grechangestyle{initial}{\fontsize{36}{50}\color{rougeliturgique}\PlantinStd }
-\newbox\scorebox
-\gresetheadercapture{commentary}{grecommentary}{string}
-\grechangestaffsize{16}
-\grechangedim{afterinitialshift}{2.2mm}{fixed}
-\grechangedim{beforeinitialshift}{3mm}{fixed}
-\let\grevanillacommentary\grecommentary
-\def\grecommentary#1{\grevanillacommentary{#1\kern 0.3mm}}
-\gresetbarspacing{new}
-\grechangedim{bar@maior@standalone@notext}{0.3 cm}{scalable}
-\grechangedim{spacebeforeeolcustos}{0.3 cm}{scalable}
+\catcode`\ı=\active% Alt-Maj-n
+\defı{\textup{\color{rougeliturgique}N.}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Fin Gregorio %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Commandes et environnements :
