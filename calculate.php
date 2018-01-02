@@ -64,6 +64,13 @@ function calculate_tempo($timestamp){
         $ste_famille = $noel + ((7 - $noel_weekday) * $day);
         $bapteme = $noel_weekday == 1 ? $noel + (13 * $day) : $noel + (14 * $day) + ((7 - $noel_weekday) * $day);
     }
+    $pro_unitate = mktime(0, 0, 0, 1, 18, $year);
+    if(date("w", $pro_unitate) == 0){
+        $pro_unitate += $day;
+    }
+    else if(date("w", $pro_unitate) == 5){
+        $pro_unitate += (5 * $day);
+    }
     $paques = calculate_paques($lit_year);
     $cendres = $paques - (46 * $day);
     $quadr_dim_1 = $cendres + (4 * $day);
@@ -106,6 +113,11 @@ function calculate_tempo($timestamp){
         $days_after_bapt = ceil(($timestamp - $bapteme) / $day);
         $dim_per_annum = floor($days_after_bapt / 7) + 1;
         $tempo = "pa_".$dim_per_annum."_".$weekday;
+    }
+
+    // Messe votive pour l'unité des chrétiens :
+    if($timestamp == $pro_unitate){
+        $tempo = "pro_unitate";
     }
 
     // Féries après les Cendres :
