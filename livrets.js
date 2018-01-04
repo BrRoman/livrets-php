@@ -1,7 +1,14 @@
 $(document).ready(function(){
     // Lier le datepicker à l'input date :
     $(function(){
-        $("#date_debut").datepicker();
+        $("#date_debut").datepicker({
+            dateFormat: "dd-mm-yy",
+            minDate: 0,
+            dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+            dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+            monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+            monthNamesShort: ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"]
+        });
     });
 
     // Quand une date est sélectionnée, rafraîchir le formulaire et mettre à jour le LaTeX :
