@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="styles.css" />
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="jquery-ui.css">
+        <link rel="stylesheet" href="livrets.css">
+        <script src="jquery-3.2.1.js"></script>
+        <script src="jquery-ui.js"></script>
+        <script src="latex.js"></script>
+        <script src="livrets.js"></script>
         <title>Livrets retraites</title>
 	</head>
 	<body>
@@ -15,7 +20,7 @@
                 </h2>
 
                 <div id="input">
-                    <label for="date_debut">Retraite du : </label><input id="date_debut" type="date" name="date_debut" />
+                    <label for="date_debut">Retraite du : </label><input id="date_debut" type="text" name="date_debut">
                 </div>
 
                 <div id="output">
@@ -50,12 +55,9 @@
             </div>
             <form id="overlay_download" action="livret.pdf" target="_blank">
                 <p>Votre livret est prêt !</p>
-                <input id="view" type="submit" value="Afficher" style="margin-top:20px" />
+                <input id="view" type="submit" value="Afficher" style="margin-top:20px">
             </form>
         </div>
 	</body>
-    <script src="jquery-3.2.1.js"></script>
-    <script src="latex.js"></script>
-    <script src="main.js"></script>
 </html>
 

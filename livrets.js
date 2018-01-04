@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    // Lier le datepicker à l'input date :
+    $(function(){
+        $("#date_debut").datepicker();
+    });
+
     // Quand une date est sélectionnée, rafraîchir le formulaire et mettre à jour le LaTeX :
     $("#date_debut").change(function(e){
         $("#output").css("display", "flex");
