@@ -25,9 +25,6 @@ function write_latex(data){
             tex += "{}\n\n";
         }
 
-        // Ouverture de la célébration :
-        tex += "\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n"
-
         // Introït :
         if($("#grid_value_" + i + "0").val() != ""){
             var introit = day_data["IN"];
@@ -40,6 +37,9 @@ function write_latex(data){
             }
         }
         
+        // Ouverture de la célébration :
+        tex += "\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n"
+
         // Asperges me :
         if(day_data["asp"] != ""){
             tex += day_data["asp"] + "\n\n";
