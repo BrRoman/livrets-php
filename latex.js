@@ -1,7 +1,9 @@
 // Fonctions écrivant le contenu du fichier tex à partir du retour de request.php.
 
 function write_latex(data){
-    var tex = tex_header(Date.parse($("#date_debut").val()));
+    var start_date_split = $("#date_debut")[0].value.split("/");
+    var start_date = new Date(start_date_split[2], start_date_split[1] - 1, start_date_split[0]).getTime();
+    var tex = tex_header(start_date);
     for(var i = 0; i < 5; i++){
         var day_data = data[i];
 
@@ -23,9 +25,6 @@ function write_latex(data){
             tex += "{}\n\n";
         }
 
-        // Ouverture de la célébration :
-        tex += "\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n"
-
         // Introït :
         if($("#grid_value_" + i + "0").val() != ""){
             var introit = day_data["IN"];
@@ -38,6 +37,9 @@ function write_latex(data){
             }
         }
         
+        // Ouverture de la célébration :
+        tex += "\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n"
+
         // Asperges me :
         if(day_data["asp"] != ""){
             tex += day_data["asp"] + "\n\n";

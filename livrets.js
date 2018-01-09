@@ -1,4 +1,16 @@
 $(document).ready(function(){
+    // Lier le datepicker à l'input date :
+    $(function(){
+        $("#date_debut").datepicker({
+            dateFormat: "dd/mm/yy",
+            minDate: 0,
+            dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+            dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+            monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+            monthNamesShort: ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"]
+        });
+    });
+
     // Quand une date est sélectionnée, rafraîchir le formulaire et mettre à jour le LaTeX :
     $("#date_debut").change(function(e){
         $("#output").css("display", "flex");
@@ -40,7 +52,8 @@ function update(){
     var days_fr = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
     var months_fr = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
     var data = {};
-    var start_date = $("#date_debut")[0].valueAsNumber;
+    var start_date_split = $("#date_debut")[0].value.split("/");
+    var start_date = new Date(start_date_split[2], start_date_split[1] - 1, start_date_split[0]).getTime();
     for(var i = 0; i < 5; i++){
         var date_timestamp = start_date + ((i + 1) * 24 * 3600 * 1000);
         var date = new Date(date_timestamp);
@@ -73,7 +86,6 @@ function request(data_json){
         "request.php",
         data_json,
         function(data){
-            console.log("Back from request.php =", data);
             write_latex(data);
         },
         "json"
