@@ -9,8 +9,8 @@
 \setmainfont{Arno Pro}% Serveur : "Amiri".
 
 % Langues latin et français (Césures, accents etc.) :
-\usepackage[latin, frenchb]{babel}
-\selectlanguage{frenchb}
+\usepackage[latin, french]{babel}
+\selectlanguage{french}
 \frenchbsetup{ThinColonSpace=true}
 
 % Accès aux polices Opentype :
@@ -18,7 +18,6 @@
 
 % Définition de polices :
 \newfontfamily{\GregPlantin}[BoldFont = GregPlantin Bold,ItalicFont = GregPlantin Italic,BoldItalicFont = GregPlantin Bolditalic]{GregPlantin Regular}
-\newfontfamily{\Brioso}{Brioso Pro SemiboldDisp}
 \newfontfamily{\FlavGaramond}{FlavGaramond}
 \newfontfamily{\Lettrines}{Plantin Std}
 
@@ -211,7 +210,7 @@
 \fontsize{12}{12}\selectfont
 \selectlanguage{latin}
 \gregorioscore{\FolderData/#1}
-\selectlanguage{frenchb}
+\selectlanguage{french}
 \begin{center}
 \fontsize{11}{12}\selectfont
 \parbox[t][\height][b]{9cm}{\vspace{-.2cm}\input{\FolderData/#1.txt}}\par\vspace{.1cm}
@@ -231,7 +230,7 @@
 \begin{Parallel}{}{}
 \selectlanguage{latin}
 \ParallelLText{\fontsize{12}{13}\selectfont#1}
-\selectlanguage{frenchb}
+\selectlanguage{french}
 \ParallelRText{\fontsize{11}{12}\selectfont#2}
 \end{Parallel}}
 
