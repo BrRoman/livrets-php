@@ -16,3 +16,4 @@
 - Temps de Noël (après 1er janvier) :
 	• Lectures : "0102", "0103" etc. (Reste seulement à faire à partir du 8 janvier)
 	• Oraisons : "noel_time_before_ep_2", "noel_time_after_ep_5" etc.
+- Oratio super populum dimanches de carême.
