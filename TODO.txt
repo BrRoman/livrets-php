@@ -17,4 +17,6 @@
 	• Lectures : "0102", "0103" etc. (Reste seulement à faire à partir du 8 janvier)
 	• Oraisons : "noel_time_before_ep_2", "noel_time_after_ep_5" etc.
 - Oratio super populum dimanches de carême.
-
+- Psaumes voir livret de Tierce : préciser la 1ère fois "dans le livret inséré au Missel grégorien bleu". Et au début : les numéros de page renvoient au Missel grégorien bleu.
+- Base de données : Nième semaine d'Avent et de Carême : ne pas couper en 3 mais en 2.
+- Oraisons des saints pendant le Carême.
