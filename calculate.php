@@ -128,7 +128,7 @@ function calculate_tempo($timestamp){
 
     // Carême :
     if($timestamp >= $quadr_dim_1 and $timestamp < $paques){
-        $days_careme = ceil(($timestamp - $quadr_dim_1) / $day);
+        $days_careme = ceil(($timestamp - $quadr_dim_1) / $day) - 1;
         $dim_careme = floor($days_careme / 7) + 1;
         $tempo = "qua_".$dim_careme."_".$weekday;
     }
