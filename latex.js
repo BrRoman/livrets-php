@@ -163,7 +163,7 @@ function write_latex(data){
 
         // Canon :
         tex += "\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22)}\n\n";
-        tex += "\\TitreB{Rites de communion~:}\\Normal{(p. 41)}\n\n";
+        tex += "\\TitreB{Rites de communion~:}\\Normal{p. 41.}\n\n";
         
         // Agnus Dei :
         if($("#grid_value_" + i + "7").val() != ""){
