@@ -21,3 +21,5 @@
 - Base de données : Nième semaine d'Avent et de Carême : ne pas couper en 3 mais en 2.
 - Oraisons des saints pendant le Carême.
 - Alleluia -> Trait en carême.
+- Pas de header en haut des dernières pages (prières avant et après la Communion).
+
