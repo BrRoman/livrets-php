@@ -46,7 +46,7 @@
             </div>
             <div id="tex">
                 <textarea id="tex_area"></textarea>
-                <input type="button" id="go" value="Voir le pdf" style="width:300px; font-size:24px"></input>
+                <input type="button" id="go" value="Voir le pdf" style="width:300px; font-size:18px"></input>
             </div>
             <div id="overlay_wait">
                 <img src="wait.gif" style="margin-bottom:20px"></br>

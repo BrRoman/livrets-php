@@ -18,7 +18,7 @@ tr .label{
 }
 
 #data{
-    width: 500px;
+    width: 800px;
 }
 
 #date_debut{
@@ -34,7 +34,7 @@ tr .label{
 }
 
 #output{
-    align-items: flex-start;
+    align-items: center;
     display: none;
     flex-direction: column;
     justify-content: flex-start;
@@ -61,7 +61,7 @@ tr .label{
     flex-direction: row;
     height: auto;
     justify-content: center;
-    width: 100%;
+    width: auto;
 }
 
 #sup{
@@ -73,17 +73,19 @@ tr .label{
     align-items: center;
     display: flex;
     flex-direction: column;
+    height: 800px;
     justify-content: center;
+    margin-top: 50px;
+    width: 600px;
 }
 
 #tex_area{
-    height: 720px;
+    height: 750px;
     margin-bottom: 20px;
-    margin-left: 40px;
     margin-top: 40px;
     font-family: monaco;
     font-size: 10pt;
-    width: 600px;
+    width: 100%;
 }
 
 .civil_day{
