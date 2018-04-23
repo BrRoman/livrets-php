@@ -5,10 +5,14 @@
 #+ et en vidant le fichier.
 
 cd "/home/frromain/Documents/Informatique/Prog/Web/Sites/livrets/Data/Oraisons"
-find . -type f -name '0421*fr*' | while read
+find . -type f -name '0421_*' | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/\.txt/-old\.txt/g'`
+	fn=`echo "$REPLY" | sed 's/0421/0501/g'`
     #echo "$fn"
     cp "$f" "$fn"
+    echo "" > "$fn"
 done
+
+exit
+
