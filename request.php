@@ -243,7 +243,12 @@
                 $back->closeCursor();
             }
             else{
-                $back = $connect->query("SELECT * FROM Scores WHERE Type = '".$label."' AND Ref = '".$grid_ref."';");
+                if($label == "GR" && $liturg_time == "tp"){
+                    $back = $connect->query("SELECT * FROM Scores WHERE Type = 'AL' AND Ref = '".$grid_ref."';");
+                }
+                else{
+                    $back = $connect->query("SELECT * FROM Scores WHERE Type = '".$label."' AND Ref = '".$grid_ref."';");
+                }
                 if($rep = $back->fetch()){
                     $out[$label] = array($rep["Name"], $rep["Page"]);
                 }

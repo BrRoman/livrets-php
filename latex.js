@@ -76,12 +76,14 @@ function write_latex(data){
         // Graduel :
         if($("#grid_value_" + i + "1").val() != ""){
             var graduel = day_data["GR"];
+            var score = day_data["tempo"].startsWith("tp_") ? "Alleluia" : "Graduel";
+            var score_abbr = day_data["tempo"].startsWith("tp_") ? "al" : "gr";
             if(graduel[1] != ""){
-                tex += "\\TitreB{Graduel~:}\\Normal{\\textit{" + graduel[0] + "} (p. " + graduel[1] + ").}\n\n"
+                tex += "\\TitreB{" + score + "~:}\\Normal{\\textit{" + graduel[0] + "} (p. " + graduel[1] + ").}\n\n"
             }
             else{
-                tex += "\\TitreB{Graduel~:}\\par\n";
-                tex += "\\Partoche{GR/gr_" + graduel[0] + "}\n\n";
+                tex += "\\TitreB{" + score + "~:}\\par\n";
+                tex += "\\Partoche{GR/" + score_abbr + "_" + graduel[0] + "}\n\n";
             }
         }
         
@@ -93,11 +95,12 @@ function write_latex(data){
         // Alleluia :
         if($("#grid_value_" + i + "2").val() != ""){
             var alleluia = day_data["AL"];
+            var score = day_data["tempo"].startsWith("qua_") ? "Trait" : "Alleluia";
             if(alleluia[1] != ""){
-                tex += "\\TitreB{Alleluia~:}\\Normal{\\textit{" + alleluia[0] + "} (p. " + alleluia[1] + ").}\n\n"
+                tex += "\\TitreB{" + score + "~:}\\Normal{\\textit{" + alleluia[0] + "} (p. " + alleluia[1] + ").}\n\n"
             }
             else{
-                tex += "\\TitreB{Alleluia~:}\\par\n";
+                tex += "\\TitreB{" + score + "~:}\\par\n";
                 tex += "\\Partoche{GR/al_" + alleluia[0] + "}\n\n";
             }
         }
