@@ -88,18 +88,18 @@
 
 % Verset :
 \renewcommand{\Vbar}{\textbf{\color{rougeliturgique}\GregPlantin\symbol{8730}}}
-\catcode`\√=\active
-\def√{\Vbar}
+\catcode`\↑=\active % Alt-Maj-b
+\def↑{\Vbar}
 
 % Répons :
 \renewcommand{\Rbar}{\textbf{\color{rougeliturgique}\GregPlantin\symbol{164}}}
-\catcode`\®=\active
+\catcode`\®=\active % Alt-Maj-c
 \def®{\Rbar}
 
 % Croix haute :
 \renewcommand{\GreDagger}{\textrm{\color{rougeliturgique}\FlavGaramond \symbol{8224}}}
-\catcode`\†=\active
-\def†{\GreDagger}
+\catcode`\Þ=\active % Alt-Maj-t
+\defÞ{\GreDagger}
 
 % Croix de Malte:
 \catcode`\+=\active
@@ -112,28 +112,26 @@
 \newcommand{\Star}{\raisebox{0.9ex}{\tiny\ding{107}}}
 
 % Antienne :
-\catcode`\ø=\active
-\defø{{\fontspec{FlavGaramond} \symbol{8721}}}
+\catcode`\¥=\active % Alt-Maj-g
+\def¥{{\fontspec{FlavGaramond} \symbol{8721}}}
 
 % Caractères composés (æ, œ, y) + accent aigu :
 \makeatletter
 \def\accentaigucaractere{\makebox[0pt][c]{´}}
 \newcommand\accentaigu[1]{\setlength{\@tempdima}{\widthof{#1}}\hbox{#1\kern-0.5\@tempdima\accentaigucaractere\kern0.5\@tempdima}}
 \makeatother
-\catcode`\ã=\active% Tilde-a
-\defã{\accentaigu{æ}}
-\catcode`\õ=\active% Tilde-o
-\defõ{\accentaigu{œ}}
-\catcode`\Ï=\active% Alt-j
-\defÏ{\accentaigu{y}}
+\catcode`\Ð=\active% Alt-Maj-h
+\defÐ{\accentaigu{æ}}
+\catcode`\Ï=\active% Alt-Maj-k
+\defÏ{\accentaigu{œ}}
+\catcode`\Ÿ=\active% Alt-Maj-y
+\defŸ{\accentaigu{y}}
 
 % Divers symboles liturgiques :
-\catcode`\™=\active% Alt-Maj-t
+\catcode`\™=\active% Alt-Maj-8
 \def™{\textit{\color{rougeliturgique}T.P.}}
-\catcode`\∏=\active% Alt-Maj-p
-\def∏{\textit{\color{rougeliturgique}Ps.}}
-\catcode`\ı=\active% Alt-Maj-n
-\defı{\textup{\color{rougeliturgique}N.}}
+\catcode`\Ø=\active% Alt-Maj-$
+\defØ{\textit{\color{rougeliturgique}Ps.}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% Fin Gregorio %%%%%%%%%%%%%
