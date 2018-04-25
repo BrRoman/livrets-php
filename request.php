@@ -30,6 +30,7 @@
 
         // Jour civil :
         $weekday = $weekdays_fr[(int) date("w", $timestamp)];
+        $out["weekday"] = $weekday;
         $day = date("j", $timestamp);
         if($day == 1){
             $day = "1\\textsuperscript{er}";
@@ -70,6 +71,9 @@
                 }
                 else if($liturg_time == "pass"){
                     $out["tierce_ant"] = "judicasti_domine";
+                }
+                else if($liturg_time == "tp"){
+                    $out["tierce_ant"] = ($weekday == "Dimanche") ? "alleluia_dim_tp" : "alleluia_feries_tp";
                 }
                 else{
                     $back_tierce = $connect->query("SELECT * FROM Tierce WHERE Page = '".$in["tierce_page"]."';");
