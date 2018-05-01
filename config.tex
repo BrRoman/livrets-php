@@ -261,14 +261,14 @@
 \Normal{\input{\FolderData/Lectures/#2.txt}}}
 
 % Images (réf., commentaire) :
-\newenvironment{Image}[2]
+\newenvironment{Image}[1]
 {
 \newpage
 \thispagestyle{empty}
 \newgeometry{inner=0cm, outer=0cm, tmargin=4cm}
 \begin{center}
-\parbox[t]{14.85cm}{\centering\includegraphics[width=8cm]{./Data/Images/#1.jpg}\vspace{1cm}}
-\parbox{7cm}{\centering{\itshape{#2}}}
+\parbox[t]{14.85cm}{\centering\includegraphics[width=8cm]{\FolderData/Images/#1.jpg}\vspace{1cm}}
+    \parbox{7cm}{\centering{\itshape{\input{\FolderData/Images/#1.tex}}}}
 \end{center}
 \restoregeometry}
 
