@@ -105,11 +105,12 @@
 \catcode`\±=\active % Alt-Maj-+
 \def±{{\fontspec{Menlo} \symbol{10016}}}
 
-% Étoile :
+% Étoile dans les partitions :
 \def\GreStar{{\color{rougeliturgique}\tiny\raisebox{1.5ex}{\ding{72}}}\relax}
 
 % Étoile des Kyrie et Gloria étoilés :
-\newcommand{\Star}{\raisebox{0.9ex}{\tiny\ding{107}}}
+\catcode`\„=\active % Alt-Maj-s
+\def„{\raisebox{0.9ex}{\tiny{~\color{rougeliturgique}\ding{107}}}}
 
 % Antienne :
 \catcode`\¥=\active % Alt-Maj-g
