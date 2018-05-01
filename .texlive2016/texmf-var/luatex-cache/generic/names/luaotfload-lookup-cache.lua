@@ -1,6 +1,7 @@
 return {
  ["ArnoPro##655360"]={ "ArnoPro-SmText.otf", false },
  ["ArnoPro/B#b##655360"]={ "ArnoPro-BoldSmText.otf", false },
+ ["ArnoPro/B:mode=node;script=latn;language=DFLT;+tlig;#b##642250"]={ "ArnoPro-BoldSmText.otf", false },
  ["ArnoPro/B:mode=node;script=latn;language=DFLT;+tlig;#b##753664"]={ "ArnoPro-Bold.otf", false },
  ["ArnoPro/B:mode=node;script=latn;language=DFLT;+tlig;#b##786432"]={ "ArnoPro-Bold.otf", false },
  ["ArnoPro/B:mode=node;script=latn;language=DFLT;+tlig;#b##917504"]={ "ArnoPro-Bold.otf", false },
@@ -9,6 +10,7 @@ return {
  ["ArnoPro/I#i##655360"]={ "ArnoPro-ItalicSmText.otf", false },
  ["ArnoPro/I:mode=node;script=latn;language=DFLT;+tlig;#i##589824"]={ "ArnoPro-ItalicSmText.otf", false },
  ["ArnoPro/I:mode=node;script=latn;language=DFLT;+tlig;#i##655360"]={ "ArnoPro-ItalicSmText.otf", false },
+ ["ArnoPro/I:mode=node;script=latn;language=DFLT;+tlig;#i##720896"]={ "ArnoPro-ItalicSmText.otf", false },
  ["ArnoPro/I:mode=node;script=latn;language=DFLT;+tlig;#i##786432"]={ "ArnoPro-Italic.otf", false },
  ["ArnoPro/I:mode=node;script=latn;language=DFLT;+tlig;#i##851968"]={ "ArnoPro-Italic.otf", false },
  ["ArnoPro:mode=node;script=latn;language=DFLT;+tlig;##1179648"]={ "ArnoPro-Subhead.otf", false },
