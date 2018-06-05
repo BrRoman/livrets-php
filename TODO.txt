@@ -24,4 +24,6 @@
 - Pas de header en haut des dernières pages (prières avant et après la Communion).
 - Homélie dimanches et solennités.
 - Kyrie, Gloria, Credo etc. : indiquer "Traduction page…".
+- Lundi de Pentecôte
+
 
