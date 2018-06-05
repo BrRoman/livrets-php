@@ -23,3 +23,6 @@ txt = re.sub("  ", " ", txt)
 fichier = open(file_path, "w")
 fichier.write(txt)
 fichier.close()
+
+
+
