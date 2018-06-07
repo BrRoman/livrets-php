@@ -215,7 +215,7 @@
             else if($liturg_time == "adv" or $liturg_time == "qua"){
                 $out["asp"] = "\\TitreB{Asperges me II}\\Normal{(p. 71).}"; // Avent et Carême.
             }
-            else if($day < 8 or $out["rang"] == "Fête" or $out["rang"] = "Solennité"){
+            else if($day < 8 or $out["rang"] == "Fête" or $out["rang"] == "Solennité"){
                 $out["asp"] = "\\TitreB{Asperges me}\\Normal{(p. 70).}";
             }
             else{
