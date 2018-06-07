@@ -11,9 +11,10 @@
     
     // Pour chaque jour de la retraite, création d'un array qui contiendra les retours de la base de données :
     for($i = 0; $i < 5; $i++){
+        $out = array();
         $in = $data_in[$i];
         $timestamp = $in["timestamp"] / 1000;
-        $out = array();
+        $out['timestamp'] = $timestamp;
 
         // Données générales sur l'année :
         $year = date("Y", $timestamp);

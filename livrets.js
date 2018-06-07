@@ -82,11 +82,12 @@ function update(){
 }
 
 function request(data_json){
+    console.log("js =", data_json);
     $.post(
         "request.php",
         data_json,
         function(data){
-            console.log(data);
+            console.log("php =", data);
             write_latex(data);
         },
         "json"
