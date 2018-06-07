@@ -5,7 +5,7 @@
     $data_out = array();
     $weekdays_fr = array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
     $months_fr = array("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre");
-    date_default_timezone_set('Europe/Paris'); // Pour compatibilité avec les timestamps de JS.
+    date_default_timezone_set('Etc/GMT-2)'); // Pour compatibilité avec les timestamps de JS. (Code JS: console.log(date.getTimezoneOffset()); => '-120')
 
     $connect = new PDO("mysql:host=localhost; dbname=livrets; charset=utf8", "root", "sql", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
