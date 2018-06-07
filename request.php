@@ -26,6 +26,7 @@
             $lit_year++;
         }
         $year_even = $lit_year % 2 == 0 ? "2" : "1";
+        $out['even'] = $year_even;
         $year_letters = array("A", "B", "C");
         $year_letter = $year_letters[($lit_year - 2011) % 3];
 
@@ -117,7 +118,9 @@
                 $out["readings"] = $rep_tempo["Ref"]."_".$year_letter;
             }
             elseif($rep_tempo["Lect_cycle"] == "2"){
-                $out["readings"] = $rep_tempo["Ref"]."_".$year_even;
+                //TODO: Si pas de pb à l'usage, suppr. tout ce bloc else if.
+                //$out["readings"] = $rep_tempo["Ref"]."_".$year_even;
+                $out["readings"] = $rep_tempo["Ref"];
             }
             else{
                 if($liturg_time == "noel" && explode("_", $tempo)[1] == "time"){

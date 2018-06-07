@@ -25,6 +25,8 @@
 - Homélie dimanches et solennités.
 - Kyrie, Gloria, Credo etc. : indiquer "Traduction page…".
 - Lundi de Pentecôte
+- request.php : si pas de pb à l'usage, suppr. le bloc elseif (cycle = 2), qui ne sert plus à rien dans la mesure où il se ramène au else.
+
 
 
 
