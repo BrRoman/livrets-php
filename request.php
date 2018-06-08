@@ -5,15 +5,16 @@
     $data_out = array();
     $weekdays_fr = array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
     $months_fr = array("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre");
-    date_default_timezone_set('Europe/Paris'); // Pour compatibilité avec les timestamps de JS.
+    date_default_timezone_set('Etc/GMT-2)'); // Pour compatibilité avec les timestamps de JS. (Code JS: console.log(date.getTimezoneOffset()); => '-120')
 
     $connect = new PDO("mysql:host=localhost; dbname=livrets; charset=utf8", "root", "sql", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
     // Pour chaque jour de la retraite, création d'un array qui contiendra les retours de la base de données :
     for($i = 0; $i < 5; $i++){
+        $out = array();
         $in = $data_in[$i];
         $timestamp = $in["timestamp"] / 1000;
-        $out = array();
+        $out['timestamp'] = $timestamp;
 
         // Données générales sur l'année :
         $year = date("Y", $timestamp);
@@ -25,6 +26,7 @@
             $lit_year++;
         }
         $year_even = $lit_year % 2 == 0 ? "2" : "1";
+        $out['even'] = $year_even;
         $year_letters = array("A", "B", "C");
         $year_letter = $year_letters[($lit_year - 2011) % 3];
 
@@ -116,7 +118,9 @@
                 $out["readings"] = $rep_tempo["Ref"]."_".$year_letter;
             }
             elseif($rep_tempo["Lect_cycle"] == "2"){
-                $out["readings"] = $rep_tempo["Ref"]."_".$year_even;
+                //TODO: Si pas de pb à l'usage, suppr. tout ce bloc else if.
+                //$out["readings"] = $rep_tempo["Ref"]."_".$year_even;
+                $out["readings"] = $rep_tempo["Ref"];
             }
             else{
                 if($liturg_time == "noel" && explode("_", $tempo)[1] == "time"){
@@ -215,7 +219,7 @@
             else if($liturg_time == "adv" or $liturg_time == "qua"){
                 $out["asp"] = "\\TitreB{Asperges me II}\\Normal{(p. 71).}"; // Avent et Carême.
             }
-            else if($day < 8 or $out["rang"] == "Fête" or $out["rang"] = "Solennité"){
+            else if($day < 8 or $out["rang"] == "Fête" or $out["rang"] == "Solennité"){
                 $out["asp"] = "\\TitreB{Asperges me}\\Normal{(p. 70).}";
             }
             else{

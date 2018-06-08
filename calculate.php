@@ -36,7 +36,7 @@ function calculate_paques($year){
     return($paques);
 }
 
-// Calcul du jour liturgique demandé, renvoyé sous forme de référencee : "pa_30_0", "adv_3_2", etc.
+// Calcul du jour liturgique demandé, renvoyé sous forme de référence : "pa_30_0", "adv_3_2", etc.
 // En entrée : timestamp du jour civil.
 function calculate_tempo($timestamp){
     $day = 24 * 3600;
@@ -143,7 +143,7 @@ function calculate_tempo($timestamp){
     // Temps per Annum après la Pentecôte :
     if($timestamp > $pentecote and $timestamp < $current_adv){
         $days_before_current_adv = ceil(($current_adv - $timestamp) / $day);
-        $dim_per_annum = 35 - ceil($days_before_current_adv / 7);
+        $dim_per_annum = 35 - ceil(($days_before_current_adv - 1)/ 7);
         $tempo = "pa_".$dim_per_annum."_".$weekday;
     }
 
