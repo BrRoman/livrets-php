@@ -88,52 +88,51 @@
 
 % Verset :
 \renewcommand{\Vbar}{\textbf{\color{rougeliturgique}\GregPlantin\symbol{8730}}}
-\catcode`\√=\active
-\def√{\Vbar}
+\catcode`\↑=\active % Alt-Maj-b
+\def↑{\Vbar}
 
 % Répons :
 \renewcommand{\Rbar}{\textbf{\color{rougeliturgique}\GregPlantin\symbol{164}}}
-\catcode`\®=\active
+\catcode`\®=\active % Alt-Maj-c
 \def®{\Rbar}
 
 % Croix haute :
 \renewcommand{\GreDagger}{\textrm{\color{rougeliturgique}\FlavGaramond \symbol{8224}}}
-\catcode`\†=\active
-\def†{\GreDagger}
+\catcode`\Þ=\active % Alt-Maj-t
+\defÞ{\GreDagger}
 
 % Croix de Malte:
-\catcode`\+=\active
-\def+{{\fontspec{Menlo} \symbol{10016}}}
+\catcode`\±=\active % Alt-Maj-+
+\def±{{\fontspec{Menlo} \symbol{10016}}}
 
-% Étoile :
+% Étoile dans les partitions :
 \def\GreStar{{\color{rougeliturgique}\tiny\raisebox{1.5ex}{\ding{72}}}\relax}
 
 % Étoile des Kyrie et Gloria étoilés :
-\newcommand{\Star}{\raisebox{0.9ex}{\tiny\ding{107}}}
+\catcode`\„=\active % Alt-Maj-s
+\def„{\raisebox{0.9ex}{\tiny{~\color{rougeliturgique}\ding{107}}}}
 
 % Antienne :
-\catcode`\ø=\active
-\defø{{\fontspec{FlavGaramond} \symbol{8721}}}
+\catcode`\¥=\active % Alt-Maj-g
+\def¥{{\fontspec{FlavGaramond} \symbol{8721}}}
 
 % Caractères composés (æ, œ, y) + accent aigu :
 \makeatletter
 \def\accentaigucaractere{\makebox[0pt][c]{´}}
 \newcommand\accentaigu[1]{\setlength{\@tempdima}{\widthof{#1}}\hbox{#1\kern-0.5\@tempdima\accentaigucaractere\kern0.5\@tempdima}}
 \makeatother
-\catcode`\ã=\active% Tilde-a
-\defã{\accentaigu{æ}}
-\catcode`\õ=\active% Tilde-o
-\defõ{\accentaigu{œ}}
-\catcode`\Ï=\active% Alt-j
-\defÏ{\accentaigu{y}}
+\catcode`\Ð=\active% Alt-Maj-h
+\defÐ{\accentaigu{æ}}
+\catcode`\Ï=\active% Alt-Maj-k
+\defÏ{\accentaigu{œ}}
+\catcode`\Ÿ=\active% Alt-Maj-y
+\defŸ{\accentaigu{y}}
 
 % Divers symboles liturgiques :
-\catcode`\™=\active% Alt-Maj-t
+\catcode`\™=\active% Alt-Maj-8
 \def™{\textit{\color{rougeliturgique}T.P.}}
-\catcode`\∏=\active% Alt-Maj-p
-\def∏{\textit{\color{rougeliturgique}Ps.}}
-\catcode`\ı=\active% Alt-Maj-n
-\defı{\textup{\color{rougeliturgique}N.}}
+\catcode`\Ø=\active% Alt-Maj-$
+\defØ{\textit{\color{rougeliturgique}Ps.}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% Fin Gregorio %%%%%%%%%%%%%
@@ -220,7 +219,7 @@
 \TitreB{Office de Tierce~:}\par
 \Partoche{Tierce/#1}
 \vspace{-0.3cm}
-\Normal{\hspace{.5cm}Psaumes~: voir livret de Tierce p. #2.}}
+\Normal{\hspace{.5cm}Psaumes~: voir livret de Tierce inséré au début du Missel grégorien, p. #2.}}
 
 % Latin/francais :
 \newenvironment{LatinFrancais}[2]
@@ -262,14 +261,14 @@
 \Normal{\input{\FolderData/Lectures/#2.txt}}}
 
 % Images (réf., commentaire) :
-\newenvironment{Image}[2]
+\newenvironment{Image}[1]
 {
 \newpage
 \thispagestyle{empty}
 \newgeometry{inner=0cm, outer=0cm, tmargin=4cm}
 \begin{center}
-\parbox[t]{14.85cm}{\centering\includegraphics[width=8cm]{./Data/Images/#1.jpg}\vspace{1cm}}
-\parbox{7cm}{\centering{\itshape{#2}}}
+\parbox[t]{14.85cm}{\centering\includegraphics[width=8cm]{\FolderData/Images/#1.jpg}\vspace{1cm}}
+    \parbox{7cm}{\centering{\itshape{\input{\FolderData/Images/#1.tex}}}}
 \end{center}
 \restoregeometry}
 
