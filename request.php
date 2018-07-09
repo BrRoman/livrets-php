@@ -154,6 +154,15 @@
         
         // On cherche s'il y a un Sancto :
         $sancto = date("m", $timestamp).date("d", $timestamp);
+        // Sancto spécial :
+        if($sancto == '0716'){
+            if($weekday == 'Samedi'){
+                $sancto = '0716_sam';
+            }
+            else{
+                $sancto = '0716_fer';
+            }
+        }
         $back_sancto = $connect->query("SELECT * FROM Days WHERE Ref = '".$sancto."';");
         if($rep_sancto = $back_sancto->fetch()){
             $force_sancto = $rep_sancto["Precedence"];
