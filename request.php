@@ -29,6 +29,7 @@
         $out['even'] = $year_even;
         $year_letters = array("A", "B", "C");
         $year_letter = $year_letters[($lit_year - 2011) % 3];
+        $out['year'] = $year_letter;
 
         // Jour civil :
         $weekday = $weekdays_fr[(int) date("w", $timestamp)];
@@ -114,6 +115,7 @@
             }
             
             // Lectures :
+            $out['lectures_propres'] = False;
             if($rep_tempo["Lect_cycle"] == "3"){
                 $out["readings"] = $rep_tempo["Ref"]."_".$year_letter;
             }
@@ -180,16 +182,9 @@
                     $out["orationes"] = array("source" => "Files", "ref" => $rep_sancto["Ref"]);
                 }
                 if($rep_sancto["Lect_propres"] == "True"){
-                    $out["propre"] = "True";
-                    if($rep_sancto["Lect_cycle"] == "3"){
-                        $out["readings"] = $rep_sancto["Ref"]."_".$year_letter;
-                    }
-                    elseif($rep_sancto["Lect_cycle"] == "2"){
-                        $out["readings"] = $rep_sancto["Ref"]."_".$year_even;
-                    }
-                    else{
-                        $out["readings"] = $rep_sancto["Ref"];
-                    }
+                    $out['lectures_propres'] = True;
+                    $out['readings'] = $rep_sancto["Ref"];
+                    $out['cycle_lectures'] = $rep_sancto['Lect_cycle'];
                 }
                 $back_pref = $connect->query("SELECT * FROM Prefaces WHERE Ref = '".$rep_sancto["Pref"]."';");
                 if($rep_pref = $back_pref->fetch()){

@@ -71,7 +71,30 @@ function write_latex(data){
         }
 
         // 1ère lecture :
-        tex += '\\Lecture{Première lecture}{' + day_data['readings'] + '_1' + (day_data['readings'].startsWith('pa_') && day_data['weekday'] != 'Dimanche' ? '_' + day_data['even'] : '') + '}\n\n';
+        tex += '\\Lecture{Première lecture}{' + day_data['readings'];
+        if(day_data['lectures_propres']){
+            if(day_data['cycle_lectures'] == 6){
+                tex += '_1_' + day_data['year'] + '_' + day_data['even'];
+            }
+            else if(day_data['cycle_lectures'] == 3){
+                tex += '_1_' + day_data['year'];
+            }
+            else if(day_data['cycle_lectures'] == 2){
+                tex += '_1_' + day_data['even'];
+            }
+            else{
+                tex += '_1';
+            }
+        }
+        else{
+            if(day_data['readings'].startsWith('pa_') && day_data['weekday'] != 'Dimanche'){
+                tex += '_1_' + day_data['even'];
+            }
+            else{
+                tex += '_1';
+            }
+        }
+        tex += '}\n\n';
 
         // Graduel :
         if($('#grid_value_' + i + '1').val() != ''){
@@ -89,7 +112,30 @@ function write_latex(data){
         
         // 2e lecture :
         if(($('#grid_value_' + i + '1').val() != '') & ($('#grid_value_' + i + '2').val() != '')){
-            tex += '\\Lecture{Deuxième lecture}{' + day_data['readings'] + '_2' + (day_data['readings'].startsWith('pa_') && day_data['weekday'] != 'Dimanche' ? '_' + day_data['even'] : '') + '}\n\n';;
+            tex += '\\Lecture{Deuxième lecture}{' + day_data['readings'];
+            if(day_data['lectures_propres']){
+                if(day_data['cycle_lectures'] == 6){
+                    tex += '_2_' + day_data['year'] + '_' + day_data['even'];
+                }
+                else if(day_data['cycle_lectures'] == 3){
+                    tex += '_2_' + day_data['year'];
+                }
+                else if(day_data['cycle_lectures'] == 2){
+                    tex += '_2_' + day_data['even'];
+                }
+                else{
+                    tex += '_2';
+                }
+            }
+            else{
+                if(day_data['readings'].startsWith('pa_') && day_data['weekday'] != 'Dimanche'){
+                    tex += '_2_' + day_data['even'];
+                }
+                else{
+                    tex += '_2';
+                }
+            }
+            tex += '}\n\n';
         }
 
         // Alleluia :
@@ -106,13 +152,25 @@ function write_latex(data){
         }
 
         // Évangile :
-        if(day_data['readings'].indexOf('pa_') == 0 && day_data['readings'].indexOf('_0_') == -1){
-            //tex += '\\Lecture{Évangile}{' + day_data['readings'].slice(0, -2) + '_ev}\n\n';// Féries du Temps per Annum : on omet la distinction années paires/impaires.
-            tex += '\\Lecture{Évangile}{' + day_data['readings'] + '_ev}\n\n';// Féries du Temps per Annum : on omet la distinction années paires/impaires.
+        tex += '\\Lecture{Évangile}{' + day_data['readings'];
+        if(day_data['lectures_propres']){
+            if(day_data['cycle_lectures'] == 6){
+                tex += '_ev_' + day_data['year'] + '_' + day_data['even'];
+            }
+            else if(day_data['cycle_lectures'] == 3){
+                tex += '_ev_' + day_data['year'];
+            }
+            else if(day_data['cycle_lectures'] == 2){
+                tex += '_ev_' + day_data['even'];
+            }
+            else{
+                tex += '_ev';
+            }
         }
         else{
-            tex += '\\Lecture{Évangile}{' + day_data['readings'] + '_ev}\n\n';
+            tex += '_ev';
         }
+        tex += '}\n\n';
 
 
         // Credo :

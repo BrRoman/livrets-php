@@ -8,7 +8,7 @@ cd "/media/fr_romain/FR_ROMAIN/Sites/livrets/Data/Oraisons/"
 find . -type f -name '0421_*' | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/0421/bmv_39/g'`
+	fn=`echo "$REPLY" | sed 's/0421/0723/g'`
     #echo "$fn"
     cp "$f" "$fn"
     echo "" > "$fn"
