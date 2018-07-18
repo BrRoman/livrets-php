@@ -3,7 +3,7 @@ $(document).ready(function(){
     $(function(){
         $("#date_debut").datepicker({
             dateFormat: "dd/mm/yy",
-            minDate: 0,
+            minDate: null,
             dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
             dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
             monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
