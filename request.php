@@ -165,6 +165,15 @@
                 $sancto = '0716_fer';
             }
         }
+        if($sancto == '0806'){
+            if($weekday == 'Dimanche'){
+                $sancto = '0806_dim';
+            }
+            else{
+                $sancto = '0806_fer';
+            }
+        }
+        $force_sancto = 0;
         $back_sancto = $connect->query("SELECT * FROM Days WHERE Ref = '".$sancto."';");
         if($rep_sancto = $back_sancto->fetch()){
             $force_sancto = $rep_sancto["Precedence"];
