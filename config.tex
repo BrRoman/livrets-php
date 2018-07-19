@@ -260,15 +260,15 @@
 \TitreB{#1~:}\hfill\Reference{\input{\FolderData/Lectures/#2.ref}}
 \Normal{\input{\FolderData/Lectures/#2.txt}}}
 
-% Images (réf., commentaire) :
-\newenvironment{Image}[1]
+% Images (réf., largeur, espace before) :
+\newenvironment{Image}[3]
 {
 \newpage
 \thispagestyle{empty}
-\newgeometry{inner=0cm, outer=0cm, tmargin=7cm}
+\newgeometry{inner=0cm, outer=0cm, tmargin=#3}
 \begin{center}
-\parbox[t]{14.85cm}{\centering\includegraphics[width=12cm]{\FolderData/Images/#1.jpg}\vspace{1cm}}
-    \parbox{11cm}{\centering{\itshape{\input{\FolderData/Images/#1.tex}}}}
+\parbox[t]{14.85cm}{\centering\includegraphics[width=#2]{\FolderData/Images/#1.jpg}\vspace{1cm}}
+    \parbox{#2}{\centering{\itshape{\input{\FolderData/Images/#1.tex}}}}
 \end{center}
 \restoregeometry}
 
