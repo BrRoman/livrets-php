@@ -41,6 +41,7 @@ function calculate_paques($year){
 function calculate_tempo($timestamp){
     $day = 24 * 3600;
     $weekday = (int) date("w", $timestamp);
+    $first_in_month = ((int) date('j', $timestamp) < 8) ? true : false;
 
     // Calcul des grands jours liturgiques de l'année à laquelle appartient le jour concerné :
     $year = date("Y", $timestamp);
@@ -152,6 +153,6 @@ function calculate_tempo($timestamp){
         $tempo = "christ_roi";
     }
     
-    return($tempo);
+    return(array($tempo, $first_in_month));
 }
 ?>
