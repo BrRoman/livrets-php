@@ -8,10 +8,10 @@ cd "/media/fr_romain/FR_ROMAIN/Sites/livrets/Data/Lectures/"
 find . -name '0531_*' | sort | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/0531_/0723_/g'`
-    #echo "$fn"
-    cp "$f" "$fn"
-    echo "" > "$fn"
+	fn=`echo "$REPLY" | sed 's/0531_/0806_fer_/g'`
+    echo "$fn"
+    #cp "$f" "$fn"
+    #echo "" > "$fn"
 done
 
 exit
