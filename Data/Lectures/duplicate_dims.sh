@@ -8,7 +8,7 @@ cd "/media/fr_romain/FR_ROMAIN/Sites/livrets/Data/Lectures/"
 find . -name 'pa_12_0_A_*' | sort | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/pa_12_0_A_/pa_21_0_B_/g'`
+	fn=`echo "$REPLY" | sed 's/pa_12_0_A_/pa_22_0_B_/g'`
     #echo "$fn"
     cp "$f" "$fn"
     echo "" > "$fn"
