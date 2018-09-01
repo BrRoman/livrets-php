@@ -75,7 +75,7 @@
 \gresetheadercapture{commentary}{grecommentary}{string}
 \let\grevanillacommentary\grecommentary
 \def\grecommentary#1{\grevanillacommentary{#1\kern 0.3mm}}
-\grechangestaffsize{16}% Taille des portées
+\grechangestaffsize{15}% Taille des portées
 \gresetbarspacing{new}
 \grechangedim{bar@maior@standalone@notext}{0.3 cm}{scalable}
 \grechangedim{spacebeforeeolcustos}{0.3 cm}{scalable}
@@ -131,7 +131,7 @@
 % Divers symboles liturgiques :
 \catcode`\™=\active% Alt-Maj-8
 \def™{\textit{\color{rougeliturgique}T.P.}}
-\catcode`\Ø=\active% Alt-Maj-$
+\catcode`\Ø=\active% Alt-Maj-$ (dollar)
 \defØ{\textit{\color{rougeliturgique}Ps.}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -204,7 +204,7 @@
 % Partoche :
 \newenvironment{Partoche}[1]
 {
-\fontsize{12}{12}\selectfont
+\fontsize{12.2}{13}\selectfont
 \selectlanguage{latin}
 \gregorioscore{\FolderData/#1}
 \selectlanguage{french}

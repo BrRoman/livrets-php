@@ -130,11 +130,6 @@
             if($rep_tempo['Lect_cycle'] == '3'){
                 $out['readings'] = $rep_tempo['Ref'].'_'.$year_letter;
             }
-            elseif($rep_tempo['Lect_cycle'] == '2'){
-                //TODO: Si pas de pb à l'usage, suppr. tout ce bloc else if.
-                //$out['readings'] = $rep_tempo['Ref'].'_'.$year_even;
-                $out['readings'] = $rep_tempo['Ref'];
-            }
             else{
                 if($liturg_time == 'noel' && explode('_', $tempo)[1] == 'time'){
                     $out['readings'] = date('m', $timestamp).date('d', $timestamp);

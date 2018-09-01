@@ -1,9 +1,3 @@
-- Asperges me :
-	• I = 70
-	• II = 71,1
-	• III = 71,2
-	• V = 71
-- Prières après la communion.
 - Script cleaner : gabc : ae->æ ; aé->ã.
 - Remplacement des "Vel~:" et "Ou~:" dans les oraisons, après remplacement des retours chariot.
 - Essayer de mettre tous les scripts dans un dossier Scripts (aux derniers essais cela fait planter l'application).
@@ -16,18 +10,21 @@
 - Temps de Noël (après 1er janvier) :
 	• Lectures : "0102", "0103" etc. (Reste seulement à faire à partir du 8 janvier)
 	• Oraisons : "noel_time_before_ep_2", "noel_time_after_ep_5" etc.
-- Oratio super populum dimanches de carême.
-- Psaumes voir livret de Tierce : préciser la 1ère fois "dans le livret inséré au Missel grégorien bleu". Et au début : les numéros de page renvoient au Missel grégorien bleu.
+
+CARÊME :
+    - Oratio super populum dimanches de carême.
+    - Pater B féries
+RAMEAUX :
+    - Procession.
+    - Pas d'Ouverture de la célébration ni d'Asperges me.
+
 - Base de données : Nième semaine d'Avent et de Carême : ne pas couper en 3 mais en 2.
 - Oraisons des saints pendant le Carême.
 - Alleluia -> Trait en carême.
 - Pas de header en haut des dernières pages (prières avant et après la Communion).
 - Homélie dimanches et solennités.
 - Kyrie, Gloria, Credo etc. : indiquer "Traduction page…".
-- Lundi de Pentecôte
-- request.php : si pas de pb à l'usage, suppr. le bloc elseif (cycle = 2), qui ne sert plus à rien dans la mesure où il se ramène au else.
-
-
-
-
+- Lundi de Pentecôte.
+- 5e dim. de Pâques : oraison différente dans MG et dans MR2002.
+- Lundi au TP : antienne de Tierce propre.
 
