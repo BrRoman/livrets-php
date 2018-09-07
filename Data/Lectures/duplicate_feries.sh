@@ -9,9 +9,9 @@ cd "/media/fr_romain/FR_ROMAIN/Sites/livrets/Data/Lectures/"
 find . -name 'pa_14_6_ev*' | sort | while read
 do
 	f=`echo "$REPLY"`
-    #fn=`echo "$REPLY" | sed 's/pa_14_\(.\)_1_2/pa_22_\1_1_2/g'`
-    fn=`echo "$REPLY" | sed 's/pa_14_6_ev/pa_22_5_ev/g'`
-	#echo "$fn"
-	cp "$f" "$fn"
-	echo "" > "$fn"
+    fn=`echo "$REPLY" | sed 's/pa_14_\(.\)_1_2/pa_34_\1_1_2/g'`
+    #fn=`echo "$REPLY" | sed 's/pa_14_6_ev/pa_34_4_ev/g'`
+	echo "$fn"
+	#cp "$f" "$fn"
+	#echo "" > "$fn"
 done
