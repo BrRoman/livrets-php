@@ -53,13 +53,13 @@ function write_latex(data){
         // Kyrie :
         if($('#grid_value_' + i + '5').val()!= ''){
             var kyrie = day_data['KY'];
-            tex += '\\TitreB{' + kyrie[0] + '}\\Normal{(p. ' + kyrie[1] + ')}\n\n';
+            tex += '\\TitreB{' + kyrie[0] + '}\\Normal{(p. ' + kyrie[1] + ').}\n\n';
         }
         
         // Gloria :
         if($('#grid_value_' + i + '6').val() != ''){
             var gloria = day_data['GL'];
-            tex += '\\TitreB{' + gloria[0] + '}\\Normal{(p. ' + gloria[1] + ')}\n\n';
+            tex += '\\TitreB{' + gloria[0] + '}\\Normal{(p. ' + gloria[1] + ').}\n\n';
         }
         
         // Oraison :
@@ -202,7 +202,7 @@ function write_latex(data){
         // Préface :
         var pref = day_data['pref'];
         if(pref['page'] != null){
-            tex += '\\TitreB{' + pref['name'] + '~:}\\Normal{p. ' + pref['page'] + '}\n\n';
+            tex += '\\TitreB{' + pref['name'] + '~:}\\Normal{p. ' + pref['page'] + '.}\n\n';
         }
         else{
             if(pref['name_la'] != null){
@@ -216,17 +216,17 @@ function write_latex(data){
         // Sanctus :
         if($('#grid_value_' + i + '7').val() != ''){
             var sanctus = day_data['SA'];
-            tex += '\\TitreB{' + sanctus[0] + '}\\Normal{(p. ' + sanctus[1] + ')}\n\n';
+            tex += '\\TitreB{' + sanctus[0] + '}\\Normal{(p. ' + sanctus[1] + ').}\n\n';
         }
 
         // Canon :
-        tex += '\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22)}\n\n';
+        tex += '\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22).}\n\n';
         tex += '\\TitreB{Rites de communion~:}\\Normal{p. 41.}\n\n';
         
         // Agnus Dei :
         if($('#grid_value_' + i + '7').val() != ''){
             var agnus = day_data['AG'];
-            tex += '\\TitreB{' + agnus[0] + '}\\Normal{(p. ' + agnus[1] + ')}\n\n';
+            tex += '\\TitreB{' + agnus[0] + '}\\Normal{(p. ' + agnus[1] + ').}\n\n';
         }
         
         // Antienne de communion :
