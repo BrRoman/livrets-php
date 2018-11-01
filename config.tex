@@ -225,7 +225,7 @@
 \newenvironment{Tierce}[2]
 {
 \TitreB{Office de Tierce~:}\par
-\Partoche{Tierce/#1}
+\Partoche{tierce/#1}
 \vspace{-0.3cm}
 \Normal{\hspace{.5cm}Psaumes~: voir livret de Tierce inséré au début du Missel grégorien, p. #2.}}
 
@@ -243,19 +243,19 @@
 \newenvironment{Oraison}[3]
 {
 \TitreB{#1~:}
-\LatinFrancais{\input{\FolderData/Oraisons/#3_#2_la.txt}}{\input{\FolderData/Oraisons/#3_#2_fr.txt}}}
+\LatinFrancais{\input{\FolderData/oraisons/#3_#2_la.txt}}{\input{\FolderData/oraisons/#3_#2_fr.txt}}}
 
 % Préfaces (texte, chemin) :
 \newenvironment{Preface}[2]
 {
 \TitreB{#1~:}
-\LatinFrancais{\input{\FolderData/Prefaces/#2_la.txt}}{\input{\FolderData/Prefaces/#2_fr.txt}}}
+\LatinFrancais{\input{\FolderData/prefaces/#2_la.txt}}{\input{\FolderData/prefaces/#2_fr.txt}}}
 
 % Préfaces avec nom propre (texte, chemin, nom latin au génitif - "sancti Martíni", "beátæ mártyris Agnétis" - , nom français - "saint Martin", "sainte Agnès" -) :
 \newenvironment{PrefaceWithName}[4]
 {
 \TitreB{#1~:}
-\LatinFrancais{\input{\FolderData/Prefaces/#2_la_A.txt}#3\input{\FolderData/Prefaces/#2_la_B.txt}}{\input{\FolderData/Prefaces/#2_fr_A.txt}#4\input{\FolderData/Prefaces/#2_fr_B.txt}}}
+\LatinFrancais{\input{\FolderData/prefaces/#2_la_A.txt}#3\input{\FolderData/prefaces/#2_la_B.txt}}{\input{\FolderData/prefaces/#2_fr_A.txt}#4\input{\FolderData/prefaces/#2_fr_B.txt}}}
 
 % Références :
 \newenvironment{Reference}[1]
@@ -265,8 +265,8 @@
 % Lectures (nom de la lecture, chemin) :
 \newenvironment{Lecture}[2]
 {
-\TitreB{#1~:}\hfill\Reference{\input{\FolderData/Lectures/#2.ref}}
-\Normal{\input{\FolderData/Lectures/#2.txt}}}
+\TitreB{#1~:}\hfill\Reference{\input{\FolderData/lectures/#2.ref}}
+\Normal{\input{\FolderData/lectures/#2.txt}}}
 
 % Images (réf., largeur, espace before) :
 \newenvironment{Image}[3]
@@ -275,8 +275,8 @@
 \thispagestyle{empty}
 \newgeometry{inner=0cm, outer=0cm, tmargin=#3}
 \begin{center}
-\parbox[t]{14.85cm}{\centering\includegraphics[width=#2]{\FolderData/Images/#1.jpg}\vspace{1cm}}
-    \parbox{#2}{\centering{\itshape{\input{\FolderData/Images/#1.tex}}}}
+\parbox[t]{14.85cm}{\centering\includegraphics[width=#2]{\FolderData/images/#1.jpg}\vspace{1cm}}
+    \parbox{#2}{\centering{\itshape{\input{\FolderData/images/#1.tex}}}}
 \end{center}
 \restoregeometry}
 
