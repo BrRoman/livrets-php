@@ -151,6 +151,17 @@ function write_latex(data){
             }
         }
 
+        // Séquence :
+        if(day_data['sequence'] != null){
+            if(day_data['sequence']['source'] == 'files'){
+                tex += '\\TitreB{Séquence~:}\\par\n';
+                tex += '\\Partoche{sequences/' + day_data['sequence']['ref'] + '}\n\n';
+            }
+            else{ // TODO: Ce 2e cas n'a pas encore été testé.
+                tex += '\\TitreB{Séquence~:}\\Normal{\\textit{' + day_data['sequence']['name'] + '} (p. ' + day_data['sequence']['page'] + ').}\n\n';
+            }
+        }
+
         // Évangile :
         tex += '\\Lecture{Évangile}{' + day_data['readings'];
         if(day_data['lectures_propres']){
