@@ -138,7 +138,9 @@
                     $out['readings'] = $rep_tempo['Ref'];
                 }
             }
-            
+            // Séquence :
+            $out['sequence'] = $rep_tempo['Sequence'];
+
             // Préface :
             if($rep_tempo['Pref'] != NULL){
                 $pref = $rep_tempo['Pref'];
@@ -183,6 +185,7 @@
                 $sancto = '0806_fer';
             }
         }
+        $out['sancto'] = $sancto;
         $force_sancto = 0;
         $back_sancto = $connect->query('SELECT * FROM Days WHERE Ref = "'.$sancto.'";');
         if($rep_sancto = $back_sancto->fetch()){
@@ -204,6 +207,9 @@
                     $out['lectures_propres'] = True;
                     $out['readings'] = $rep_sancto['Ref'];
                     $out['cycle_lectures'] = $rep_sancto['Lect_cycle'];
+                }
+                if($rep_sancto['Sequence'] != NULL){
+                    $out['sequence'] = $rep_sancto['Sequence'];
                 }
                 $back_pref = $connect->query('SELECT * FROM Prefaces WHERE Ref = "'.$rep_sancto['Pref'].'";');
                 if($rep_pref = $back_pref->fetch()){
@@ -250,6 +256,15 @@
             }
         }
 
+        // Séquence :
+        if($out['sequence'] != NULL){
+            $back_seq = $connect->query('SELECT * FROM Sequences WHERE Ref = "'.$out['sequence'].'";');
+            if($rep_seq = $back_seq->fetch()){
+                $out['sequence'] = $rep_seq['Page'] == NULL ? array('source'=>'files', 'ref'=>$out['sequence']) : array('source'=>'mg', 'name'=>$rep_seq['Name'], 'page'=>$rep_seq['Page']); // TODO: Le 2e cas n'a pas été testé (séquences du MG).
+            }
+            $back_seq->closeCursor();
+        }
+        
         // Traitement des 5 grilles ('IN', 'GR', etc.) :
         $grid = array('IN', 'GR', 'AL', 'OF', 'CO', 'KY', 'GL', 'SA', 'CR');
         for($g = 0; $g < count($grid); $g++){
