@@ -208,10 +208,18 @@
 \selectlanguage{latin}
 \gregorioscore{\FolderData/#1}
 \selectlanguage{french}
-\begin{center}
+%\begin{center}
 \fontsize{11}{12}\selectfont
-\parbox[t][\height][b]{9cm}{\vspace{-.2cm}\input{\FolderData/#1.txt}}\par\vspace{.1cm}
-\end{center}}
+%\parbox[t][\height][b]{9cm}{\vspace{-.2cm}\input{\FolderData/#1.txt}}\par\vspace{.1cm}
+\vspace{.2cm}
+\leftskip2cm
+\rightskip\leftskip
+\input{\FolderData/#1.txt}\par
+\vspace{.5cm}
+%\end{center}
+\leftskip0cm
+\rightskip\leftskip
+}
 
 % Tierce (partition, page psaumes) :
 \newenvironment{Tierce}[2]
