@@ -157,7 +157,7 @@ function write_latex(data){
                 tex += '\\TitreB{Séquence~:}\\par\n';
                 tex += '\\Partoche{sequences/' + day_data['sequence']['ref'] + '}\n\n';
             }
-            else{ // TODO: Ce 2e cas n'a pas encore été testé.
+            else{
                 tex += '\\TitreB{Séquence~:}\\Normal{\\textit{' + day_data['sequence']['name'] + '} (p. ' + day_data['sequence']['page'] + ').}\n\n';
             }
         }
