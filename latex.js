@@ -47,11 +47,16 @@ function write_latex(data){
         
         // Tierce :
         if($('#tierce_page_' + i).val() != ''){
-            tex += '\\Tierce{' + day_data['tierce_ant'] + '}{' + day_data['tierce_page']+ '}\n\n';
+            if($('#grid_value_' + i + '5').val() != 'XVIIIB'){
+                tex += '\\Tierce{' + day_data['tierce_ant'] + '}{' + day_data['tierce_page']+ '}\n\n';
+            }
+            else{
+                tex += '\\Tierce{}{' + day_data['tierce_page']+ '}\n\n';
+            }
         }
         
         // Kyrie :
-        if($('#grid_value_' + i + '5').val()!= ''){
+        if($('#grid_value_' + i + '5').val() != ''){
             var kyrie = day_data['KY'];
             tex += '\\TitreB{' + kyrie[0] + '}\\Normal{(p. ' + kyrie[1] + ').}\n\n';
         }
