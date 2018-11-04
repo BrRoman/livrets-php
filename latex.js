@@ -141,7 +141,7 @@ function write_latex(data){
         // Alleluia :
         if($('#grid_value_' + i + '2').val() != ''){
             var alleluia = day_data['AL'];
-            var score = day_data['tempo'].startsWith('qua_') ? 'Trait' : 'Alleluia';
+            var score = (day_data['tempo'].startsWith('qua_') || (day_data['lit_day'] == "Commémoraison des fidèles défunts")) ? 'Trait' : 'Alleluia';
             if(alleluia[1] != ''){
                 tex += '\\TitreB{' + score + '~:}\\Normal{\\textit{' + alleluia[0] + '} (p. ' + alleluia[1] + ').}\n\n'
             }
