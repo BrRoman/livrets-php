@@ -21,6 +21,9 @@ $(document).ready(function(){
     for(var i = 0; i < 5; i++){
         for(var j = 0; j < 9; j++){
             $("#grid_value_" + i + j).keyup(function(){
+                var page = $(this).val();
+                page = page.replace(".", ",");
+                $(this).val(page);
                 update();
             });
         }

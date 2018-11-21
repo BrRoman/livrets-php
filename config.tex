@@ -60,6 +60,9 @@
 % Textes en parallèle :
 \usepackage{parallel}
 
+% Structures conditionnnelles :
+\usepackage{ifthen}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% Gregorio %%%%%%%%%%%%%
@@ -225,8 +228,7 @@
 \newenvironment{Tierce}[2]
 {
 \TitreB{Office de Tierce~:}\par
-\Partoche{tierce/#1}
-\vspace{-0.3cm}
+\ifthenelse{\not\equal{#1}{}}{\Partoche{tierce/#1}\vspace{-0.3cm}}{}
 \Normal{\hspace{.5cm}Psaumes~: voir livret de Tierce inséré au début du Missel grégorien, p. #2.}}
 
 % Latin/francais :

@@ -47,11 +47,16 @@ function write_latex(data){
         
         // Tierce :
         if($('#tierce_page_' + i).val() != ''){
-            tex += '\\Tierce{' + day_data['tierce_ant'] + '}{' + day_data['tierce_page']+ '}\n\n';
+            if($('#grid_value_' + i + '5').val() != 'XVIIIB'){
+                tex += '\\Tierce{' + day_data['tierce_ant'] + '}{' + day_data['tierce_page']+ '}\n\n';
+            }
+            else{
+                tex += '\\Tierce{}{' + day_data['tierce_page']+ '}\n\n';
+            }
         }
         
         // Kyrie :
-        if($('#grid_value_' + i + '5').val()!= ''){
+        if($('#grid_value_' + i + '5').val() != ''){
             var kyrie = day_data['KY'];
             tex += '\\TitreB{' + kyrie[0] + '}\\Normal{(p. ' + kyrie[1] + ').}\n\n';
         }
@@ -141,7 +146,7 @@ function write_latex(data){
         // Alleluia :
         if($('#grid_value_' + i + '2').val() != ''){
             var alleluia = day_data['AL'];
-            var score = day_data['tempo'].startsWith('qua_') ? 'Trait' : 'Alleluia';
+            var score = (day_data['tempo'].startsWith('qua_') || (day_data['lit_day'] == "Commémoraison des fidèles défunts")) ? 'Trait' : 'Alleluia';
             if(alleluia[1] != ''){
                 tex += '\\TitreB{' + score + '~:}\\Normal{\\textit{' + alleluia[0] + '} (p. ' + alleluia[1] + ').}\n\n'
             }
@@ -157,7 +162,7 @@ function write_latex(data){
                 tex += '\\TitreB{Séquence~:}\\par\n';
                 tex += '\\Partoche{sequences/' + day_data['sequence']['ref'] + '}\n\n';
             }
-            else{ // TODO: Ce 2e cas n'a pas encore été testé.
+            else{
                 tex += '\\TitreB{Séquence~:}\\Normal{\\textit{' + day_data['sequence']['name'] + '} (p. ' + day_data['sequence']['page'] + ').}\n\n';
             }
         }
