@@ -123,7 +123,7 @@ function calculate_tempo($timestamp){
 
     // Féries après les Cendres :
     if($timestamp >= $cendres and $timestamp < $quadr_dim_1){
-        $days_after_cendres = ceil(($timestamp - $cendres) / $day);
+        $days_after_cendres = ceil(($timestamp - $cendres) / $day) - 1;
         $tempo = "cendres_".$days_after_cendres;
     }
 
