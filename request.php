@@ -7,7 +7,11 @@
     $months_fr = array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
     date_default_timezone_set('Etc/GMT-2)'); // Pour compatibilité avec les timestamps de JS. (Code JS: console.log(date.getTimezoneOffset()); => '-120')
 
-    $connect = new PDO('mysql:host=localhost; dbname=livrets; charset=utf8', 'root', 'sql', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    $secret = json_decode(file_get_contents(".secret/config.json"), true);
+    $db_name = $secret["db_name"];
+    $db_login = $secret["db_login"];
+    $db_pass = $secret["db_pass"];
+    $connect = new PDO("mysql:host=localhost; dbname=$db_name; charset=utf8", $db_login, $db_pass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
     // Pour chaque jour de la retraite, création d'un array qui contiendra les retours de la base de données :
     for($i = 0; $i < 5; $i++){
