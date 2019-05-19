@@ -94,12 +94,12 @@ function update(){
             var weekday = days_fr[date.getDay()];
             var num_day = date.getDate();
             if(num_day == 1){
-                num_day = "1er";
+                num_day = "1<sup>er</sup>";
             }
             var month = months_fr[date.getMonth()];
             var year = date.getFullYear();
             var civil_day = weekday + " " + num_day + " " + month + " " + year + " :";
-            $("#civil_day_" + i).text(civil_day);
+            $("#civil_day_" + i).html(civil_day);
             
             // Mise en objet de toutes les données du formulaire :
             var grid = {};
@@ -120,12 +120,12 @@ function update(){
         var weekday = days_fr[date.getDay()];
         var num_day = date.getDate();
         if(num_day == 1){
-            num_day = "1er";
+            num_day = "1<sup>er</sup>";
         }
         var month = months_fr[date.getMonth()];
         var year = date.getFullYear();
         var civil_day = weekday + " " + num_day + " " + month + " " + year + " :";
-        $("#civil_day_0").text(civil_day);
+        $("#civil_day_0").html(civil_day);
         
         // Mise en objet de toutes les données du formulaire :
         var grid = {};
