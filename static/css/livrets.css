@@ -1,0 +1,145 @@
+body{
+    background-color: rgba(0, 0, 0, 0.05);
+    width: 95%;
+}
+
+h1, h2{
+    color: brown;
+    text-align: center;
+}
+
+tr .info{
+    border: 1px solid white;
+    width: 350px;
+}
+
+tr .label{
+    width: 100px;
+}
+
+#data{
+    width: 800px;
+}
+
+#date_debut{
+    margin-left: 5px;
+}
+
+#input{
+    margin-top: 30px;
+}
+
+#output{
+    align-items: center;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#overlay_download, #overlay_wait{
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.2em;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+#page{
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    justify-content: center;
+    width: auto;
+}
+
+#sup{
+    display: inline !important;
+
+}
+
+#tex{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 800px;
+    justify-content: center;
+    margin-top: 50px;
+    width: 600px;
+}
+
+#tex_area{
+    height: 750px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    font-family: monaco;
+    font-size: 10pt;
+    width: 100%;
+}
+
+.civil_day{
+    color: brown;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-left: 10px;
+    margin-top: 30px;
+}
+
+.grid{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.grid td{
+    margin: 5px;
+    text-align: center;
+}
+
+.grid tr{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center
+}
+
+.grid_elem{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.info{
+    color: green;
+
+}
+
+.info, .label{
+    font-size: 16px;
+}
+
+.input_margin{
+    margin-left: 8px;
+}
+
+.label_cap{
+    font-size: 13px;
+}
+
+.radio{
+    margin-right: 5px;
+}
+
+
+
+
+

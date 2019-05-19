@@ -1,0 +1,79 @@
+@green: rgba(0, 128, 0, 1);
+@red: rgba(128, 0, 0, 1);
+
+body{
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 30px;
+
+    #page{
+        h1, h2{
+            color: @green;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1{
+            font-family: times;
+            font-size: 36pt;
+        }
+
+        h2{
+            font-family: LucidaHW;
+        }
+
+        #input{
+            margin-bottom: 30px;
+
+            td{
+                padding: 5px;
+            }
+
+            label{
+                font-size: 12pt;
+                font-weight: bold;
+                margin: 0px 5px 0px 0px;
+                vertical-align: center;
+            }
+        }
+
+        #output{
+            display: none;
+            width: 100%;
+
+            input{
+                max-width: 60px;
+            }
+
+            tbody{
+                margin-bottom: 20px;
+            }
+
+            .label_cap{
+                color: @red;
+                font-size: 13px;
+                text-align: center;
+            }
+
+            .civil_day{
+                color: @green;
+                font-weight: bold;
+                margin-bottom: 30px 0px 8px 10px;
+            }
+        }
+
+        #tex{
+            display: none;
+            
+            #tex_area{
+                font-family: monaco;
+                font-size: 10pt;
+                height: 400px;
+                width: 700px;
+            }
+        }
+    }
+
+    #overlay_download, #overlay_wait{
+        display: none;
+    }
+}
