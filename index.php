@@ -20,10 +20,12 @@
                 <div id="input" class="row justify-content-center">
                     <table>
                         <tr>
-                            <td><label>Date de départ : </label></td><td><input id="date_depart" type="text" name="date_jour"></td>
+                            <td><label>Date de départ : </label></td>
+                            <td><input id="date_depart" type="text"></td>
                         </tr>
                         <tr>
-                            <td><label>Nombre de jours : </label></td><td><input id="nombre_jours" type="number" min="1" max="15" value="5"></td>
+                            <td><label>Nombre de jours : </label></td>
+                            <td><input id="nombre_jours" type="number" min="1" max="15" value="5"></td>
                         </tr>
                     </table>
                 </div>
