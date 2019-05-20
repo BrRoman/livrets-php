@@ -48,6 +48,10 @@ body{
                 margin-bottom: 20px;
             }
 
+            .line{
+                display: none;
+            }
+
             .label_cap{
                 color: @red;
                 font-size: 13px;
@@ -74,6 +78,14 @@ body{
     }
 
     #overlay_download, #overlay_wait{
+        background-color: rgba(0, 0, 0, 0.9);
+        color: white;
         display: none;
+        font-size: 1.2em;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
     }
 }

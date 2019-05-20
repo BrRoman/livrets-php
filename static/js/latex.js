@@ -1,10 +1,10 @@
 // Fonctions écrivant le contenu du fichier tex à partir du retour de request.php.
 
 function write_latex(data){
-    var start_date_split = $('#date_debut')[0].value.split('/');
+    var start_date_split = $('#date_depart')[0].value.split('/');
     var start_date = new Date(start_date_split[2], start_date_split[1] - 1, start_date_split[0]).getTime();
     var tex = tex_header(start_date);
-    for(var i = 0; i < 5; i++){
+    for(var i = 0; i < $("#nombre_jours").val(); i++){
         var day_data = data[i];
 
         // Oraisons :
@@ -270,8 +270,7 @@ function write_latex(data){
     }
     tex += '\n\n\n\n\\vspace{7cm}\n\n';
     tex += '\\begin{center}\n\n';
-    tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret à la fin de la retraite si vous le souhaitez.}}\n\n';
-    tex += '\\makebox[12.35cm][c]{\\textit{Merci de rendre le Missel grégorien bleu au Fr. assistant.}}\n\n';
+    tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret à l\'issue de la Messe si vous le souhaitez.}}\n\n';
     tex += '\\end{center}\n\n';
 
 
@@ -329,9 +328,6 @@ function tex_header(timestamp_start){
 	tex_header += 'PAX\\par\n\n';
 	tex_header += '\\end{center}\n\n';
 	tex_header += '\\vspace{.5cm}\n\n';
-	tex_header += '\\TitreA{Retraite du}\n\n';
-	tex_header += '\\TitreA{' + date_debut + ' au ' + date_fin + '}\n\n';
-    tex_header += '\\vspace{.2cm}\n\n';
 	tex_header += '\\TitreA{Messe conventuelle}\n\n';
 
     return(tex_header);

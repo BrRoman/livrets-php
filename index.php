@@ -20,12 +20,10 @@
                 <div id="input" class="row justify-content-center">
                     <table>
                         <tr>
-                            <td><input type="radio" name="type" value="type_jour" id="radio_jour">
-                            <label for="date_jour">Jour : </label></td><td><input id="date_jour" type="text" name="date_jour" disabled></td>
+                            <td><label>Date de départ : </label></td><td><input id="date_depart" type="text" name="date_jour"></td>
                         </tr>
                         <tr>
-                            <td><input type="radio" name="type" value="type_retraite" id="radio_retraite" checked>
-                            <label for="date_retraite">Retraite du : </label></td><td><input id="date_retraite" type="text" name="date_retraite"></td>
+                            <td><label>Nombre de jours : </label></td><td><input id="nombre_jours" type="number" min="1" max="15" value="5"></td>
                         </tr>
                     </table>
                 </div>
@@ -34,8 +32,8 @@
                     <div id="output">
                         <?php
                             $tab_grid = array("IN", "GR", "AL", "OF", "CO", "KY", "GL", "SA", "CR", "TIERCE");
-                            for($i = 0; $i < 5; $i++){
-                                $code = "<div id='line_".$i."'>";
+                            for($i = 0; $i < 15; $i++){
+                                $code = "<div id='line_".$i."' class='line'>";
                                 //Jour civil :
                                 $code = $code."";
                                 
@@ -59,12 +57,12 @@
                     <input type="button" id="go" class="btn btn-primary" value="Voir le pdf"></input>
                 </div>
             </div>
-            <div id="overlay_wait">
+            <div id="overlay_wait" class="flex-column justify-content-center align-items-center">
                 <img src="static/images/wait.gif" style="margin-bottom:20px"></br>
                 <p>Votre livret est en cours de préparation…</p>
                 <p>Veuillez patienter quelques instants…</p>
             </div>
-            <form id="overlay_download" action="livret/livret.pdf" target="_blank">
+            <form id="overlay_download" class="flex-column justify-content-center align-items-center">
                 <p>Votre livret est prêt !</p>
                 <input id="view" type="submit" value="Afficher" style="margin-top:20px">
             </form>
