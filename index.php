@@ -62,7 +62,7 @@
                 <p>Votre livret est en cours de préparation…</p>
                 <p>Veuillez patienter quelques instants…</p>
             </div>
-            <form id="overlay_download" class="flex-column justify-content-center align-items-center">
+            <form id="overlay_download" class="flex-column justify-content-center align-items-center" action="livret/livret.pdf" target="_blank">
                 <p>Votre livret est prêt !</p>
                 <input id="view" type="submit" value="Afficher" style="margin-top:20px">
             </form>
