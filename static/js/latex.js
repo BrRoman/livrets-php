@@ -326,8 +326,10 @@ function tex_header(timestamp_start){
 	tex_header += '\\begin{center}\n\n';
 	tex_header += '+\\par\n\n';
 	tex_header += 'PAX\\par\n\n';
-	tex_header += '\\end{center}\n\n';
-	tex_header += '\\vspace{.5cm}\n\n';
+    tex_header += '\\vspace{.5cm}\n\n';
+    tex_header += '\\TitreB{Abbaye Saint-Joseph de Clairval}\n\n';
+    tex_header += '\\end{center}\n\n';
+    tex_header += '\\vspace{.2cm}\n\n';
 	tex_header += '\\TitreA{Messe conventuelle}\n\n';
 
     return(tex_header);
