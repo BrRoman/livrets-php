@@ -270,7 +270,8 @@ function write_latex(data){
     }
     tex += '\n\n\n\n\\vspace{7cm}\n\n';
     tex += '\\begin{center}\n\n';
-    tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret à l\'issue de la Messe si vous le souhaitez.}}\n\n';
+    tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret si vous le souhaitez.}}\n\n';
+    tex += '\\makebox[12.35cm][c]{\\textit{Merci de rendre le Missel Grégorien bleu.}}\n\n';
     tex += '\\end{center}\n\n';
 
 
