@@ -14,13 +14,15 @@ $(document).ready(function(){
 
     // Quand le nombre de jours est modifié, rafraîchir le formulaire et mettre à jour le LaTeX :
     $("#nombre_jours").change(function(){
-        $("#output").css("display", "block");
-        $(".line").css("display", "none");
-        for(var i = 0; i < $("#nombre_jours").val(); i++){
-            $("#line_" + i).css("display", "block");
+        if($("#date_depart").val() != ""){
+            $("#output").css("display", "block");
+            $(".line").css("display", "none");
+            for(var i = 0; i < $("#nombre_jours").val(); i++){
+                $("#line_" + i).css("display", "block");
+            }
+            $("#tex").css("display", "block");
+            update();
         }
-        $("#tex").css("display", "block");
-        update();
     });
 
     // Quand une date est sélectionnée, rafraîchir le formulaire et mettre à jour le LaTeX :
