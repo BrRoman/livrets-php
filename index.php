@@ -56,7 +56,7 @@
             <div id="tex">
                 <div class="d-flex flex-column align-items-center">
                     <textarea id="tex_area" class="align-self-center mt-5 mb-5"></textarea>
-                    <input type="button" id="go" class="btn btn-primary" value="Voir le pdf"></input>
+                    <input type="button" id="go" class="btn btn-primary" value="Voir le PDF"></input>
                 </div>
             </div>
             <div id="overlay_wait" class="flex-column justify-content-center align-items-center">
