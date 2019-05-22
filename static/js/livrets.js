@@ -12,28 +12,17 @@ $(document).ready(function(){
         $("#date_depart").datepicker(values);
     });
 
-    // Quand le nombre de jours est modifié, rafraîchir le formulaire et mettre à jour le LaTeX :
+    // Si action sur les éléments d'affichage, rafraîchir le formulaire et mettre à jour le LaTeX :
+    $("#date_depart").change(function(){
+        refresh();
+    });
     $("#nombre_jours").change(function(){
         if($("#date_depart").val() != ""){
-            $("#output").css("display", "block");
-            $(".line").css("display", "none");
-            for(var i = 0; i < $("#nombre_jours").val(); i++){
-                $("#line_" + i).css("display", "block");
-            }
-            $("#tex").css("display", "block");
-            update();
+            refresh();
         }
     });
-
-    // Quand une date est sélectionnée, rafraîchir le formulaire et mettre à jour le LaTeX :
-    $("#date_depart").change(function(){
-        $("#output").css("display", "block");
-        $(".line").css("display", "none");
-        for(var i = 0; i < $("#nombre_jours").val(); i++){
-            $("#line_" + i).css("display", "block");
-        }
-        $("#tex").css("display", "block");
-        update();
+    $("#select_mode").change(function(){
+        refresh();
     });
 
     // Quand un chant 'pièce' (Introït, Kyrie, etc.) est modifié, mettre à jour le LaTeX :
@@ -70,10 +59,23 @@ $(document).ready(function(){
     });
 });
 
+// Fonction pour rafraîchir le formulaire et updater le LaTeX :
+function refresh(){
+    $("#output").css("display", "block");
+    $(".line").css("display", "none");
+    for(var i = 0; i < $("#nombre_jours").val(); i++){
+        $("#line_" + i).css("display", "block");
+    }
+    $("#tex").css("display", "block");
+    update();
+}
+
 function update(){
     var days_fr = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
     var months_fr = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
     var data = {};
+    data["mode"] = $("#select_mode option:selected").text();
+    data["days"] = {};
     var start_date_split = $("#date_depart")[0].value.split("/");
     var start_date = new Date(start_date_split[2], start_date_split[1] - 1, start_date_split[0]).getTime();
     for(var i = 0; i < $("#nombre_jours").val(); i++){
@@ -98,19 +100,16 @@ function update(){
             grid[$("#grid_label_" + i + j).text()] = $("#grid_value_" + i + j).val();
         }
         grid["tierce_page"] = $("#tierce_page_" + i).val();
-        data[i] = grid;
+        data["days"][i] = grid;
     }
-    request(data);
-}
 
-function request(data_json){
-    console.log("js =", data_json);
+    console.log("js =", data);
     $.post(
         "php/request.php",
-        data_json,
-        function(data){
-            console.log("php =", data);
-            write_latex(data);
+        data,
+        function(back){
+            console.log("php =", back);
+            write_latex(back);
         },
         "json"
     );

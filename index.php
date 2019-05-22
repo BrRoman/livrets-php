@@ -27,6 +27,15 @@
                             <td><label>Nombre de jours : </label></td>
                             <td><input id="nombre_jours" type="number" min="1" max="15" value="5"></td>
                         </tr>
+                        <tr>
+                            <td><label>Mode : </label></td>
+                            <td>
+                                <select id="select_mode">
+                                    <option>Missel grégorien</option>
+                                    <option>Livret complet</option>
+                                </select>
+                            </td>
+                        </tr>
                     </table>
                 </div>
 

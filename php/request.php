@@ -2,8 +2,9 @@
     include(__DIR__.'/calculate.php');
 
     $data_in = $_POST;
-    $nombre_jours = count($_POST);
-    $data_out = array();
+    $nombre_jours = count($data_in["days"]);
+    $mode = $data_in["mode"];
+
     $weekdays_fr = array('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi');
     $months_fr = array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
     date_default_timezone_set('Etc/GMT-2'); // Pour compatibilité avec les timestamps de JS.
@@ -13,11 +14,15 @@
     $db_login = $secret["db_login"];
     $db_pass = $secret["db_pass"];
     $connect = new PDO("mysql:host=localhost; dbname=$db_name; charset=utf8", $db_login, $db_pass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+
+    $data_out = array();
+    $data_out["days"] = array();
+    $data_out["mode"] = $mode;
     
     // Pour chaque jour de la retraite, création d'un array qui contiendra les retours de la base de données :
     for($i = 0; $i < $nombre_jours; $i++){
         $out = array();
-        $in = $data_in[$i];
+        $in = $data_in["days"][$i];
         $timestamp = $in['timestamp'] / 1000;
         $out['timestamp'] = $timestamp;
 
@@ -310,7 +315,7 @@
             }
         }
 
-        $data_out[$i] = $out;
+        $data_out["days"][$i] = $out;
     }
     print(json_encode($data_out));
 ?>

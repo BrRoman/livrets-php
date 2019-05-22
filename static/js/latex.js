@@ -1,11 +1,22 @@
 // Fonctions écrivant le contenu du fichier tex à partir du retour de request.php.
 
 function write_latex(data){
+    var tierce_psaumes = {
+        "2": "dimanche",
+        "4": "lundi",
+        "6": "semaine\\_I",
+        "9": "mardi\\_II",
+        "12": "mercredi\\_II",
+        "15": "vendredi\\_II",
+        "17": "samedi\\_II"
+    }
     var start_date_split = $('#date_depart')[0].value.split('/');
     var start_date = new Date(start_date_split[2], start_date_split[1] - 1, start_date_split[0]).getTime();
     var tex = tex_header(start_date);
+    var mode = data["mode"];
+
     for(var i = 0; i < $("#nombre_jours").val(); i++){
-        var day_data = data[i];
+        var day_data = data["days"][i];
 
         // Oraisons :
         var orationes = day_data['orationes'];
@@ -48,10 +59,21 @@ function write_latex(data){
         // Tierce :
         if($('#tierce_page_' + i).val() != ''){
             if($('#grid_value_' + i + '5').val() != 'XVIIIB'){
-                tex += '\\Tierce{' + day_data['tierce_ant'] + '}{' + day_data['tierce_page']+ '}\n\n';
+                switch(mode){
+                    case "Missel grégorien":
+                        tex += '\\TierceMG{' + day_data['tierce_ant'] + '}{' + day_data['tierce_page'] + '}\n\n';
+                        break;
+                    case "Livret complet":
+                        tex += '\\TierceComplet{' + day_data['tierce_ant'] + '}{' + tierce_psaumes[day_data['tierce_page']] + '}\n\n';
+                        break;
+                }
             }
             else{
-                tex += '\\Tierce{}{' + day_data['tierce_page']+ '}\n\n';
+                switch(mode){
+                    case "Missel Grégorien":
+                    tex += '\\Tierce_mg{}{' + day_data['tierce_page']+ '}\n\n';
+                    break;
+                }
             }
         }
         

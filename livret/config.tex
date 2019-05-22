@@ -211,25 +211,29 @@
 \selectlanguage{latin}
 \gregorioscore{\FolderData/#1}
 \selectlanguage{french}
-%\begin{center}
 \fontsize{11}{12}\selectfont
-%\parbox[t][\height][b]{9cm}{\vspace{-.2cm}\input{\FolderData/#1.txt}}\par\vspace{.1cm}
 \vspace{.2cm}
 \leftskip2cm
 \rightskip\leftskip
 \input{\FolderData/#1.txt}\par
 \vspace{.5cm}
-%\end{center}
 \leftskip0cm
 \rightskip\leftskip
 }
 
-% Tierce (partition, page psaumes) :
-\newenvironment{Tierce}[2]
+% Tierce avec renvoi au MG (partition, page psaumes) :
+\newenvironment{TierceMG}[2]
 {
 \TitreB{Office de Tierce~:}\par
-\ifthenelse{\not\equal{#1}{}}{\Partoche{tierce/#1}\vspace{-0.3cm}}{}
+\ifthenelse{\not\equal{#1}{}}{\Partoche{tierce/antiennes/#1}\vspace{-0.3cm}}{}
 \Normal{\hspace{.5cm}Psaumes~: voir livret de Tierce inséré au début du Missel grégorien, p. #2.}}
+
+% Tierce complet (partition, fichier psaumes) :
+\newenvironment{TierceComplet}[2]
+{
+\TitreB{Office de Tierce~:}\par
+\ifthenelse{\not\equal{#1}{}}{\Partoche{tierce/antiennes/#1}\vspace{-0.3cm}}{}
+\Normal{\hspace{.5cm}Psaumes #2}}
 
 % Latin/francais :
 \newenvironment{LatinFrancais}[2]
