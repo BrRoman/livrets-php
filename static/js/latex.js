@@ -49,7 +49,12 @@ function write_latex(data){
         }
         
         // Ouverture de la célébration :
-        tex += '\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n'
+        if(mode == "Missel grégorien"){
+            tex += '\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n'
+        }
+        else{
+            tex += '\\TitreB{Ouverture de la célébration~:}\n\n\\input{../static/data/ordinaire/1_ouverture.tex}\n\n'
+        }
 
         // Asperges me :
         if(day_data['asp'] != ''){
@@ -80,13 +85,29 @@ function write_latex(data){
         // Kyrie :
         if($('#grid_value_' + i + '5').val() != ''){
             var kyrie = day_data['KY'];
-            tex += '\\TitreB{' + kyrie[0] + '}\\Normal{(p. ' + kyrie[1] + ').}\n\n';
+            switch(mode){
+                case "Missel grégorien":
+                    tex += '\\TitreB{' + kyrie[0] + '}\\Normal{(p. ' + kyrie[1] + ').}\n\n';
+                    break;
+                case "Livret complet":
+                    tex += '\\TitreB{' + kyrie[0] + '}: partoche Kyrie.\n\n';
+                    tex += '\\input{../static/data/ordinaire/2_kyrie.tex}\n\n';
+                    break;
+            }
         }
         
         // Gloria :
         if($('#grid_value_' + i + '6').val() != ''){
             var gloria = day_data['GL'];
-            tex += '\\TitreB{' + gloria[0] + '}\\Normal{(p. ' + gloria[1] + ').}\n\n';
+            switch(mode){
+                case "Missel grégorien":
+                    tex += '\\TitreB{' + gloria[0] + '}\\Normal{(p. ' + gloria[1] + ').}\n\n';
+                    break;
+                case "Livret complet":
+                    tex += '\\TitreB{' + gloria[0] + '}: partoche Gloria.\n\n';
+                    tex += '\\input{../static/data/ordinaire/3_gloria.tex}\n\n';
+                    break;
+            }
         }
         
         // Oraison :
@@ -165,7 +186,7 @@ function write_latex(data){
             tex += '}\n\n';
         }
 
-        // Alleluia :
+        // Alléluia/Trait :
         if($('#grid_value_' + i + '2').val() != ''){
             var alleluia = day_data['AL'];
             var score = (day_data['tempo'].startsWith('qua_') || (day_data['lit_day'] == "Commémoraison des fidèles défunts")) ? 'Trait' : 'Alleluia';
@@ -180,7 +201,7 @@ function write_latex(data){
 
         // Séquence :
         if(day_data['sequence'] != null){
-            if(day_data['sequence']['source'] == 'files'){
+            if(day_data['sequence']['source'] == 'files' || mode == "Livret complet"){
                 tex += '\\TitreB{Séquence~:}\\par\n';
                 tex += '\\Partoche{sequences/' + day_data['sequence']['ref'] + '}\n\n';
             }
@@ -214,7 +235,15 @@ function write_latex(data){
         // Credo :
         if($('#grid_value_' + i + '8').val()!= ''){
             var credo = day_data['CR'];
-            tex += '\\TitreB{' + credo[0] + '}\\Normal{(p. ' + credo[1] + ').}\n\n'
+            switch(mode){
+                case "Missel grégorien":
+                    tex += '\\TitreB{' + credo[0] + '}\\Normal{(p. ' + credo[1] + ').}\n\n'
+                    break;
+                case "Livret complet":
+                    tex += '\\TitreB{' + credo[0] + '}: partoche Credo.\n\n'
+                    tex += '\\input{../static/data/ordinaire/4_credo.tex}\n\n';
+                    break;
+            }
         }
 
         // Antienne d'offertoire :
@@ -239,7 +268,7 @@ function write_latex(data){
 
         // Préface :
         var pref = day_data['pref'];
-        if(pref['page'] != null){
+        if(pref['page'] != null && mode == "Missel grégorien"){
             tex += '\\TitreB{' + pref['name'] + '~:}\\Normal{p. ' + pref['page'] + '.}\n\n';
         }
         else{
@@ -254,17 +283,39 @@ function write_latex(data){
         // Sanctus :
         if($('#grid_value_' + i + '7').val() != ''){
             var sanctus = day_data['SA'];
-            tex += '\\TitreB{' + sanctus[0] + '}\\Normal{(p. ' + sanctus[1] + ').}\n\n';
+            switch(mode){
+                case "Missel grégorien":
+                    tex += '\\TitreB{' + sanctus[0] + '}\\Normal{(p. ' + sanctus[1] + ').}\n\n';
+                    break;
+                case "Livret complet":
+                    tex += '\\TitreB{' + sanctus[0] + '}: partoche Sanctus.\n\n';
+                    tex += '\\input{../static/data/ordinaire/5_sanctus.tex}\n\n';
+                    break;
+            }
         }
 
         // Canon :
-        tex += '\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22).}\n\n';
-        tex += '\\TitreB{Rites de communion~:}\\Normal{p. 41.}\n\n';
+        if(mode == "Missel grégorien"){
+            tex += '\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22).}\n\n';
+            tex += '\\TitreB{Rites de communion~:}\\Normal{p. 41.}\n\n';
+        }
+        else{
+            tex += '\\TitreB{Prière eucharistique n. 1}\n\n\\input{../static/data/ordinaire/6_canon.tex}\n\n';
+            tex += '\\TitreB{Rites de communion~:}\\input{../static/data/ordinaire/7_communion.tex}\n\n';
+        }
         
         // Agnus Dei :
         if($('#grid_value_' + i + '7').val() != ''){
             var agnus = day_data['AG'];
-            tex += '\\TitreB{' + agnus[0] + '}\\Normal{(p. ' + agnus[1] + ').}\n\n';
+            switch(mode){
+                case "Missel grégorien":
+                    tex += '\\TitreB{' + agnus[0] + '}\\Normal{(p. ' + agnus[1] + ').}\n\n';
+                    break;
+                case "Livret complet":
+                    tex += '\\TitreB{' + agnus[0] + '}: partoche Agnus Dei.\n\n';
+                    tex += '\\input{../static/data/ordinaire/8_agnus.tex}\n\n';
+                    break;
+            }
         }
         
         // Antienne de communion :
@@ -293,7 +344,9 @@ function write_latex(data){
     tex += '\n\n\n\n\\vspace{7cm}\n\n';
     tex += '\\begin{center}\n\n';
     tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret si vous le souhaitez.}}\n\n';
-    tex += '\\makebox[12.35cm][c]{\\textit{Merci de rendre le Missel Grégorien bleu.}}\n\n';
+    if(mode == "Missel grégorien"){
+        tex += '\\makebox[12.35cm][c]{\\textit{Merci de rendre le Missel Grégorien bleu.}}\n\n';
+    }
     tex += '\\end{center}\n\n';
 
 

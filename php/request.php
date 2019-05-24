@@ -108,7 +108,7 @@
             }
 
             // Oraisons :
-            if($rep_tempo['Oraisons_MG'] != NULL){
+            if($rep_tempo['Oraisons_MG'] != NULL && $mode == "Missel grégorien"){
                 $out['orationes'] = array('source' => 'MG', 'ref' => explode('/', $rep_tempo['Oraisons_MG']));
                 // 1er vendredi du mois :
                 if($liturg_time == 'pa' && $first_in_month && $weekday == 'Vendredi'){
@@ -305,7 +305,7 @@
                 else{
                     $back = $connect->query('SELECT * FROM Scores WHERE Type = "'.$label.'" AND Ref = "'.$grid_ref.'";');
                 }
-                if($rep = $back->fetch()){
+                if(($rep = $back->fetch()) && $mode == "Missel grégorien"){
                     $out[$label] = array($rep['Name'], $rep['Page']);
                 }
                 else{
