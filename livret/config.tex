@@ -206,22 +206,26 @@
 \parbox{6cm}{\centering\textit{#2}}\par
 \end{flushright}}
 
+% Traduction:
+\newenvironment{Traduction}[2]
+{
+\selectlanguage{french}
+\fontsize{11}{12}\selectfont
+\vspace{.2cm}
+\leftskip#1
+\rightskip\leftskip
+#2\par
+\vspace{.5cm}
+\leftskip0cm
+\rightskip\leftskip}
+
 % Partoche :
 \newenvironment{Partoche}[1]
 {
 \fontsize{12.2}{13}\selectfont
 \selectlanguage{latin}
 \gregorioscore{\FolderData/#1}
-\selectlanguage{french}
-\fontsize{11}{12}\selectfont
-\vspace{.2cm}
-\leftskip2cm
-\rightskip\leftskip
-\input{\FolderData/#1.txt}\par
-\vspace{.5cm}
-\leftskip0cm
-\rightskip\leftskip
-}
+\Traduction{2cm}{\input{\FolderData/#1.txt}}}
 
 % Tierce avec renvoi au MG (partition, page psaumes) :
 \newenvironment{TierceMG}[2]
