@@ -398,6 +398,8 @@ function tex_header(timestamp_start){
 
     var tex_header = '\\input{config.tex}\n\n';
 	tex_header += '\\begin{document}\n\n';
+    tex_header += '\\setlength{\\columnseprule}{0.5pt}\n\n';
+    tex_header += '\\colseprulecolor{rougeliturgique}\n\n';
 	tex_header += '\\thispagestyle{empty}\n\n';
 	tex_header += '\\begin{center}\n\n';
 	tex_header += '+\\par\n\n';

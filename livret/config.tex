@@ -59,6 +59,7 @@
 
 % Textes en parallèle :
 \usepackage{parallel}
+\usepackage{paracol}
 
 % Structures conditionnnelles :
 \usepackage{ifthen}
@@ -235,7 +236,7 @@
 \ifthenelse{\not\equal{#1}{}}{\Partoche{tierce/antiennes/#1}\vspace{-0.3cm}}{}
 \Normal{\hspace{.5cm}Psaumes #2}}
 
-% Latin/francais :
+% Latin/francais (oraisons, préfaces…) :
 \newenvironment{LatinFrancais}[2]
 {
 \begin{Parallel}{}{}
@@ -244,6 +245,14 @@
 \selectlanguage{french}
 \ParallelRText{\fontsize{11}{12}\selectfont#2}
 \end{Parallel}}
+
+% Latin/francais (1 ligne de paracol) :
+\newenvironment{LigneParacol}[2]
+{
+\selectlanguage{latin}#1
+\switchcolumn
+\selectlanguage{french}#2
+\switchcolumn*}
 
 % Oraisons (nom de l'oraison, abréviation, jour) :
 \newenvironment{Oraison}[3]
