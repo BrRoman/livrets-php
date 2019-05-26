@@ -75,7 +75,7 @@ function update(){
     var months_fr = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
     var data = {};
     var start_date_split = $("#date_depart")[0].value.split("/");
-    var start_date = new Date(start_date_split[2], start_date_split[1] - 1, start_date_split[0]).getTime();
+    var start_date = new Date(start_date_split[2], start_date_split[1] - 1, start_date_split[0]).getTime() + (12 * 3600 * 1000); // Les 12 heures permettent d'éviter les problèmes de timezone et de changements d'heure.
     for(var i = 0; i < $("#nombre_jours").val(); i++){
         var date_timestamp = start_date + (i * 24 * 3600 * 1000);
         var date = new Date(date_timestamp);
