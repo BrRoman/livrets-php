@@ -112,7 +112,7 @@ function calculate_tempo($timestamp){
     // Temps per Annum avant le Carême :
     if($timestamp > $bapteme and $timestamp < $cendres){
         $days_after_bapt = ceil(($timestamp - $bapteme) / $day);
-        $dim_per_annum = floor($days_after_bapt / 7) + 1;
+        $dim_per_annum = ceil($days_after_bapt / 7);
         $tempo = "pa_".$dim_per_annum."_".$weekday;
     }
 
@@ -148,7 +148,7 @@ function calculate_tempo($timestamp){
         }
         else{
             $days_before_current_adv = ceil(($current_adv - $timestamp) / $day);
-            $dim_per_annum = 35 - ceil(($days_before_current_adv - 1)/ 7) - (($weekday == 6 and in_array(date('m', $timestamp), [11, 12])) ? 1 : 0); // Après le changement d'heure (donc en novembre et décembre), il faut encore enlever 1 le samedi.
+            $dim_per_annum = 34 - floor(($days_before_current_adv - 1) / 7);
             $tempo = "pa_".$dim_per_annum."_".$weekday;
         }
     }

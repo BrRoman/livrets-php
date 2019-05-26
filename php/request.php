@@ -7,7 +7,6 @@
 
     $weekdays_fr = array('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi');
     $months_fr = array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
-    date_default_timezone_set('Europe/Paris'); // Pour compatibilité avec les timestamps de JS.
 
     $secret = json_decode(file_get_contents(__DIR__."/../.secret/config.json"), true);
     $db_name = $secret["db_name"];
@@ -193,6 +192,14 @@
             }
             else{
                 $sancto = '0806_fer';
+            }
+        }
+        if($sancto == '1109'){
+            if($weekday == 'Dimanche'){
+                $sancto = '1109_dim';
+            }
+            else{
+                $sancto = '1109_fer';
             }
         }
         $out['sancto'] = $sancto;
