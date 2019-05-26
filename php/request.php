@@ -189,6 +189,14 @@
                 $sancto = '0806_fer';
             }
         }
+        if($sancto == '1109'){
+            if($weekday == 'Dimanche'){
+                $sancto = '1109_dim';
+            }
+            else{
+                $sancto = '1109_fer';
+            }
+        }
         $out['sancto'] = $sancto;
         $force_sancto = 0;
         $back_sancto = $connect->query('SELECT * FROM Days WHERE Ref = "'.$sancto.'";');
