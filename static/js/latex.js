@@ -44,7 +44,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{Antienne d\'introït~:}\\par\n';
-                tex += '\\Partoche{GR/in_' + introit[0] + '}\n\n';
+                tex += '\\Partoche{GR/1_introit/' + introit[0] + '}\n\n';
             }
         }
         
@@ -147,14 +147,13 @@ function write_latex(data){
         // Graduel :
         if($('#grid_value_' + i + '1').val() != ''){
             var graduel = day_data['GR'];
-            var score = day_data['tempo'].startsWith('tp_') ? 'Alleluia' : 'Graduel';
-            var score_abbr = day_data['tempo'].startsWith('tp_') ? 'al' : 'gr';
+            var score = day_data['tempo'].startsWith('tp_') ? '5_alleluia' : '4_graduel';
             if(graduel[1] != ''){
                 tex += '\\TitreB{' + score + '~:}\\Normal{\\textit{' + graduel[0] + '} (p. ' + graduel[1] + ').}\n\n'
             }
             else{
                 tex += '\\TitreB{' + score + '~:}\\par\n';
-                tex += '\\Partoche{GR/' + score_abbr + '_' + graduel[0] + '}\n\n';
+                tex += '\\Partoche{GR/' + score + '/' + graduel[0] + '}\n\n';
             }
         }
         
@@ -195,7 +194,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{' + score + '~:}\\par\n';
-                tex += '\\Partoche{GR/al_' + alleluia[0] + '}\n\n';
+                tex += '\\Partoche{GR/5_alleluia/' + alleluia[0] + '}\n\n';
             }
         }
 
@@ -254,7 +253,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{Antienne d\'offertoire~:}\\par\n';
-                tex += '\\Partoche{GR/of_' + ant_off[0] + '}\n\n';
+                tex += '\\Partoche{GR/8_offertoire/' + ant_off[0] + '}\n\n';
             }
         }
 
@@ -326,7 +325,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{Antienne de communion~:}\\par\n';
-                tex += '\\Partoche{GR/co_' + comm[0] + '}\n\n';
+                tex += '\\Partoche{GR/11_communion/' + comm[0] + '}\n\n';
             }
         }
 
