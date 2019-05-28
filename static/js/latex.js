@@ -300,7 +300,7 @@ function write_latex(data){
         }
         else{
             tex += '\\TitreB{Prière eucharistique n. 1}\n\n\\input{../static/data/ordinaire/6_canon.tex}\n\n';
-            tex += '\\TitreB{Rites de communion~:}\\input{../static/data/ordinaire/7_communion.tex}\n\n';
+            tex += '\\TitreB{Rites de communion~:}\\input{../static/data/ordinaire/7_pater.tex}\n\n';
         }
         
         // Agnus Dei :
