@@ -5,10 +5,10 @@ function write_latex(data){
         "2": "0",
         "4": "1",
         "6": "I",
-        "9": "2\\_II",
-        "12": "3\\_II",
-        "15": "5\\_II",
-        "17": "6\\_II"
+        "9": "2\_II",
+        "12": "3\_II",
+        "15": "5\_II",
+        "17": "6\_II"
     }
     var start_date_split = $('#date_depart')[0].value.split('/');
     var start_date = new Date(start_date_split[2], start_date_split[1] - 1, start_date_split[0]).getTime();
