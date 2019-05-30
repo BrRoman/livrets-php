@@ -53,7 +53,7 @@ function write_latex(data){
             tex += '\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n'
         }
         else{
-            tex += '\\TitreB{Ouverture de la célébration~:}\n\n\\input{../static/data/ordinaire/1_ouverture.tex}\n\n'
+            tex += '\\TitreB{Ouverture de la célébration~:}\n\n\\input{../static/data/ordinaire/ouverture.tex}\n\n'
         }
 
         // Asperges me :
@@ -91,7 +91,7 @@ function write_latex(data){
                     break;
                 case "Livret complet":
                     tex += '\\TitreB{' + kyrie[0] + '}: partoche Kyrie.\n\n';
-                    tex += '\\input{../static/data/ordinaire/2_kyrie.tex}\n\n';
+                    tex += '\\input{../static/data/ordinaire/kyrie.tex}\n\n';
                     break;
             }
         }
@@ -105,7 +105,7 @@ function write_latex(data){
                     break;
                 case "Livret complet":
                     tex += '\\TitreB{' + gloria[0] + '}: partoche Gloria.\n\n';
-                    tex += '\\input{../static/data/ordinaire/3_gloria.tex}\n\n';
+                    tex += '\\input{../static/data/ordinaire/gloria.tex}\n\n';
                     break;
             }
         }
@@ -240,7 +240,7 @@ function write_latex(data){
                     break;
                 case "Livret complet":
                     tex += '\\TitreB{' + credo[0] + '}: partoche Credo.\n\n'
-                    tex += '\\input{../static/data/ordinaire/4_credo.tex}\n\n';
+                    tex += '\\input{../static/data/ordinaire/credo.tex}\n\n';
                     break;
             }
         }
@@ -301,7 +301,7 @@ function write_latex(data){
                     break;
                 case "Livret complet":
                     tex += '\\TitreB{' + sanctus[0] + '}: partoche Sanctus.\n\n';
-                    tex += '\\input{../static/data/ordinaire/5_sanctus.tex}\n\n';
+                    tex += '\\input{../static/data/ordinaire/sanctus.tex}\n\n';
                     break;
             }
         }
@@ -312,8 +312,8 @@ function write_latex(data){
             tex += '\\TitreB{Rites de communion~:}\\Normal{p. 41.}\n\n';
         }
         else{
-            tex += '\\TitreB{Prière eucharistique n. 1}\n\n\\input{../static/data/ordinaire/6_canon.tex}\n\n';
-            tex += '\\TitreB{Rites de communion~:}\\input{../static/data/ordinaire/7_pater.tex}\n\n';
+            tex += '\\TitreB{Prière eucharistique n. 1}\n\n\\input{../static/data/ordinaire/canon.tex}\n\n';
+            tex += '\\TitreB{Rites de communion~:}\\input{../static/data/ordinaire/pater.tex}\n\n';
         }
         
         // Agnus Dei :
@@ -325,7 +325,7 @@ function write_latex(data){
                     break;
                 case "Livret complet":
                     tex += '\\TitreB{' + agnus[0] + '}: partoche Agnus Dei.\n\n';
-                    tex += '\\input{../static/data/ordinaire/8_agnus.tex}\n\n';
+                    tex += '\\input{../static/data/ordinaire/agnus.tex}\n\n';
                     break;
             }
         }
