@@ -44,7 +44,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{Antienne d\'introït~:}\\par\n';
-                tex += '\\Partoche{GR/1_introit/' + introit[0] + '}\n\n';
+                tex += '\\Partoche{GR/introit/' + introit[0] + '}\n\n';
             }
         }
         
@@ -147,7 +147,7 @@ function write_latex(data){
         // Graduel :
         if($('#grid_value_' + i + '1').val() != ''){
             var graduel = day_data['GR'];
-            var score = day_data['tempo'].startsWith('tp_') ? '5_alleluia' : '4_graduel';
+            var score = day_data['tempo'].startsWith('tp_') ? 'alleluia' : 'graduel';
             if(graduel[1] != ''){
                 tex += '\\TitreB{' + score + '~:}\\Normal{\\textit{' + graduel[0] + '} (p. ' + graduel[1] + ').}\n\n'
             }
@@ -194,7 +194,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{' + score + '~:}\\par\n';
-                tex += '\\Partoche{GR/5_alleluia/' + alleluia[0] + '}\n\n';
+                tex += '\\Partoche{GR/alleluia/' + alleluia[0] + '}\n\n';
             }
         }
 
@@ -253,7 +253,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{Antienne d\'offertoire~:}\\par\n';
-                tex += '\\Partoche{GR/8_offertoire/' + ant_off[0] + '}\n\n';
+                tex += '\\Partoche{GR/offertoire/' + ant_off[0] + '}\n\n';
             }
         }
 
@@ -338,7 +338,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{Antienne de communion~:}\\par\n';
-                tex += '\\Partoche{GR/11_communion/' + comm[0] + '}\n\n';
+                tex += '\\Partoche{GR/communion/' + comm[0] + '}\n\n';
             }
         }
 
