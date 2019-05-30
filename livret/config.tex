@@ -184,7 +184,10 @@
 \newenvironment{TitreC}[1]
 {
 \setlength{\parskip}{0cm}
-\fontsize{10}{10}\selectfont}
+\fontsize{13}{14}\selectfont
+\begin{center}
+\textbf{\textsc{#1}}
+\end{center}}
 
 % Style de paragraphe Normal :
 \newenvironment{Normal}[1]
@@ -252,15 +255,25 @@
 \ParallelRText{\fontsize{11}{12}\selectfont#2}
 \end{Parallel}}
 
-% Latin/francais (1 ligne de paracol) :
-\newenvironment{LigneParacol}[2]
+% Latin/francais = 1 ligne de paracol (space above, latin, français) :
+\newenvironment{LigneParacol}[3]
 {
-\vspace{0.2cm}
-\selectlanguage{latin}#1
+\vspace{#1}
+{\fontsize{12.5}{13}\selectfont
+\selectlanguage{latin}#2}, 
 \switchcolumn
-\vspace{0.2cm}
-\selectlanguage{french}#2
+\vspace{#1}
+{\fontsize{11}{12}\selectfont
+\selectlanguage{french}#3}
 \switchcolumn*}
+
+% Séparation des psaumes de tierce (gloria) :
+\newcommand{\Gloria}{
+\end{paracol}
+\begin{center}
+    \greornamentation{1}{10}
+\end{center}
+\begin{paracol}{2}}
 
 % Oraisons (nom de l'oraison, abréviation, jour) :
 \newenvironment{Oraison}[3]

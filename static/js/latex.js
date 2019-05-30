@@ -261,10 +261,10 @@ function write_latex(data){
         if(mode == "Livret complet"){
             tex += '\\vspace{0.5cm}';
             tex += '\\begin{paracol}{2}';
-            tex += '\\LigneParacol';
+            tex += '\\LigneParacol{0cm}';
             tex += '{↑ Oráte, fratres, ut meum ac vestrum sacrifícium acceptábile fiat apud Deum Patrem omnipoténtem.}';
             tex += '{↑ Priez, mes frères, afin que mon sacrifice qui est aussi le vôtre soit agréé de Dieu le Père tout-puissant.}';
-            tex += '\\LigneParacol';
+            tex += '\\LigneParacol{0cm}';
             tex += '{® Suscípiat Dóminus sacrifícium de mánibus tuis, ad laudem et glóriam nóminis sui, ad utilitátem quoque nostram, totiúsque Ecclésiæ suæ sanctæ.}';
             tex += '{® Que le Seigneur reçoive de tes mains ce sacrifice, pour la louange et la gloire de son Nom, pour notre bien et celui de toute sa sainte Église.}';
             tex += '\\end{paracol}';
