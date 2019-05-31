@@ -263,13 +263,13 @@
 \ifthenelse{\not\equal{#1}{}}{\Partoche{tierce/antiennes/#1}\vspace{-0.3cm}}{}
 \Normal{\hspace{.5cm}\input{\FolderData/tierce/psaumes/#2.tex}}}
 
-% Séparation des psaumes de tierce (gloria) :
-\newcommand{\Gloria}{
-\end{paracol}
+% Séparation des psaumes de tierce :
+\newenvironment{Gloria}
+{
 \begin{center}
     \greornamentation{1}{10}
-\end{center}
-\begin{paracol}{2}}
+\end{center}}
+
 
 % Oraisons (nom de l'oraison, abréviation, jour) :
 \newenvironment{Oraison}[3]
