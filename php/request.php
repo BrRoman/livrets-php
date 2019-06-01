@@ -245,7 +245,7 @@
             if($rep = $back->fetch()){
                 $out['lit_day'] = $rep['Title'];
                 $out['rang'] = 'Mémoire majeure';
-                $out['tierce_ant'] = $timestamp < mktime(0, 0, 0, 2, 2, $year) ? 'quando_natus_es' : 'laeva_ejus';
+                $out['tierce_ant'] = $timestamp < (mktime(0, 0, 0, 2, 2, $year) + (12 * 3600)) ? 'quando_natus_es' : 'laeva_ejus';
                 $out['orationes'] = array('source' => 'Files', 'ref' => 'bmv_'.$rep['CM']);
                 $back_pref = $connect->query('SELECT * FROM Prefaces WHERE Ref = "'.$rep['Preface'].'";');
                 if($rep_pref = $back_pref->fetch()){
