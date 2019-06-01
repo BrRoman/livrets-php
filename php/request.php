@@ -247,7 +247,7 @@
 
         // On cherche s'il y a une mémoire de la Ste Vierge :
         $out['tempo'] = $tempo;
-        if($weekday == 'Samedi' and $force_tempo < 30 and $force_sancto < 30){
+        if($weekday == 'Samedi' and $force_tempo < 30 and $force_sancto < 30 and !preg_match("/^tp_.*/", $tempo)){
             $bmv = date('j', $timestamp) < 8 ? 'icm' : date('n', $timestamp).'_'.ceil(date('j', $timestamp) / 7);
             $back = $connect->query('SELECT * FROM BMV WHERE Ref = "'.$bmv.'";');
             if($rep = $back->fetch()){
