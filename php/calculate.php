@@ -141,6 +141,11 @@ function calculate_tempo($timestamp){
         $tempo = "tp_".$dim_paques."_".$weekday;
     }
 
+    // Pentecôte :
+    if($timestamp == $pentecote){
+        $tempo = "pentec";
+    }
+
     // Temps per Annum après la Pentecôte :
     if($timestamp > $pentecote and $timestamp < $current_adv){
         if(floor(($timestamp - $pentecote) / $day) == 7){

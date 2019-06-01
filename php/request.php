@@ -178,6 +178,14 @@
         // On cherche s'il y a un Sancto :
         $sancto = date('m', $timestamp).date('d', $timestamp);
         // Sancto spécial :
+        if($sancto == '0202'){
+            if($weekday == 'Dimanche'){
+                $sancto = '0202_dim';
+            }
+            else{
+                $sancto = '0202_fer';
+            }
+        }
         if($sancto == '0716'){
             if($weekday == 'Samedi'){
                 $sancto = '0716_sam';
