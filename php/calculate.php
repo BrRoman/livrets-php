@@ -4,7 +4,7 @@
 // Calcul du début de l'Avent de l'année civile courante :
 function calculate_adv($year){
     $day = 24 * 3600;
-    $noel = mktime(0, 0, 0, 12, 25, $year) + (12 * 3600);
+    $noel = mktime(0, 0, 0, 12, 25, $year);
     $noel_weekday = (int) date("w", $noel);
     if($noel_weekday == 0){
         $adv = $noel - (28 * $day);
@@ -32,7 +32,7 @@ function calculate_paques($year){
         $mois_paques = 3;
         $jour_paques = $var_7 + 31;
     }
-    $paques = mktime(0, 0, 0, $mois_paques, $jour_paques, $year) + (12 * 3600);
+    $paques = mktime(0, 0, 0, $mois_paques, $jour_paques, $year);
     return($paques);
 }
 
@@ -53,7 +53,7 @@ function calculate_tempo($timestamp){
     if($timestamp >= $current_adv){
         $lit_year++;
     }
-    $noel = mktime(0, 0, 0, 12, 25, $lit_year - 1) + (12 * 3600);
+    $noel = mktime(0, 0, 0, 12, 25, $lit_year - 1);
     $noel_weekday = (int) date("w", $noel);
     if($noel_weekday == 0){
         $adv = $noel - (28 * $day);
@@ -65,7 +65,7 @@ function calculate_tempo($timestamp){
         $ste_famille = $noel + ((7 - $noel_weekday) * $day);
         $bapteme = $noel_weekday == 1 ? $noel + (13 * $day) : $noel + (14 * $day) + ((7 - $noel_weekday) * $day);
     }
-    $pro_unitate = mktime(0, 0, 0, 1, 18, $year) + (12 * 3600);
+    $pro_unitate = mktime(0, 0, 0, 1, 18, $year);
     if(date("w", $pro_unitate) == 0){
         $pro_unitate += $day;
     }

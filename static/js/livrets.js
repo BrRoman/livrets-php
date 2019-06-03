@@ -77,9 +77,32 @@ function update(){
     data["mode"] = $("#select_mode option:selected").text();
     data["days"] = {};
     var start_date_split = $("#date_depart")[0].value.split("/");
-    var start_date = new Date(start_date_split[2], start_date_split[1] - 1, start_date_split[0]).getTime() + (12 * 3600 * 1000); // Les 12 heures permettent d'éviter les problèmes de timezone et de changements d'heure.
+
+    // Heure d'été => 3600 secondes en moins dans le timestamp, ce qui occasionne des erreurs. 
+    // Changement d'heure de printemps (dernier dimanche de mars) :
+    for(var i = 25; i < 31; i++){
+        var date = new Date(start_date_split[2], 3, i);
+        if(date.getDay() == 0){
+            var changement_heure_printemps = date.getTime();
+        }
+    }
+    // Changement d'heure d'automne (dernier dimanche d'octobre) :
+    for(var i = 24; i < 30; i++){
+        var date = new Date(start_date_split[2], 10, i);
+        if(date.getDay() == 0){
+            var changement_heure_automne = date.getTime();
+        }
+    }
+
+    var start_date = new Date(start_date_split[2], start_date_split[1] - 1, start_date_split[0]).getTime();
     for(var i = 0; i < $("#nombre_jours").val(); i++){
         var date_timestamp = start_date + (i * 24 * 3600 * 1000);
+
+        // On rajoute 3600 secondes en été :
+        if(date_timestamp >= changement_heure_printemps && date_timestamp < changement_heure_automne){
+            date_timestamp = date_timestamp + (3600 * 1000);
+        }
+
         var date = new Date(date_timestamp);
 
         // Update jour civil :
