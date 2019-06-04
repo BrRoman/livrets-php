@@ -146,8 +146,13 @@ function calculate_tempo($timestamp){
         $tempo = "pentec";
     }
 
+    // Lundi de Pentecôte :
+    if($timestamp == $pentecote + $day){
+        $tempo = "marie_mere_eglise";
+    }
+
     // Temps per Annum après la Pentecôte :
-    if($timestamp > $pentecote and $timestamp < $current_adv){
+    if($timestamp > ($pentecote + $day) and $timestamp < $current_adv){
         if(floor(($timestamp - $pentecote) / $day) == 7){
             $tempo = "trinite";
         }
