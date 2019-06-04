@@ -134,10 +134,15 @@ function calculate_tempo($timestamp){
         $tempo = "qua_".$dim_careme."_".$weekday;
     }
 
+    // Pâques :
+    if($timestamp == $paques){
+        $tempo = "tp_1_0";
+    }
+
     // Temps pascal :
-    if($timestamp >= $paques and $timestamp < $pentecote){
+    if($timestamp > $paques and $timestamp < $pentecote){
         $days_after_paques = ceil(($timestamp - $paques) / $day);
-        $dim_paques = floor($days_after_paques / 7) + 1;
+        $dim_paques = ceil($days_after_paques / 7);
         $tempo = "tp_".$dim_paques."_".$weekday;
     }
 
