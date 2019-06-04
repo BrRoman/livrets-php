@@ -33,6 +33,10 @@ function calculate_paques($year){
         $jour_paques = $var_7 + 31;
     }
     $paques = mktime(0, 0, 0, $mois_paques, $jour_paques, $year);
+    // Si Pâques après changement d'heure, ajouter 1 heure :
+    if(($mois_paques == 3 && $jour_paques > 24) || $mois_paques == 4){
+        $paques += 3600;
+    }
     return($paques);
 }
 

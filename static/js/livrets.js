@@ -78,19 +78,19 @@ function update(){
     data["days"] = {};
     var start_date_split = $("#date_depart")[0].value.split("/");
 
-    // Heure d'été => 3600 secondes en moins dans le timestamp, ce qui occasionne des erreurs. 
+    // Calcul des changements d'heure pour ensuite ajouter 1 heure aux timestamps compris entre les deux (cf. infra).
     // Changement d'heure de printemps (dernier dimanche de mars) :
-    for(var i = 25; i < 31; i++){
-        var date = new Date(start_date_split[2], 3, i);
+    for(var i = 25; i <= 31; i++){
+        var date = new Date(parseInt(start_date_split[2]), 2, i);
         if(date.getDay() == 0){
-            var changement_heure_printemps = date.getTime();
+            var changement_heure_printemps = date.getTime() + (3600 * 1000);
         }
     }
     // Changement d'heure d'automne (dernier dimanche d'octobre) :
     for(var i = 24; i < 30; i++){
-        var date = new Date(start_date_split[2], 10, i);
+        var date = new Date(parseInt(start_date_split[2]), 9, i);
         if(date.getDay() == 0){
-            var changement_heure_automne = date.getTime();
+            var changement_heure_automne = date.getTime() + (3600 * 1000);
         }
     }
 
