@@ -298,7 +298,7 @@
             if($label == 'SA'){
                 $back = $connect->query('SELECT * FROM Scores WHERE Type = "SA" AND Ref = "'.$grid_ref.'";');
                 if($rep = $back->fetch()){
-                    $out['SA'] = array($rep['Name'], $rep['Page']);
+                    $out['SA'] = array($grid_ref, $rep['Page']);
                 }
                 else{
                     $out['SA'] = array('', '');
@@ -306,7 +306,7 @@
                 $back->closeCursor();
                 $back = $connect->query('SELECT * FROM Scores WHERE Type = "AG" AND Ref = "'.$grid_ref.'";');
                 if($rep = $back->fetch()){
-                    $out['AG'] = array($rep['Name'], $rep['Page']);
+                    $out['AG'] = array($grid_ref, $rep['Page']);
                 }
                 else{
                     $out['AG'] = array('', '');
