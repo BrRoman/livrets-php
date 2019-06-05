@@ -44,7 +44,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{Antienne d\'introït~:}\\par\n';
-                tex += '\\Partoche{GR/introit/' + introit[0] + '}\n\n';
+                tex += '\\PartocheWithTraduction{GR/introit/' + introit[0] + '}\n\n';
             }
         }
         
@@ -53,7 +53,7 @@ function write_latex(data){
             tex += '\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n'
         }
         else{
-            tex += '\\TitreB{Ouverture de la célébration~:}\n\n\\input{../static/data/ordinaire/ouverture.tex}\n\n'
+            tex += '\\TitreB{Ouverture de la célébration~:}\n\\input{../static/data/ordinaire/ouverture.tex}\n\n'
         }
 
         // Asperges me :
@@ -76,7 +76,7 @@ function write_latex(data){
             else{
                 switch(mode){
                     case "Missel Grégorien":
-                    tex += '\\Tierce_mg{}{' + day_data['tierce_page']+ '}\n\n';
+                    tex += '\\TierceMG{}{' + day_data['tierce_page']+ '}\n\n';
                     break;
                 }
             }
@@ -90,8 +90,8 @@ function write_latex(data){
                     tex += '\\TitreB{' + kyrie[0] + '}\\Normal{(p. ' + kyrie[1] + ').}\n\n';
                     break;
                 case "Livret complet":
-                    tex += '\\TitreB{' + kyrie[0] + '}: partoche Kyrie.\n\n';
-                    tex += '\\input{../static/data/ordinaire/kyrie.tex}\n\n';
+                    tex += "\\Partoche{/GR/kyrie/" + kyrie[0] + "}\n";
+                    tex += "\\Traduction{2cm}{\\input{\\FolderData/GR/ordinaire/kyrie.tex}}\n\n";
                     break;
             }
         }
@@ -104,8 +104,8 @@ function write_latex(data){
                     tex += '\\TitreB{' + gloria[0] + '}\\Normal{(p. ' + gloria[1] + ').}\n\n';
                     break;
                 case "Livret complet":
-                    tex += '\\TitreB{' + gloria[0] + '}: partoche Gloria.\n\n';
-                    tex += '\\input{../static/data/ordinaire/gloria.tex}\n\n';
+                    tex += "\\Partoche{/GR/gloria/" + gloria[0] + "}\n";
+                    tex += "\\Traduction{2cm}{\\input{\\FolderData/GR/ordinaire/gloria.tex}}\n\n";
                     break;
             }
         }
@@ -153,7 +153,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{' + score + '~:}\\par\n';
-                tex += '\\Partoche{GR/' + score + '/' + graduel[0] + '}\n\n';
+                tex += '\\PartocheWithTraduction{GR/' + score + '/' + graduel[0] + '}\n\n';
             }
         }
         
@@ -194,7 +194,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{' + score + '~:}\\par\n';
-                tex += '\\Partoche{GR/alleluia/' + alleluia[0] + '}\n\n';
+                tex += '\\PartocheWithTraduction{GR/alleluia/' + alleluia[0] + '}\n\n';
             }
         }
 
@@ -202,7 +202,7 @@ function write_latex(data){
         if(day_data['sequence'] != null){
             if(day_data['sequence']['source'] == 'files' || mode == "Livret complet"){
                 tex += '\\TitreB{Séquence~:}\\par\n';
-                tex += '\\Partoche{sequences/' + day_data['sequence']['ref'] + '}\n\n';
+                tex += '\\PartocheWithTraduction{sequences/' + day_data['sequence']['ref'] + '}\n\n';
             }
             else{
                 tex += '\\TitreB{Séquence~:}\\Normal{\\textit{' + day_data['sequence']['name'] + '} (p. ' + day_data['sequence']['page'] + ').}\n\n';
@@ -239,8 +239,8 @@ function write_latex(data){
                     tex += '\\TitreB{' + credo[0] + '}\\Normal{(p. ' + credo[1] + ').}\n\n'
                     break;
                 case "Livret complet":
-                    tex += '\\TitreB{' + credo[0] + '}: partoche Credo.\n\n'
-                    tex += '\\input{../static/data/ordinaire/credo.tex}\n\n';
+                    tex += "\\Partoche{/GR/credo/" + credo[0] + "}\n";
+                    tex += "\\Traduction{2cm}{\\input{\\FolderData/GR/ordinaire/credo.tex}}\n\n";
                     break;
             }
         }
@@ -253,21 +253,21 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{Antienne d\'offertoire~:}\\par\n';
-                tex += '\\Partoche{GR/offertoire/' + ant_off[0] + '}\n\n';
+                tex += '\\PartocheWithTraduction{GR/offertoire/' + ant_off[0] + '}\n\n';
             }
         }
 
         // Orate fratres :
         if(mode == "Livret complet"){
-            tex += '\\vspace{0.5cm}';
-            tex += '\\begin{paracol}{2}';
-            tex += '\\LigneParacol{0cm}';
-            tex += '{↑ Oráte, fratres, ut meum ac vestrum sacrifícium acceptábile fiat apud Deum Patrem omnipoténtem.}';
-            tex += '{↑ Priez, mes frères, afin que mon sacrifice qui est aussi le vôtre soit agréé de Dieu le Père tout-puissant.}';
-            tex += '\\LigneParacol{0cm}';
-            tex += '{® Suscípiat Dóminus sacrifícium de mánibus tuis, ad laudem et glóriam nóminis sui, ad utilitátem quoque nostram, totiúsque Ecclésiæ suæ sanctæ.}';
-            tex += '{® Que le Seigneur reçoive de tes mains ce sacrifice, pour la louange et la gloire de son Nom, pour notre bien et celui de toute sa sainte Église.}';
-            tex += '\\end{paracol}';
+            tex += '\\vspace{0.5cm}\n';
+            tex += '\\begin{paracol}{2}\n';
+            tex += '\\LigneParacol{0cm}\n';
+            tex += '{↑ Oráte, fratres, ut meum ac vestrum sacrifícium acceptábile fiat apud Deum Patrem omnipoténtem.}\n';
+            tex += '{↑ Priez, mes frères, afin que mon sacrifice qui est aussi le vôtre soit agréé de Dieu le Père tout-puissant.}\n';
+            tex += '\\LigneParacol{0cm}\n';
+            tex += '{® Suscípiat Dóminus sacrifícium de mánibus tuis, ad laudem et glóriam nóminis sui, ad utilitátem quoque nostram, totiúsque Ecclésiæ suæ sanctæ.}\n';
+            tex += '{® Que le Seigneur reçoive de tes mains ce sacrifice, pour la louange et la gloire de son Nom, pour notre bien et celui de toute sa sainte Église.}\n';
+            tex += '\\end{paracol}\n\n';
         }
 
         // Super oblata :
@@ -297,22 +297,23 @@ function write_latex(data){
             var sanctus = day_data['SA'];
             switch(mode){
                 case "Missel grégorien":
-                    tex += '\\TitreB{' + sanctus[0] + '}\\Normal{(p. ' + sanctus[1] + ').}\n\n';
+                    tex += '\\TitreB{Sanctus ' + sanctus[0] + '}\\Normal{(p. ' + sanctus[1] + ').}\n\n';
                     break;
                 case "Livret complet":
-                    tex += '\\TitreB{' + sanctus[0] + '}: partoche Sanctus.\n\n';
-                    tex += '\\input{../static/data/ordinaire/sanctus.tex}\n\n';
+                    tex += "\\Partoche{/GR/sanctus/" + sanctus[0] + "}\n";
+                    tex += "\\Traduction{2cm}{\\input{\\FolderData/GR/ordinaire/sanctus.tex}}\n\n";
                     break;
             }
         }
 
         // Canon :
         if(mode == "Missel grégorien"){
-            tex += '\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22).}\n\n';
+            tex += '\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22).}\n';
             tex += '\\TitreB{Rites de communion~:}\\Normal{p. 41.}\n\n';
         }
         else{
-            tex += '\\TitreB{Prière eucharistique n. 1}\n\n\\input{../static/data/ordinaire/canon.tex}\n\n';
+            tex += "\\newpage\n";
+            tex += '\\TitreB{Prière eucharistique n. 1}\n\\input{../static/data/ordinaire/canon.tex}\n';
             tex += '\\TitreB{Rites de communion~:}\\input{../static/data/ordinaire/pater.tex}\n\n';
         }
         
@@ -321,11 +322,11 @@ function write_latex(data){
             var agnus = day_data['AG'];
             switch(mode){
                 case "Missel grégorien":
-                    tex += '\\TitreB{' + agnus[0] + '}\\Normal{(p. ' + agnus[1] + ').}\n\n';
+                    tex += '\\TitreB{Agnus Dei ' + agnus[0] + '}\\Normal{(p. ' + agnus[1] + ').}\n\n';
                     break;
                 case "Livret complet":
-                    tex += '\\TitreB{' + agnus[0] + '}: partoche Agnus Dei.\n\n';
-                    tex += '\\input{../static/data/ordinaire/agnus.tex}\n\n';
+                    tex += "\\Partoche{/GR/agnus/" + agnus[0] + "}\n";
+                    tex += "\\Traduction{2cm}{\\input{\\FolderData/GR/ordinaire/agnus.tex}}\n\n";
                     break;
             }
         }
@@ -338,7 +339,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{Antienne de communion~:}\\par\n';
-                tex += '\\Partoche{GR/communion/' + comm[0] + '}\n\n';
+                tex += '\\PartocheWithTraduction{GR/communion/' + comm[0] + '}\n\n';
             }
         }
 
@@ -353,29 +354,29 @@ function write_latex(data){
         // Conclusion :
         tex += '\\TitreB{Conclusion~:}{\\Normal{p. 47.}}\n\n';
     }
-    tex += '\n\n\n\n\\vspace{7cm}\n\n';
-    tex += '\\begin{center}\n\n';
-    tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret si vous le souhaitez.}}\n\n';
+    tex += '\n\n\\vspace{3cm}\n';
+    tex += '\\begin{center}\n';
+    tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret si vous le souhaitez.}}\n';
     if(mode == "Missel grégorien"){
-        tex += '\\makebox[12.35cm][c]{\\textit{Merci de rendre le Missel Grégorien bleu.}}\n\n';
+        tex += '\\makebox[12.35cm][c]{\\textit{Merci de rendre le Missel Grégorien bleu.}}\n';
     }
     tex += '\\end{center}\n\n';
 
 
     tex += '\\newpage\n'
     tex += '\\pagestyle{plain}\n' // No header please, only page number.
-    tex += '\\fontsize{11.5}{13}\\selectfont\n'
-    tex += '\\begin{center}\\Normal{\\textbf{Communion spirituelle}}\\end{center}\n\n'
-    tex += 'Ô Jésus, mon aimable Sauveur, combien je voudrais en ce moment, m’approcher de votre Table sainte, plein de confiance, non en mes propres mérites, mais en votre infinie bonté! Que je voudrais aller à vous, Source de miséricorde~; être guéri par vous, divin Médecin de mon âme~; chercher en vous mon appui, en vous, Seigneur, qui serez un jour mon Juge, mais qui ne voulez être, maintenant, que mon Sauveur~! Je vous aime, ô Jésus, Agneau divin, innocente Victime, immolée par amour sur la Croix, pour moi et pour le salut du genre humain. Ô mon Dieu, souvenez-vous de votre humble créature, rachetée par votre Sang~! Je me repens de vous avoir offensé, et je désire réparer mes fautes par les efforts que je ferai pour obéir à votre sainte volonté. Ô bon Jésus, qui, par votre grâce tout-puissante, me fortifiez contre les ennemis de mon âme et de mon corps, faites que bientôt, purifié de toute souillure, j’aie le bonheur de vous recevoir dans la Sainte Eucharistie, afin de travailler avec une constante générosité à l’œuvre de mon salut. Ainsi soit-il.\\par\\vspace{0.2cm}\n'
-    tex += '\\begin{center}\\Normal{\\textbf{Prières avant la Communion}}\\end{center}\n\n'
-    tex += '\\textbf{Acte de Foi.} – Ô Seigneur Jésus, je crois que vous êtes réellement et substantiellement présent dans la Sainte Hostie, avec votre Corps, votre Sang, votre Âme et votre Divinité. Je le crois fermement parce que vous l’avez dit, vous qui êtes la vérité même. Je crois que dans ce Sacrement, vous, mon Sauveur, vrai Dieu et vrai homme, vous vous donnez à moi, pour me faire vivre plus abondamment de votre vie divine~; je le crois, mais fortifiez et augmentez ma foi.\n\n'
-    tex += '\\textbf{Acte d’humilité.} – Je reconnais, ô mon Dieu, que je suis une humble créature, sortie de vos mains et de plus, un pauvre pécheur, très indigne de vous recevoir, vous qui êtes le Tout-Puissant, l’éternel, le Dieu infiniment saint. Je devrais vous dire, comme votre apôtre Pierre, et avec bien plus de raison que lui: «~éloignez-vous de moi, parce que je suis un pécheur~»; mais souffrez que je répète avec le Centurion~: «~Seigneur, dites seulement une parole, et mon âme sera guérie.~»\n\n'
-    tex += '\\textbf{Acte de contrition.} – Mon Dieu, je déteste toutes les fautes de ma vie~; je les déteste de tout mon cœur, parce qu’elles vous ont offensé, vous, ô mon Dieu, qui êtes si bon. Je vous en supplie, effacez-les par votre sang. Avec l’aide de votre grâce, je prends la résolution de ne plus commettre le péché, et d’en faire une sincère pénitence.\n\n'
-    tex += '\\textbf{Acte de désir et d’amour.} – Ô Seigneur Jésus, le Dieu de mon cœur, mon bonheur et ma force, vous, le Pain vivant, qui descendez du ciel pour être la nourriture de mon âme, j’ai un grand désir de vous recevoir. Je me réjouis à la pensée que vous allez venir habiter en moi. Venez, Seigneur Jésus, venez posséder mon cœur~; qu’il soit à vous pour toujours! Vous qui m’aimez tant, faites que je vous aime de toute mon âme, et par-dessus toutes choses.\n\n'
-    tex += '\\textbf{Recours à la Très Sainte Vierge et aux Saints.} – Sainte Vierge Marie, Mère de Jésus, le Dieu d’amour qui va s’unir à mon âme dans la Sainte Eucharistie, obtenez-moi la grâce de le recevoir dignement. Saint Joseph, Saints et Bienheureux, et vous, mon bon Ange gardien, intercédez pour moi.\\par\\vspace{0.2cm}\n'
-    tex += '\\begin{center}\\Normal{\\textbf{Prières après la Communion}}\\end{center}\n\n'
-    tex += '\\textbf{Acte de Foi et d’Adoration.} – Ô Jésus, je le crois, c’est vous que je viens de recevoir, vous, mon Dieu, mon Créateur et mon Maître, vous qui, par amour pour moi, avez été, à votre naissance, couché sur la paille de la crèche, vous qui avez voulu mourir pour moi sur la Croix. J’ai été tiré du néant par votre toute-puissance, et vous venez habiter en moi~! Ô mon Dieu, saisi d’un profond respect, je me prosterne devant votre souveraine majesté, je vous adore, et je vous offre mes plus humbles louanges.\n\n'
-    tex += '\\textbf{Acte de Reconnaissance et d’Amour.} – Très doux Jésus, Dieu d’infinie bonté, je vous remercie de tout mon cœur, pour la grâce insigne que vous venez de me faire. Que vous rendrai-je pour un tel bienfait~? Je voudrais vous aimer, autant que vous êtes aimable, et vous servir, autant que vous méritez de l’être. Ô Dieu, qui êtes tout amour, apprenez-moi à vous aimer, d’une affection véritable et fidèle, et enseignez-moi à faire votre sainte volonté. Je m’offre tout entier à vous: mon corps, afin qu’il soit chaste; mon âme, afin qu’elle soit pure de tout péché; mon cœur, afin qu’il ne cesse de vous aimer. Vous vous êtes donné à moi, je me donne à vous pour toujours.\n\n'
+    tex += '\\fontsize{11.5}{13}\\selectfont\n\n'
+    tex += '\\begin{center}\n\\Normal{\\textbf{Communion spirituelle}}\n\\end{center}\n'
+    tex += 'Ô Jésus, mon aimable Sauveur, combien je voudrais en ce moment, m’approcher de votre Table sainte, plein de confiance, non en mes propres mérites, mais en votre infinie bonté! Que je voudrais aller à vous, Source de miséricorde~; être guéri par vous, divin Médecin de mon âme~; chercher en vous mon appui, en vous, Seigneur, qui serez un jour mon Juge, mais qui ne voulez être, maintenant, que mon Sauveur~! Je vous aime, ô Jésus, Agneau divin, innocente Victime, immolée par amour sur la Croix, pour moi et pour le salut du genre humain. Ô mon Dieu, souvenez-vous de votre humble créature, rachetée par votre Sang~! Je me repens de vous avoir offensé, et je désire réparer mes fautes par les efforts que je ferai pour obéir à votre sainte volonté. Ô bon Jésus, qui, par votre grâce tout-puissante, me fortifiez contre les ennemis de mon âme et de mon corps, faites que bientôt, purifié de toute souillure, j’aie le bonheur de vous recevoir dans la Sainte Eucharistie, afin de travailler avec une constante générosité à l’œuvre de mon salut. Ainsi soit-il.\\par\\vspace{0.2cm}\n\n'
+    tex += '\\begin{center}\n\\Normal{\\textbf{Prières avant la Communion}}\n\\end{center}\n'
+    tex += '\\textbf{Acte de Foi.} – Ô Seigneur Jésus, je crois que vous êtes réellement et substantiellement présent dans la Sainte Hostie, avec votre Corps, votre Sang, votre Âme et votre Divinité. Je le crois fermement parce que vous l’avez dit, vous qui êtes la vérité même. Je crois que dans ce Sacrement, vous, mon Sauveur, vrai Dieu et vrai homme, vous vous donnez à moi, pour me faire vivre plus abondamment de votre vie divine~; je le crois, mais fortifiez et augmentez ma foi.\n'
+    tex += '\\textbf{Acte d’humilité.} – Je reconnais, ô mon Dieu, que je suis une humble créature, sortie de vos mains et de plus, un pauvre pécheur, très indigne de vous recevoir, vous qui êtes le Tout-Puissant, l’éternel, le Dieu infiniment saint. Je devrais vous dire, comme votre apôtre Pierre, et avec bien plus de raison que lui: «~éloignez-vous de moi, parce que je suis un pécheur~»; mais souffrez que je répète avec le Centurion~: «~Seigneur, dites seulement une parole, et mon âme sera guérie.~»\n'
+    tex += '\\textbf{Acte de contrition.} – Mon Dieu, je déteste toutes les fautes de ma vie~; je les déteste de tout mon cœur, parce qu’elles vous ont offensé, vous, ô mon Dieu, qui êtes si bon. Je vous en supplie, effacez-les par votre sang. Avec l’aide de votre grâce, je prends la résolution de ne plus commettre le péché, et d’en faire une sincère pénitence.\n'
+    tex += '\\textbf{Acte de désir et d’amour.} – Ô Seigneur Jésus, le Dieu de mon cœur, mon bonheur et ma force, vous, le Pain vivant, qui descendez du ciel pour être la nourriture de mon âme, j’ai un grand désir de vous recevoir. Je me réjouis à la pensée que vous allez venir habiter en moi. Venez, Seigneur Jésus, venez posséder mon cœur~; qu’il soit à vous pour toujours! Vous qui m’aimez tant, faites que je vous aime de toute mon âme, et par-dessus toutes choses.\n'
+    tex += '\\textbf{Recours à la Très Sainte Vierge et aux Saints.} – Sainte Vierge Marie, Mère de Jésus, le Dieu d’amour qui va s’unir à mon âme dans la Sainte Eucharistie, obtenez-moi la grâce de le recevoir dignement. Saint Joseph, Saints et Bienheureux, et vous, mon bon Ange gardien, intercédez pour moi.\\par\\vspace{0.2cm}\n\n'
+    tex += '\\begin{center}\n\\Normal{\\textbf{Prières après la Communion}}\n\\end{center}\n'
+    tex += '\\textbf{Acte de Foi et d’Adoration.} – Ô Jésus, je le crois, c’est vous que je viens de recevoir, vous, mon Dieu, mon Créateur et mon Maître, vous qui, par amour pour moi, avez été, à votre naissance, couché sur la paille de la crèche, vous qui avez voulu mourir pour moi sur la Croix. J’ai été tiré du néant par votre toute-puissance, et vous venez habiter en moi~! Ô mon Dieu, saisi d’un profond respect, je me prosterne devant votre souveraine majesté, je vous adore, et je vous offre mes plus humbles louanges.\n'
+    tex += '\\textbf{Acte de Reconnaissance et d’Amour.} – Très doux Jésus, Dieu d’infinie bonté, je vous remercie de tout mon cœur, pour la grâce insigne que vous venez de me faire. Que vous rendrai-je pour un tel bienfait~? Je voudrais vous aimer, autant que vous êtes aimable, et vous servir, autant que vous méritez de l’être. Ô Dieu, qui êtes tout amour, apprenez-moi à vous aimer, d’une affection véritable et fidèle, et enseignez-moi à faire votre sainte volonté. Je m’offre tout entier à vous: mon corps, afin qu’il soit chaste; mon âme, afin qu’elle soit pure de tout péché; mon cœur, afin qu’il ne cesse de vous aimer. Vous vous êtes donné à moi, je me donne à vous pour toujours.\n'
     tex += '\\textbf{Acte de Demande.} – Vous êtes en moi, ô Jésus, vous qui avez dit: «~Demandez et vous recevrez~». Vous y êtes, rempli de bonté pour moi, les mains pleines de grâces~; daignez les répandre sur mon âme, qui en a tant besoin. Ôtez de mon cœur tout ce qui vous déplaît, mettez-y tout ce qui peut le rendre agréable à vos yeux. Appliquez-moi les mérites de votre vie et de votre mort, unissez-moi à vous, vivez en moi, faites que je vive par vous et pour vous. Accordez aussi, Dieu infiniment bon, les mêmes grâces à toutes les personnes pour lesquelles j’ai le devoir de prier, ou à qui j’ai promis particulièrement de le faire. – Cœur miséricordieux de Jésus, ayez pitié des pauvres âmes du purgatoire, et donnez-leur le repos éternel.\n\n'
 
     tex += '\\end{document}\n\n';
@@ -410,14 +411,14 @@ function tex_header(timestamp_start){
 
     var tex_header = '\\input{config.tex}\n\n';
 	tex_header += '\\begin{document}\n\n';
-    tex_header += '\\setlength{\\columnseprule}{0.5pt}\n\n';
+    tex_header += '\\setlength{\\columnseprule}{0.5pt}\n';
     tex_header += '\\colseprulecolor{rougeliturgique}\n\n';
 	tex_header += '\\thispagestyle{empty}\n\n';
-	tex_header += '\\begin{center}\n\n';
-	tex_header += '+\\par\n\n';
-	tex_header += 'PAX\\par\n\n';
-    tex_header += '\\vspace{.5cm}\n\n';
-    tex_header += '\\TitreB{Abbaye Saint-Joseph de Clairval}\n\n';
+	tex_header += '\\begin{center}\n';
+	tex_header += '+\\par\n';
+	tex_header += 'PAX\\par\n';
+    tex_header += '\\vspace{.5cm}\n';
+    tex_header += '\\TitreB{Abbaye Saint-Joseph de Clairval}\n';
     tex_header += '\\end{center}\n\n';
 	tex_header += '\\TitreA{Messe conventuelle}\n\n';
 
