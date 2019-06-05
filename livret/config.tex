@@ -227,7 +227,12 @@
 {
 \fontsize{12.2}{13}\selectfont
 \selectlanguage{latin}
-\gregorioscore{\FolderData/#1}
+\gregorioscore{\FolderData/#1}}
+
+% Partoche avec traduction :
+\newenvironment{PartocheWithTraduction}[1]
+{
+\Partoche{#1}
 \Traduction{2cm}{\input{\FolderData/#1.txt}}}
 
 % Ligne de paracol (space above, latin, français) :
