@@ -1,13 +1,13 @@
 <?php
-    // This script writes in file "result" the list of missing readings.
+    // This script writes in file "missing_readings" the list of missing readings.
     // It has to be put in the readings' dir.
 
-    if(is_file(__DIR__."/result")){
+    if(is_file(__DIR__."/missing_readings")){
         // Empty the result file:
-        system("echo '' > ".__DIR__."/result");
+        system("echo '' > ".__DIR__."/missing_readings");
     }
 
-    $f = fopen(__DIR__."/result", "w");
+    $f = fopen(__DIR__."/missing_readings", "w");
 
     // Readings of feriæ per annum:
     for($i = 1; $i <= 34; $i++){
