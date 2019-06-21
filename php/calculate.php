@@ -165,6 +165,12 @@ function calculate_tempo($timestamp){
         if(floor(($timestamp - $pentecote) / $day) == 7){
             $tempo = "trinite";
         }
+        else if(floor(($timestamp - $pentecote) / $day) == 11){
+            $tempo = "fete_dieu";
+        }
+        else if(floor(($timestamp - $pentecote) / $day) == 19){
+            $tempo = "sacre_coeur";
+        }
         else{
             $days_before_current_adv = ceil(($current_adv - $timestamp) / $day);
             $dim_per_annum = 34 - floor($days_before_current_adv / 7) + ($weekday == 0 ? 1 : 0);
