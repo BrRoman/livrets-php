@@ -1,6 +1,5 @@
 - Script cleaner : gabc : ae->æ ; aé->ã.
 - Remplacement des "Vel~:" et "Ou~:" dans les oraisons, après remplacement des retours chariot.
-- Essayer de mettre tous les scripts dans un dossier Scripts (aux derniers essais cela fait planter l'application).
 - 02/11 : pas d'antienne à Tierce.
 - 08/12 : attention si dimanche.
 - Tierce : 2 janvier, 3 janvier, 14 février.
@@ -12,20 +11,24 @@
 	• Oraisons : "noel_time_before_ep_2", "noel_time_after_ep_5" etc.
 
 CARÊME :
-    - Oratio super populum dimanches de carême.
-    - Pater B féries
+    - Commémoraisons.
+    - Alléluia => Trait (mettre la partoche quand différent du MG).
+    - Oratio super populum dimanche.
+    - Pater B féries (idem Avent).
+    - Prière universelle.
 RAMEAUX :
     - Procession.
     - Pas d'Ouverture de la célébration ni d'Asperges me.
+TP :
+    - Victimæ paschali : indiquer la page.
 
 - Base de données : Nième semaine d'Avent et de Carême : ne pas couper en 3 mais en 2.
-- Oraisons des saints pendant le Carême.
-- Alleluia -> Trait en carême.
 - Pas de header en haut des dernières pages (prières avant et après la Communion).
 - Homélie dimanches et solennités.
 - Kyrie, Gloria, Credo etc. : indiquer "Traduction page…".
-- Lundi de Pentecôte.
 - 5e dim. de Pâques : oraison différente dans MG et dans MR2002.
 - Lundi au TP : antienne de Tierce propre.
 - Séquences du MG : non traitées en bdd ni dans latex.js.
-
+- Partoches avec ↑ : mettre le ↑ après le (::) et avant le 1er mot du verset (comme dans l'Al. 276).
+- Mot all_é_luia en français.
+- Traduction ".txt" => ".tex".
