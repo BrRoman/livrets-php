@@ -308,7 +308,7 @@ function write_latex(data){
 
         // Canon :
         if(mode == "Missel grégorien"){
-            tex += '\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22).}\n';
+            tex += '\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22).}\n\n';
             tex += '\\TitreB{Rites de communion~:}\\Normal{p. 41.}\n\n';
         }
         else{
