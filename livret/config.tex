@@ -239,7 +239,7 @@
 \newenvironment{LigneParacol}[3]
 {
 \vspace{#1}
-{\fontsize{12.5}{13}\selectfont
+{\fontsize{12}{13}\selectfont
 \selectlanguage{latin}#2}
 \switchcolumn
 \vspace{#1}
@@ -247,7 +247,7 @@
 \selectlanguage{french}#3}
 \switchcolumn*}
 
-% Latin/francais pour oraisons, préfaces, tierce… (latin, français) :
+% Latin/francais pour oraisons, préfaces, psaumes de tierce… (latin, français) :
 \newenvironment{LatinFrancais}[2]
 {
 \begin{paracol}{2}
@@ -258,14 +258,14 @@
 \newenvironment{TierceMG}[2]
 {
 \TitreB{Office de Tierce~:}\par
-\ifthenelse{\not\equal{#1}{}}{\Partoche{tierce/antiennes/#1}\vspace{0.3cm}}{}
+\ifthenelse{\not\equal{#1}{}}{\PartocheWithTraduction{tierce/antiennes/#1}\vspace{0.3cm}}{}
 \Normal{\hspace{.5cm}Psaumes~: voir livret de Tierce inséré au début du Missel grégorien, p. #2.}}
 
 % Tierce complet (partition, fichier psaumes) :
 \newenvironment{TierceComplet}[2]
 {
 \TitreB{Office de Tierce~:}\par
-\ifthenelse{\not\equal{#1}{}}{\Partoche{tierce/antiennes/#1}\vspace{-0.3cm}}{}
+\ifthenelse{\not\equal{#1}{}}{\PartocheWithTraduction{tierce/antiennes/#1}\vspace{-0.3cm}}{}
 \Normal{\hspace{.5cm}\input{\FolderData/tierce/psaumes/#2.tex}}}
 
 % Séparation des psaumes de tierce :
