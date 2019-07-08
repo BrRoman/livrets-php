@@ -147,7 +147,7 @@ function write_latex(data){
         // Graduel :
         if($('#grid_value_' + i + '1').val() != ''){
             var graduel = day_data['GR'];
-            var score = day_data['tempo'].startsWith('tp_') ? 'alleluia' : 'graduel';
+            var score = day_data['tempo'].startsWith('tp_') ? 'Alleluia' : 'Graduel';
             if(graduel[1] != ''){
                 tex += '\\TitreB{' + score + '~:}\\Normal{\\textit{' + graduel[0] + '} (p. ' + graduel[1] + ').}\n\n'
             }
