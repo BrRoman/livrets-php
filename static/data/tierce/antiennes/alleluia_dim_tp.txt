@@ -1,1 +1,0 @@
-Alleluia, alleluia, alleluia, alleluia.
