@@ -153,7 +153,7 @@ function write_latex(data){
             }
             else{
                 tex += '\\TitreB{' + score + '~:}\\par\n';
-                tex += '\\PartocheWithTraduction{GR/' + score + '/' + graduel[0] + '}\n\n';
+                tex += '\\PartocheWithTraduction{GR/' + score.toLowerCase() + '/' + graduel[0] + '}\n\n';
             }
         }
         
