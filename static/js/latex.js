@@ -49,11 +49,14 @@ function write_latex(data){
         }
         
         // Ouverture de la célébration :
-        if(mode == "Missel grégorien"){
-            tex += '\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n'
-        }
-        else{
-            tex += '\\TitreB{Ouverture de la célébration~:}\n\\input{../static/data/ordinaire/ouverture.tex}\n\n'
+        switch(mode){
+            case "Missel grégorien":
+                tex += '\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n'
+                break;
+
+            case "Livret complet":
+                tex += '\\TitreB{Ouverture de la célébration~:}\n\n\\input{../static/data/ordinaire/ouverture.tex}\n\n'
+                break;
         }
 
         // Asperges me :
@@ -259,15 +262,9 @@ function write_latex(data){
 
         // Orate fratres :
         if(mode == "Livret complet"){
-            tex += '\\vspace{0.5cm}\n';
-            tex += '\\begin{paracol}{2}\n';
-            tex += '\\LigneParacol{0cm}\n';
-            tex += '{↑ Oráte, fratres, ut meum ac vestrum sacrifícium acceptábile fiat apud Deum Patrem omnipoténtem.}\n';
-            tex += '{↑ Priez, mes frères, afin que mon sacrifice qui est aussi le vôtre soit agréé de Dieu le Père tout-puissant.}\n';
-            tex += '\\LigneParacol{0cm}\n';
-            tex += '{® Suscípiat Dóminus sacrifícium de mánibus tuis, ad laudem et glóriam nóminis sui, ad utilitátem quoque nostram, totiúsque Ecclésiæ suæ sanctæ.}\n';
-            tex += '{® Que le Seigneur reçoive de tes mains ce sacrifice, pour la louange et la gloire de son Nom, pour notre bien et celui de toute sa sainte Église.}\n';
-            tex += '\\end{paracol}\n\n';
+            tex += '\\TitreB{Offertoire~:}\n\n';
+            tex += '\\Rubrique{Après l\'encensement de l\'autel, le célébrant s\'adresse aux fidèles en ces termes~:}\n';
+            tex += '\\input{../static/data/ordinaire/offertoire.tex}\n\n';
         }
 
         // Super oblata :
@@ -279,6 +276,9 @@ function write_latex(data){
         }
 
         // Préface :
+        if(mode == "Livret complet"){
+            tex += '\\input{../static/data/ordinaire/preface.tex}\n\n';
+        }
         var pref = day_data['pref'];
         if(pref['page'] != null && mode == "Missel grégorien"){
             tex += '\\TitreB{' + pref['name'] + '~:}\\Normal{p. ' + pref['page'] + '.}\n\n';
@@ -307,14 +307,18 @@ function write_latex(data){
         }
 
         // Canon :
-        if(mode == "Missel grégorien"){
-            tex += '\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22).}\n\n';
-            tex += '\\TitreB{Rites de communion~:}\\Normal{p. 41.}\n\n';
-        }
-        else{
-            tex += "\\newpage\n";
-            tex += '\\TitreB{Prière eucharistique n. 1}\n\\input{../static/data/ordinaire/canon.tex}\n';
-            tex += '\\TitreB{Rites de communion~:}\\input{../static/data/ordinaire/pater.tex}\n\n';
+        switch(mode){
+            case "Missel grégorien":
+                tex += '\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22).}\n\n';
+                tex += '\\TitreB{Rites de communion~:}\\Normal{p. 41.}\n\n';
+                break;
+
+            case "Livret complet":
+                tex += '\\ifodd\\thepage\\else\\newpage\\Image{}{cm}{cm}\\fi\n';
+                tex += '\\Image{canon}{8cm}{3cm}\n';
+                tex += '\\TitreB{Prière eucharistique n. 1}\n\\input{../static/data/ordinaire/canon.tex}\n';
+                tex += '\\TitreB{Rites de communion~:}\\input{../static/data/ordinaire/pater.tex}\n\n';
+                break;
         }
         
         // Agnus Dei :
@@ -352,13 +356,27 @@ function write_latex(data){
         }
 
         // Conclusion :
-        tex += '\\TitreB{Conclusion~:}{\\Normal{p. 47.}}\n\n';
+        switch(mode){
+            case "Missel grégorien":
+                tex += '\\TitreB{Conclusion~:}{\\Normal{p. 47.}}\n\n';
+                break;
+
+            case "Livret complet":
+                tex += '\\TitreB{Conclusion~:}\\input{../static/data/ordinaire/conclusion.tex}\n\n';
+                break;
+        }
     }
     tex += '\n\n\\vspace{3cm}\n';
     tex += '\\begin{center}\n';
-    tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret si vous le souhaitez.}}\n';
-    if(mode == "Missel grégorien"){
-        tex += '\\makebox[12.35cm][c]{\\textit{Merci de rendre le Missel Grégorien bleu.}}\n';
+    switch(mode){
+        case "Missel grégorien":
+            tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret si vous le souhaitez.}}\n';
+            tex += '\\makebox[12.35cm][c]{\\textit{Merci de rendre le Missel Grégorien bleu.}}\n';
+            break;
+
+        case "Livret complet":
+            tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret à l\'issue de la Messe si vous le souhaitez.}}\n';
+            break;
     }
     tex += '\\end{center}\n\n';
 

@@ -121,6 +121,10 @@
 \catcode`\¥=\active % Alt-Maj-g
 \def¥{{\fontspec{FlavGaramond} \symbol{8721}}}
 
+% N :
+\catcode`\→=\active % Alt-Maj-n
+\def→{{\color{rougeliturgique}\textsc{n.}}}
+
 % Caractères composés (æ, œ, y) + accent aigu :
 \makeatletter
 \def\accentaigucaractere{\makebox[0pt][c]{´}}
@@ -275,7 +279,6 @@
     \greornamentation{1}{10}
 \end{center}}
 
-
 % Oraisons (nom de l'oraison, abréviation, jour) :
 \newenvironment{Oraison}[3]
 {
@@ -285,13 +288,13 @@
 % Préfaces (texte, chemin) :
 \newenvironment{Preface}[2]
 {
-\TitreB{#1~:}
+\TitreB{#1~:\vspace{0.2cm}}
 \LatinFrancais{\input{\FolderData/prefaces/#2_la.txt}}{\input{\FolderData/prefaces/#2_fr.txt}}}
 
 % Préfaces avec nom propre (texte, chemin, nom latin au génitif - "sancti Martíni", "beátæ mártyris Agnétis" - , nom français - "saint Martin", "sainte Agnès" -) :
 \newenvironment{PrefaceWithName}[4]
 {
-\TitreB{#1~:}
+\TitreB{#1~:\vspace{0.2cm}}
 \LatinFrancais{\input{\FolderData/prefaces/#2_la_A.txt}#3\input{\FolderData/prefaces/#2_la_B.txt}}{\input{\FolderData/prefaces/#2_fr_A.txt}#4\input{\FolderData/prefaces/#2_fr_B.txt}}}
 
 % Références :
@@ -317,6 +320,12 @@
 \end{center}
 \restoregeometry}
 
+% Rubriques :
+\newenvironment{Rubrique}[1]
+{
+{\fontsize{11}{12}\selectfont
+\selectlanguage{french}
+\color{rougeliturgique}#1}}
 
 
 %
