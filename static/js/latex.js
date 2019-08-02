@@ -67,18 +67,21 @@ function write_latex(data){
                     switch(day_data['asp']){
                         case "\\TitreB{Asperges me I}\\Normal{(p. 71).}":
                             tex += "\\Partoche{/GR/asperges/ordinaire}\n";
+                            tex += "\\Traduction{2cm}{\\input{\\FolderData/GR/ordinaire/asperges.tex}}\n\n";
                             break;
                         case "\\TitreB{Asperges me}\\Normal{(p. 70).}":
                             tex += "\\Partoche{/GR/asperges/solennel}\n";
+                            tex += "\\Traduction{2cm}{\\input{\\FolderData/GR/ordinaire/asperges.tex}}\n\n";
                             break;
                         case "\\TitreB{Asperges me II}\\Normal{(p. 71).}":
                             tex += "\\Partoche{/GR/asperges/avent_careme}\n";
+                            tex += "\\Traduction{2cm}{\\input{\\FolderData/GR/ordinaire/asperges.tex}}\n\n";
                             break;
                         case "\\TitreB{Vidi aquam}\\Normal{(p. 71).}":
                             tex += "\\Partoche{/GR/asperges/vidi_aquam}\n";
+                            tex += "\\Traduction{2cm}{\\input{\\FolderData/GR/ordinaire/vidi_aquam.tex}}\n\n";
                             break;
                     }
-                    tex += "\\Traduction{2cm}{\\input{\\FolderData/GR/ordinaire/asperges.tex}}\n\n";
                     break;
 
                 case "Missel grégorien":
