@@ -42,7 +42,7 @@
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <div id="output">
                         <?php
-                            $tab_grid = array("IN", "GR", "AL", "OF", "CO", "KY", "GL", "SA", "CR", "TIERCE");
+                            $tab_grid = array("IN", "GR", "AL", "OF", "CO", "KY", "GL", "SA", "CR");
                             for($i = 0; $i < 15; $i++){
                                 $code = "<div id='line_".$i."' class='line'>";
                                 //Jour civil :
@@ -54,7 +54,6 @@
                                 for($j = 0; $j < 9; $j++){
                                     $code = $code."<td class='grid_elem'><div class='label_cap' id='grid_label_".$i.$j."'>".$tab_grid[$j]."</div><input type='text' id='grid_value_".$i.$j."'></input></td>";
                                 }
-                                $code = $code."<td class='grid_elem'><div class='label_cap' id='grid_label_".$i."'>".$tab_grid[9]."</div><select id='tierce_page_".$i."'><option value=''></option><option value='2'>Dimanche</option><option value='4'>Lundi</option><option value='6'>Semaine I</option><option value='9'>Mardi II</option><option value='12'>Mercredi II</option><option value='15'>Vendredi II</option><option value='17'>Samedi II</option></select></td>";
                                 $code = $code."</tr></tbody>";
                                 $code = $code."</table></div>";
                                 print($code);}
