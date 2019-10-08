@@ -63,10 +63,23 @@
                 break;
             default:
                 if(((($timestamp - mktime(0, 0, 0, 1, 6, 2019)) / 3600 / 24) / 7) % 2 == 0){
-                    $tierce = "semaine paire";
+                    switch($weekday){
+                        case "Mercredi":
+                            $tierce = 9;
+                            break;
+                        case "Jeudi":
+                            $tierce = 12;
+                            break;
+                        case "Vendredi":
+                            $tierce = 15;
+                            break;
+                        case "Samedi":
+                            $tierce = 17;
+                            break;
+                    }
                 }
                 else{
-                    $tierce = "semaine impaire";
+                    $tierce = 6;
                 }
                 break;
         }

@@ -64,11 +64,11 @@
             <div id="tex">
                 <div class="d-flex flex-column align-items-center">
                     <textarea id="tex_area" class="align-self-center mt-5 mb-5"></textarea>
-                    <input type="button" id="go" class="btn btn-primary" value="Voir le PDF"></input>
+                    <input type="button" id="go" class="btn btn-primary" value="Voir le PDF">
                 </div>
             </div>
             <div id="overlay_wait" class="flex-column justify-content-center align-items-center">
-                <img src="static/images/wait.gif" style="margin-bottom:20px"></br>
+                <img src="static/images/wait.gif" style="margin-bottom:20px">
                 <p>Votre livret est en cours de préparation…</p>
                 <p>Veuillez patienter quelques instants…</p>
             </div>

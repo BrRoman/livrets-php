@@ -5,8 +5,8 @@ function write_latex(data){
         "2": "0",
         "4": "1",
         "6": "I",
-        "9": "2\_II",
-        "12": "3\_II",
+        "9": "3\_II",
+        "12": "4\_II",
         "15": "5\_II",
         "17": "6\_II"
     }
@@ -91,23 +91,21 @@ function write_latex(data){
         }
         
         // Tierce :
-        if($('#tierce_page_' + i).val() != ''){
-            if($('#grid_value_' + i + '5').val() != 'XVIIIB'){
-                switch(mode){
-                    case "Missel grégorien":
-                        tex += '\\TierceMG{' + day_data['tierce_ant'] + '}{' + day_data['tierce_page'] + '}\n\n';
-                        break;
-                    case "Livret complet":
-                        tex += '\\TierceComplet{' + day_data['tierce_ant'] + '}{' + tierce_psaumes[day_data['tierce_page']] + '}\n\n';
-                        break;
-                }
-            }
-            else{
-                switch(mode){
-                    case "Missel Grégorien":
+        if($('#grid_value_' + i + '5').val() == 'XVIIIB'){
+            switch(mode){
+                case "Missel grégorien":
                     tex += '\\TierceMG{}{' + day_data['tierce_page']+ '}\n\n';
                     break;
-                }
+            }
+        }
+        else{
+            switch(mode){
+                case "Missel grégorien":
+                    tex += '\\TierceMG{' + day_data['tierce_ant'] + '}{' + day_data['tierce_page'] + '}\n\n';
+                    break;
+                case "Livret complet":
+                    tex += '\\TierceComplet{' + day_data['tierce_ant'] + '}{' + tierce_psaumes[day_data['tierce_page']] + '}\n\n';
+                    break;
             }
         }
         
