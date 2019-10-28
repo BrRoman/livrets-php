@@ -231,7 +231,7 @@ function write_latex(data){
         if(day_data['sequence'] != null){
             if(day_data['sequence']['source'] == 'files' || mode == "Livret complet"){
                 tex += '\\TitreB{Séquence~:}\\par\n';
-                tex += '\\PartocheWithTraduction{sequences/' + day_data['sequence']['ref'] + '}\n\n';
+                tex += '\\PartocheWithTraduction{GR/sequences/' + day_data['sequence']['ref'] + '}\n\n';
             }
             else{
                 tex += '\\TitreB{Séquence~:}\\Normal{\\textit{' + day_data['sequence']['name'] + '} (p. ' + day_data['sequence']['page'] + ').}\n\n';
