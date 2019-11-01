@@ -1,3 +1,5 @@
 static/bootstrap-4.0.0-dist/* linguist-detectable=false
 static/fontawesome-free-5.7.1-web/* linguist-detectable=false
 static/jquery-ui-1.12.1/* linguist-detectable=false
+static/jquery-3.3.1.min.js linguist-detectable=false
+livret/.texlive2017/* linguist-detectable=false
