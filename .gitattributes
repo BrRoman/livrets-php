@@ -3,4 +3,5 @@ static/fontawesome-free-5.7.1-web/* linguist-detectable=false
 static/jquery-ui-1.12.1/* linguist-detectable=false
 static/jquery-3.3.1.min.js linguist-detectable=false
 livret/.texlive2017/* linguist-detectable=false
+static/data/images/*.tex linguist-detectable=false
 livrets.sql linguist-detectable=false
