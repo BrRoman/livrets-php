@@ -104,9 +104,9 @@ function write_latex(data){
             }
             else{
                 switch(mode){
-                    case "Missel Grégorien":
-                    tex += '\\TierceMG{}{' + day_data['tierce_page']+ '}\n\n';
-                    break;
+                    case "Missel grégorien":
+                        tex += '\\TierceMG{}{' + day_data['tierce_page']+ '}\n\n';
+                        break;
                 }
             }
         }
