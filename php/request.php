@@ -210,6 +210,9 @@
                 $sancto = '1109_fer';
             }
         }
+        if($sancto == '1209' && date('l', $timestamp) == "Monday"){
+            $sancto = '1208';
+        }
         $out['sancto'] = $sancto;
         $force_sancto = 0;
         $back_sancto = $connect->query('SELECT * FROM Days WHERE Ref = "'.$sancto.'";');
