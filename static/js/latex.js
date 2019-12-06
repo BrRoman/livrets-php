@@ -289,7 +289,7 @@ function write_latex(data){
         // Orate fratres :
         if(mode == "Livret complet"){
             tex += '\\TitreB{Offertoire~:}\n\n';
-            tex += '\\Rubrique{Après l\'encensement de l\'autel, le célébrant s\'adresse aux fidèles en ces termes~:}\n';
+            tex += '\\Rubrique{Après l\'encensement de l\'autel (et des fidèles s\'il y a lieu), le célébrant s\'adresse aux fidèles en ces termes~:}\n';
             tex += '\\input{../static/data/ordinaire/offertoire.tex}\n\n';
         }
 
