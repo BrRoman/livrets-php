@@ -270,7 +270,8 @@
 {
 \TitreB{Office de Tierce~:}\par
 \ifthenelse{\not\equal{#1}{}}{\PartocheWithTraduction{tierce/antiennes/#1}\vspace{-0.3cm}}{}
-\Normal{\hspace{.5cm}\input{\FolderData/tierce/psaumes/#2.tex}}}
+\Normal{\hspace{.5cm}\input{\FolderData/tierce/psaumes/#2.tex}}
+\ifthenelse{\not\equal{#1}{}}{\PartocheWithTraduction{tierce/antiennes/#1}\vspace{-0.3cm}}{}}
 
 % Séparation des psaumes de tierce :
 \newenvironment{Gloria}
