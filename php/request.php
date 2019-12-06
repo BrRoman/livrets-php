@@ -168,10 +168,6 @@
                 $out['pref'] = $pref;
             }
             $back_pref->closeCursor();
-            // 1er vendredi du mois :
-            if($liturg_time == 'pa' && $first_in_month && $weekday == 'Vendredi'){
-                $out['pref'] = array('ref' => 'pvm', 'name' => 'Préface');
-            }
         }
         $back_tempo->closeCursor();
         
@@ -244,6 +240,12 @@
                     $out['pref'] = array('ref' => $rep_sancto['Pref'], 'name' => $rep_pref['Name'], 'page' => $rep_pref['Page'], 'name_la' => $rep_sancto['Pref_name_la'], 'name_fr' => $rep_sancto['Pref_name_fr']);
                 }
                 $back_pref->closeCursor();
+            }
+        }
+        else{
+            // Préface du 1er vendredi du mois (seulement si férie = s'il n'y a pas de saint):
+            if($liturg_time == 'pa' && $first_in_month && $weekday == 'Vendredi'){
+                $out['pref'] = array('ref' => 'pvm', 'name' => 'Préface');
             }
         }
         $back_sancto->closeCursor();
