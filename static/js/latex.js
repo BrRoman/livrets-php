@@ -377,8 +377,9 @@ function write_latex(data){
         if(orationes['source'] == 'MG'){
             tex += '\\TitreB{Prière après la communion~:}\\Normal{p. ' + orationes['ref'][2] + '.}\n\n';
         }
-        else{
-            tex += '\\Oraison{Prière après la Communion}{3}{' + orationes['ref'] + '}\n\n';
+        // Super populum (Carême) :
+        if (day_data['tempo'].startsWith('qua_') && day_data['weekday'] == 'Dimanche') {
+            tex += '\\Oraison{Oraison sur le peuple}{4}{' + day_data['tempo'] + '}\n\n';
         }
 
         // Conclusion :
