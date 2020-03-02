@@ -1,6 +1,6 @@
 // Fonctions écrivant le contenu du fichier tex à partir du retour de request.php.
 
-function write_latex(data){
+function write_latex(data) {
     var tierce_psaumes = {
         "2": "0",
         "4": "1",
@@ -15,12 +15,12 @@ function write_latex(data){
     var tex = tex_header(start_date);
     var mode = data["mode"];
 
-    for(var i = 0; i < $("#nombre_jours").val(); i++){
+    for (var i = 0; i < $("#nombre_jours").val(); i++) {
         var day_data = data["days"][i];
 
         // Oraisons :
         var orationes = day_data['orationes'];
-        
+
         // Jour civil :
         tex += '\n\n%--------------------\n\n\\section{' + day_data['civil_day'] + '}\n\n';
 
@@ -29,27 +29,25 @@ function write_latex(data){
 
         // Rang liturgique :
         var rang = day_data['rang'];
-        if(rang != '' && rang != null){
+        if (rang != '' && rang != null) {
             tex += '{' + rang + '}\n\n';
-        }
-        else{
+        } else {
             tex += '{}\n\n';
         }
 
         // Introït :
-        if($('#grid_value_' + i + '0').val() != ''){
+        if ($('#grid_value_' + i + '0').val() != '') {
             var introit = day_data['IN'];
-            if(introit[1] != ''){
+            if (introit[1] != '') {
                 tex += '\\TitreB{Antienne d\'introït~:}\\Normal{\\textit{' + introit[0] + '} (p. ' + introit[1] + ').}\n\n'
-            }
-            else{
+            } else {
                 tex += '\\TitreB{Antienne d\'introït~:}\\par\n';
                 tex += '\\PartocheWithTraduction{GR/introit/' + introit[0] + '}\n\n';
             }
         }
-        
+
         // Ouverture de la célébration :
-        switch(mode){
+        switch (mode) {
             case "Missel grégorien":
                 tex += '\\TitreB{Ouverture de la célébration~:}\\Normal{p. 7.}\n\n'
                 break;
@@ -60,11 +58,11 @@ function write_latex(data){
         }
 
         // Asperges me :
-        if(day_data['asp'] != ''){
-            switch(mode){
+        if (day_data['asp'] != '') {
+            switch (mode) {
                 case "Livret complet":
                     tex += '\\TitreB{Aspersion~:}\n\n'
-                    switch(day_data['asp']){
+                    switch (day_data['asp']) {
                         case "\\TitreB{Asperges me I}\\Normal{(p. 71).}":
                             tex += "\\Partoche{/GR/asperges/ordinaire}\n";
                             tex += "\\Traduction{2cm}{\\input{\\FolderData/GR/ordinaire/asperges.tex}}\n\n";
@@ -89,11 +87,11 @@ function write_latex(data){
                     break;
             }
         }
-        
+
         // Tierce :
-        if($('#tierce_page_' + i).val() != ''){
-            if($('#grid_value_' + i + '5').val() != 'XVIIIB'){
-                switch(mode){
+        if ($('#tierce_page_' + i).val() != '') {
+            if ($('#grid_value_' + i + '5').val() != 'XVIIIB') {
+                switch (mode) {
                     case "Missel grégorien":
                         tex += '\\TierceMG{' + day_data['tierce_ant'] + '}{' + day_data['tierce_page'] + '}\n\n';
                         break;
@@ -101,20 +99,19 @@ function write_latex(data){
                         tex += '\\TierceComplet{' + day_data['tierce_ant'] + '}{' + tierce_psaumes[day_data['tierce_page']] + '}\n\n';
                         break;
                 }
-            }
-            else{
-                switch(mode){
+            } else {
+                switch (mode) {
                     case "Missel grégorien":
-                        tex += '\\TierceMG{}{' + day_data['tierce_page']+ '}\n\n';
+                        tex += '\\TierceMG{}{' + day_data['tierce_page'] + '}\n\n';
                         break;
                 }
             }
         }
-        
+
         // Kyrie :
-        if($('#grid_value_' + i + '5').val() != ''){
+        if ($('#grid_value_' + i + '5').val() != '') {
             var kyrie = day_data['KY'];
-            switch(mode){
+            switch (mode) {
                 case "Missel grégorien":
                     tex += '\\TitreB{' + kyrie[0] + '}\\Normal{(p. ' + kyrie[1] + ').}\n\n';
                     break;
@@ -124,11 +121,11 @@ function write_latex(data){
                     break;
             }
         }
-        
+
         // Gloria :
-        if($('#grid_value_' + i + '6').val() != ''){
+        if ($('#grid_value_' + i + '6').val() != '') {
             var gloria = day_data['GL'];
-            switch(mode){
+            switch (mode) {
                 case "Missel grégorien":
                     tex += '\\TitreB{' + gloria[0] + '}\\Normal{(p. ' + gloria[1] + ').}\n\n';
                     break;
@@ -138,76 +135,64 @@ function write_latex(data){
                     break;
             }
         }
-        
+
         // Oraison :
-        if(orationes['source'] == 'MG'){
+        if (orationes['source'] == 'MG') {
             tex += '\\TitreB{Oraison~:}\\Normal{p. ' + orationes['ref'][0] + '.}\n\n';
-        }
-        else{
+        } else {
             tex += '\\Oraison{Oraison}{1}{' + orationes['ref'] + '}\n\n';
         }
 
         // 1ère lecture :
         tex += '\\Lecture{Première lecture}{' + day_data['readings'];
-        if(day_data['lectures_propres']){
-            if(day_data['cycle_lectures'] == 6){
+        if (day_data['lectures_propres']) {
+            if (day_data['cycle_lectures'] == 6) {
                 tex += '_1_' + day_data['year'] + '_' + day_data['even'];
-            }
-            else if(day_data['cycle_lectures'] == 3){
+            } else if (day_data['cycle_lectures'] == 3) {
                 tex += '_1_' + day_data['year'];
-            }
-            else if(day_data['cycle_lectures'] == 2){
+            } else if (day_data['cycle_lectures'] == 2) {
                 tex += '_1_' + day_data['even'];
-            }
-            else{
+            } else {
                 tex += '_1';
             }
-        }
-        else{
-            if(day_data['readings'].startsWith('pa_') && day_data['weekday'] != 'Dimanche'){
+        } else {
+            if (day_data['readings'].startsWith('pa_') && day_data['weekday'] != 'Dimanche') {
                 tex += '_1_' + day_data['even'];
-            }
-            else{
+            } else {
                 tex += '_1';
             }
         }
         tex += '}\n\n';
 
         // Graduel :
-        if($('#grid_value_' + i + '1').val() != ''){
+        if ($('#grid_value_' + i + '1').val() != '') {
             var graduel = day_data['GR'];
             var score = day_data['tempo'].startsWith('tp_') ? 'Alleluia' : 'Graduel';
-            if(graduel[1] != ''){
+            if (graduel[1] != '') {
                 tex += '\\TitreB{' + score + '~:}\\Normal{\\textit{' + graduel[0] + '} (p. ' + graduel[1] + ').}\n\n'
-            }
-            else{
+            } else {
                 tex += '\\TitreB{' + score + '~:}\\par\n';
                 tex += '\\PartocheWithTraduction{GR/' + score.toLowerCase() + '/' + graduel[0] + '}\n\n';
             }
         }
-        
+
         // 2e lecture :
-        if(($('#grid_value_' + i + '1').val() != '') & ($('#grid_value_' + i + '2').val() != '')){
+        if (($('#grid_value_' + i + '1').val() != '') & ($('#grid_value_' + i + '2').val() != '')) {
             tex += '\\Lecture{Deuxième lecture}{' + day_data['readings'];
-            if(day_data['lectures_propres']){
-                if(day_data['cycle_lectures'] == 6){
+            if (day_data['lectures_propres']) {
+                if (day_data['cycle_lectures'] == 6) {
                     tex += '_2_' + day_data['year'] + '_' + day_data['even'];
-                }
-                else if(day_data['cycle_lectures'] == 3){
+                } else if (day_data['cycle_lectures'] == 3) {
                     tex += '_2_' + day_data['year'];
-                }
-                else if(day_data['cycle_lectures'] == 2){
+                } else if (day_data['cycle_lectures'] == 2) {
                     tex += '_2_' + day_data['even'];
-                }
-                else{
+                } else {
                     tex += '_2';
                 }
-            }
-            else{
-                if(day_data['readings'].startsWith('pa_') && day_data['weekday'] != 'Dimanche'){
+            } else {
+                if (day_data['readings'].startsWith('pa_') && day_data['weekday'] != 'Dimanche') {
                     tex += '_2_' + day_data['even'];
-                }
-                else{
+                } else {
                     tex += '_2';
                 }
             }
@@ -215,55 +200,49 @@ function write_latex(data){
         }
 
         // Alléluia/Trait :
-        if($('#grid_value_' + i + '2').val() != ''){
+        if ($('#grid_value_' + i + '2').val() != '') {
             var alleluia = day_data['AL'];
             var score = (day_data['tempo'].startsWith('qua_') || (day_data['lit_day'] == "Commémoraison des fidèles défunts")) ? 'Trait' : 'Alleluia';
-            if(alleluia[1] != ''){
+            if (alleluia[1] != '') {
                 tex += '\\TitreB{' + score + '~:}\\Normal{\\textit{' + alleluia[0] + '} (p. ' + alleluia[1] + ').}\n\n'
-            }
-            else{
+            } else {
                 tex += '\\TitreB{' + score + '~:}\\par\n';
                 tex += '\\PartocheWithTraduction{GR/alleluia/' + alleluia[0] + '}\n\n';
             }
         }
 
         // Séquence :
-        if(day_data['sequence'] != null){
-            if(day_data['sequence']['source'] == 'files' || mode == "Livret complet"){
+        if (day_data['sequence'] != null) {
+            if (day_data['sequence']['source'] == 'files' || mode == "Livret complet") {
                 tex += '\\TitreB{Séquence~:}\\par\n';
                 tex += '\\PartocheWithTraduction{GR/sequences/' + day_data['sequence']['ref'] + '}\n\n';
-            }
-            else{
+            } else {
                 tex += '\\TitreB{Séquence~:}\\Normal{\\textit{' + day_data['sequence']['name'] + '} (p. ' + day_data['sequence']['page'] + ').}\n\n';
             }
         }
 
         // Évangile :
         tex += '\\Lecture{Évangile}{' + day_data['readings'];
-        if(day_data['lectures_propres']){
-            if(day_data['cycle_lectures'] == 6){
+        if (day_data['lectures_propres']) {
+            if (day_data['cycle_lectures'] == 6) {
                 tex += '_ev_' + day_data['year'] + '_' + day_data['even'];
-            }
-            else if(day_data['cycle_lectures'] == 3){
+            } else if (day_data['cycle_lectures'] == 3) {
                 tex += '_ev_' + day_data['year'];
-            }
-            else if(day_data['cycle_lectures'] == 2){
+            } else if (day_data['cycle_lectures'] == 2) {
                 tex += '_ev_' + day_data['even'];
-            }
-            else{
+            } else {
                 tex += '_ev';
             }
-        }
-        else{
+        } else {
             tex += '_ev';
         }
         tex += '}\n\n';
 
 
         // Credo :
-        if($('#grid_value_' + i + '8').val()!= ''){
+        if ($('#grid_value_' + i + '8').val() != '') {
             var credo = day_data['CR'];
-            switch(mode){
+            switch (mode) {
                 case "Missel grégorien":
                     tex += '\\TitreB{' + credo[0] + '}\\Normal{(p. ' + credo[1] + ').}\n\n'
                     break;
@@ -275,53 +254,49 @@ function write_latex(data){
         }
 
         // Antienne d'offertoire :
-        if($('#grid_value_' + i + '3').val() != ''){
+        if ($('#grid_value_' + i + '3').val() != '') {
             var ant_off = day_data['OF'];
-            if(ant_off[1] != ''){
+            if (ant_off[1] != '') {
                 tex += '\\TitreB{Antienne d\'offertoire~:}\\Normal{\\textit{' + ant_off[0] + '} (p. ' + ant_off[1] + ').}\n\n'
-            }
-            else{
+            } else {
                 tex += '\\TitreB{Antienne d\'offertoire~:}\\par\n';
                 tex += '\\PartocheWithTraduction{GR/offertoire/' + ant_off[0] + '}\n\n';
             }
         }
 
         // Orate fratres :
-        if(mode == "Livret complet"){
+        if (mode == "Livret complet") {
             tex += '\\TitreB{Offertoire~:}\n\n';
             tex += '\\Rubrique{Après l\'encensement de l\'autel (et des fidèles s\'il y a lieu), le célébrant s\'adresse aux fidèles en ces termes~:}\n';
             tex += '\\input{../static/data/ordinaire/offertoire.tex}\n\n';
         }
 
         // Super oblata :
-        if(orationes['source'] == 'MG'){
+        if (orationes['source'] == 'MG') {
             tex += '\\TitreB{Prière sur les offrandes~:}\\Normal{p. ' + orationes['ref'][1] + '.}\n\n';
-        }
-        else{
+        } else {
             tex += '\\Oraison{Prière sur les offrandes}{2}{' + orationes['ref'] + '}\n\n';
         }
 
         // Préface :
-        if(mode == "Livret complet"){
+        if (mode == "Livret complet") {
             tex += '\\input{../static/data/ordinaire/preface.tex}\n\n';
         }
         var pref = day_data['pref'];
-        if(pref['page'] != null && mode == "Missel grégorien"){
+        if (pref['page'] != null && mode == "Missel grégorien") {
             tex += '\\TitreB{' + pref['name'] + '~:}\\Normal{p. ' + pref['page'] + '.}\n\n';
-        }
-        else{
-            if(pref['name_la'] != null){
+        } else {
+            if (pref['name_la'] != null) {
                 tex += '\\PrefaceWithName{' + pref['name'] + '}{' + pref['ref'] + '}{' + pref['name_la'] + '}{' + pref['name_fr'] + '}\n\n';
-            }
-            else{
+            } else {
                 tex += '\\Preface{' + pref['name'] + '}{' + pref['ref'] + '}\n\n';
             }
         }
-        
+
         // Sanctus :
-        if($('#grid_value_' + i + '7').val() != ''){
+        if ($('#grid_value_' + i + '7').val() != '') {
             var sanctus = day_data['SA'];
-            switch(mode){
+            switch (mode) {
                 case "Missel grégorien":
                     tex += '\\TitreB{Sanctus ' + sanctus[0] + '}\\Normal{(p. ' + sanctus[1] + ').}\n\n';
                     break;
@@ -333,7 +308,7 @@ function write_latex(data){
         }
 
         // Canon :
-        switch(mode){
+        switch (mode) {
             case "Missel grégorien":
                 tex += '\\TitreB{Prière eucharistique n. 1}\\Normal{(p. 22).}\n\n';
                 tex += '\\TitreB{Rites de communion~:}\\Normal{p. 41.}\n\n';
@@ -346,11 +321,11 @@ function write_latex(data){
                 tex += '\\TitreB{Rites de communion~:}\\input{../static/data/ordinaire/pater.tex}\n\n';
                 break;
         }
-        
+
         // Agnus Dei :
-        if($('#grid_value_' + i + '7').val() != ''){
+        if ($('#grid_value_' + i + '7').val() != '') {
             var agnus = day_data['AG'];
-            switch(mode){
+            switch (mode) {
                 case "Missel grégorien":
                     tex += '\\TitreB{Agnus Dei ' + agnus[0] + '}\\Normal{(p. ' + agnus[1] + ').}\n\n';
                     break;
@@ -360,30 +335,32 @@ function write_latex(data){
                     break;
             }
         }
-        
+
         // Antienne de communion :
-        if($('#grid_value_' + i + '4').val() != ''){
+        if ($('#grid_value_' + i + '4').val() != '') {
             var comm = day_data['CO'];
-            if(comm[1] != ''){
+            if (comm[1] != '') {
                 tex += '\\TitreB{Antienne de communion~:}\\Normal{\\textit{' + comm[0] + '} (p. ' + comm[1] + ').}\n\n'
-            }
-            else{
+            } else {
                 tex += '\\TitreB{Antienne de communion~:}\\par\n';
                 tex += '\\PartocheWithTraduction{GR/communion/' + comm[0] + '}\n\n';
             }
         }
 
         // Postcommunion :
-        if(orationes['source'] == 'MG'){
+        if (orationes['source'] == 'MG') {
             tex += '\\TitreB{Prière après la communion~:}\\Normal{p. ' + orationes['ref'][2] + '.}\n\n';
+        } else {
+            tex += '\\Oraison{Prière après la Communion}{3}{' + orationes['ref'] + '}\n\n';
         }
+
         // Super populum (Carême) :
         if (day_data['tempo'].startsWith('qua_') && day_data['weekday'] == 'Dimanche') {
             tex += '\\Oraison{Oraison sur le peuple}{4}{' + day_data['tempo'] + '}\n\n';
         }
 
         // Conclusion :
-        switch(mode){
+        switch (mode) {
             case "Missel grégorien":
                 tex += '\\TitreB{Conclusion~:}{\\Normal{p. 47.}}\n\n';
                 break;
@@ -395,7 +372,7 @@ function write_latex(data){
     }
     tex += '\n\n\\vspace{3cm}\n';
     tex += '\\begin{center}\n';
-    switch(mode){
+    switch (mode) {
         case "Missel grégorien":
             tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret si vous le souhaitez.}}\n';
             tex += '\\makebox[12.35cm][c]{\\textit{Merci de rendre le Missel Grégorien bleu.}}\n';
@@ -428,45 +405,43 @@ function write_latex(data){
     $('#tex_area').val(tex);
 }
 
-function tex_header(timestamp_start){
+function tex_header(timestamp_start) {
     var months_fr = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 
     var date_start = new Date(timestamp_start);
     var day_start = date_start.getDate();
-    if(day_start == 1){
+    if (day_start == 1) {
         day_start = '1\\textsuperscript{\\lowercase{er}}';
     }
     var month_start = months_fr[date_start.getMonth()];
 
     var date_end = new Date(timestamp_start + (5 * 24 * 3600 * 1000));
     var day_end = date_end.getDate();
-    if(day_end == 1){
+    if (day_end == 1) {
         day_end = '1\\textsuperscript{\\lowercase{er}}';
     }
     var month_end = months_fr[date_end.getMonth()];
     var year_end = date_end.getFullYear();
-    
-    if(month_start == month_end){
+
+    if (month_start == month_end) {
         var date_debut = day_start;
-    }
-    else{
+    } else {
         var date_debut = day_start + ' ' + month_start;
     }
-    var date_fin = day_end + ' ' +  month_end + ' ' + year_end;
+    var date_fin = day_end + ' ' + month_end + ' ' + year_end;
 
     var tex_header = '\\input{config.tex}\n\n';
-	tex_header += '\\begin{document}\n\n';
+    tex_header += '\\begin{document}\n\n';
     tex_header += '\\setlength{\\columnseprule}{0.5pt}\n';
     tex_header += '\\colseprulecolor{rougeliturgique}\n\n';
-	tex_header += '\\thispagestyle{empty}\n\n';
-	tex_header += '\\begin{center}\n';
-	tex_header += '+\\par\n';
-	tex_header += 'PAX\\par\n';
+    tex_header += '\\thispagestyle{empty}\n\n';
+    tex_header += '\\begin{center}\n';
+    tex_header += '+\\par\n';
+    tex_header += 'PAX\\par\n';
     tex_header += '\\vspace{.5cm}\n';
     tex_header += '\\TitreB{Abbaye Saint-Joseph de Clairval}\n';
     tex_header += '\\end{center}\n\n';
-	tex_header += '\\TitreA{Messe conventuelle}\n\n';
+    tex_header += '\\TitreA{Messe conventuelle}\n\n';
 
-    return(tex_header);
+    return (tex_header);
 }
-
