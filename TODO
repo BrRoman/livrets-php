@@ -34,4 +34,4 @@ TP :
 - Traduction ".txt" => ".tex".
 - Messes votives : lectures, oraisons et préfaces (défunts, semailles, récoltes, unité).
 - Antiennes avec juste des Alleluia : pas de traduction (traduction = fichier vide).
-
+- 4 Messes des défunts : automatiser oraisons, lectures, préfaces.
