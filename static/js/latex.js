@@ -233,6 +233,8 @@ function write_latex(data) {
             } else {
                 tex += '_ev';
             }
+        } else if (day_data['year'] == 'A' && (day_data['readings'] == 'pa_18_1' || day_data['readings'] == 'pa_18_2')) {
+            tex += '_ev_A';
         } else {
             tex += '_ev';
         }
