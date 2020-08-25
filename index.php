@@ -2,6 +2,7 @@
 <html>
 	<head>
         <meta charset="utf-8">
+        <link rel="icon" href="static/images/booklet.png">
         <link rel="stylesheet" href="static/jquery-ui-1.12.1/jquery-ui.min.css">
         <link rel="stylesheet" href="static/fontawesome-free-5.7.1-web/css/all.min.css">
         <link rel="stylesheet" href="static/bootstrap-4.0.0-dist/css/bootstrap.min.css">
