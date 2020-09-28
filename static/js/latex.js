@@ -4,11 +4,11 @@ function write_latex(data) {
     var tierce_psaumes = {
         "2": "0",
         "4": "1",
-        "6": "I",
-        "9": "3\_II",
-        "12": "4\_II",
-        "15": "5\_II",
-        "17": "6\_II"
+        "6": "2",
+        "9": "3",
+        "12": "4",
+        "15": "5",
+        "17": "6"
     }
     var start_date_split = $('#date_depart')[0].value.split('/');
     var start_date = new Date(start_date_split[2], start_date_split[1] - 1, start_date_split[0]).getTime();
