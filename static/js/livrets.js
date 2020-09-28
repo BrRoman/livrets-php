@@ -35,9 +35,6 @@ $(document).ready(function () {
                 update();
             });
         }
-        $("#tierce_page_" + i).change(function () {
-            update();
-        });
     }
 
     // Fonctions associées au clic sur les boutons "Compiler le pdf" et "Voir le pdf" des 2 overlays :
@@ -123,7 +120,6 @@ function update() {
         for (var j = 0; j < 9; j++) {
             grid[$("#grid_label_" + i + j).text()] = $("#grid_value_" + i + j).val();
         }
-        grid["tierce_page"] = $("#tierce_page_" + i).val();
         data["days"][i] = grid;
     }
 

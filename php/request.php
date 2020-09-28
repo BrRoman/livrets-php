@@ -51,7 +51,39 @@
         $out['civil_day'] = $weekday.' '.$day.' '.$month.' '.$year;
 
         // Page de Tierce :
-        $out['tierce_page'] = $in['tierce_page'];
+        switch($weekday){
+            case "Dimanche":
+                $tierce = 2;
+                break;
+            case "Lundi":
+                $tierce = 4;
+                break;
+            case "Mardi":
+                $tierce = 6;
+                break;
+            default:
+                if(((($timestamp - mktime(0, 0, 0, 1, 6, 2019)) / 3600 / 24) / 7) % 2 == 0){
+                    switch($weekday){
+                        case "Mercredi":
+                            $tierce = 9;
+                            break;
+                        case "Jeudi":
+                            $tierce = 12;
+                            break;
+                        case "Vendredi":
+                            $tierce = 15;
+                            break;
+                        case "Samedi":
+                            $tierce = 17;
+                            break;
+                    }
+                }
+                else{
+                    $tierce = 6;
+                }
+                break;
+        }
+        $out["tierce_page"] = $tierce;
 
         // Jour liturgique :
         // On remplit le out comme s'il n'y avait que le Temporal :
@@ -95,7 +127,7 @@
                     $out['tierce_ant'] = ($weekday == 'Dimanche') ? 'alleluia_dim_tp' : 'alleluia_feries_tp';
                 }
                 else{
-                    $back_tierce = $connect->query('SELECT * FROM Tierce WHERE Page = "'.$in['tierce_page'].'";');
+                    $back_tierce = $connect->query('SELECT * FROM Tierce WHERE Page = "'.$out['tierce_page'].'";');
                     if($rep_tierce = $back_tierce->fetch()){
                         $out['tierce_ant'] = $rep_tierce['Antienne'];
                     }
