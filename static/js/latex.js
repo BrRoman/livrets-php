@@ -200,7 +200,7 @@ function write_latex(data) {
         // Alléluia/Trait :
         if ($('#grid_value_' + i + '2').val() != '') {
             var alleluia = day_data['AL'];
-            var score = (day_data['tempo'].startsWith('qua_') || (day_data['lit_day'] == "Commémoraison des fidèles défunts")) ? 'Trait' : 'Alleluia';
+            var score = (day_data['tempo'].startsWith('qua_') || day_data['tempo'].startsWith('cendres_') || (day_data['lit_day'] == "Commémoraison des fidèles défunts")) ? 'Trait' : 'Alleluia';
             if (alleluia[1] != '') {
                 tex += '\\TitreB{' + score + '~:}\\Normal{\\textit{' + alleluia[0] + '} (p. ' + alleluia[1] + ').}\n\n'
             } else {
@@ -355,7 +355,7 @@ function write_latex(data) {
         }
 
         // Super populum (Carême) :
-        if (day_data['tempo'].startsWith('qua_') && day_data['weekday'] == 'Dimanche') {
+        if ((day_data['tempo'].startsWith('qua_') && day_data['weekday'] == 'Dimanche') || (day_data['tempo'] == 'cendres_0')){
             tex += '\\Oraison{Oraison sur le peuple}{4}{' + day_data['tempo'] + '}\n\n';
         }
 
