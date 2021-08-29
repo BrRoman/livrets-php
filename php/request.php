@@ -283,11 +283,7 @@
                 $out['rang'] = 'Mémoire majeure';
                 $out['tierce_ant'] = $timestamp < (mktime(0, 0, 0, 2, 2, $year)) ? 'quando_natus_es' : 'laeva_ejus';
                 $out['orationes'] = array('source' => 'Files', 'ref' => 'bmv_'.$rep['CM']);
-                $back_pref = $connect->query('SELECT * FROM Prefaces WHERE Ref = "'.$rep['Preface'].'";');
-                if($rep_pref = $back_pref->fetch()){
-                    $out['pref'] = array('ref' => $rep['Preface'], 'name' => $rep_pref['Name'], 'page' => $rep_pref['Page'], 'name_la' => NULL, 'name_fr' => NULL);
-                }
-                $back_pref->closeCursor();
+                $out['pref'] = array('ref' => 'cm_'.$rep['CM'], 'name' => 'Préface', 'page' => NULL, 'name_la' => NULL, 'name_fr' => NULL);
             }
             $back->closeCursor();
         }
