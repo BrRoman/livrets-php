@@ -355,7 +355,8 @@ function write_latex(data) {
         }
 
         // Super populum (Carême) :
-        if ((day_data['tempo'].startsWith('qua_') && day_data['weekday'] == 'Dimanche') || (day_data['tempo'] == 'cendres_0')) {
+        // if ((day_data['tempo'].startsWith('qua_') && day_data['weekday'] == 'Dimanche') || (day_data['tempo'] == 'cendres_0')) {
+        if (day_data['tempo'].startsWith('qua_') || day_data['tempo'] == 'cendres_0') {
             tex += '\\Oraison{Oraison sur le peuple}{4}{' + day_data['tempo'] + '}\n\n';
         }
 
