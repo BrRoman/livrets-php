@@ -315,8 +315,8 @@ function write_latex(data) {
                 break;
 
             case "Livret complet":
-                tex += '\\ifodd\\thepage\\else\\newpage\\Image{}{cm}{cm}\\fi\n';
-                tex += '\\Image{canon}{8cm}{3cm}\n';
+                tex += '\\ifodd\\thepage\\else\\newpage\\Image{canon}{8cm}{3cm}\\fi\n';
+                // tex += '\\Image{canon}{8cm}{3cm}\n';
                 tex += '\\TitreB{Prière eucharistique n. 1}\n\\input{../static/data/ordinaire/canon.tex}\n';
                 tex += '\\TitreB{Rites de communion~:}\\input{../static/data/ordinaire/pater.tex}\n\n';
                 break;
