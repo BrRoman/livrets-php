@@ -9,7 +9,7 @@ cd "$SCRIPT_DIR/..//static/data/lectures/"
 find . -name 'adv_1_0_B_*' | sort | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/adv_1_0_B_/adv_4_0_A_/g'`
+	fn=`echo "$REPLY" | sed 's/adv_1_0_B_/tp_7_0_A_/g'`
     #echo "$fn"
     cp "$f" "$fn"
     echo "" > "$fn"

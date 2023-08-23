@@ -383,6 +383,11 @@ function write_latex(data) {
             tex += '\\makebox[12.35cm][c]{\\textit{Vous pouvez emporter ce livret à l\'issue de la Messe si vous le souhaitez.}}\n';
             break;
     }
+    tex += '\\end{center}\n';
+    tex += '\\vspace{ 0.5cm }\n';
+    tex += '\\begin{center}\n';
+    tex += '\\makebox[12.35cm][c]{ Aidez-nous à améliorer nos livrets~!}\n';
+    tex += '\\makebox[12.35cm][c]{Toutes les corrections et suggestions seront les bienvenues.}\n';
     tex += '\\end{center}\n\n';
 
 

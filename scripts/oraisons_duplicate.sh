@@ -9,10 +9,10 @@ cd "$SCRIPT_DIR/../static/data/oraisons"
 find . -type f -name 'bmv_16_*' | sort | while read
 do
 	f=`echo "$REPLY"`
-	fn=`echo "$REPLY" | sed 's/bmv_16_/marie_mere_eglise_/g'`
-    echo "$fn"
-    #cp "$f" "$fn"
-    #echo "" > "$fn"
+	fn=`echo "$REPLY" | sed 's/bmv_16_/bmv_14_/g'`
+    #echo "$fn"
+    cp "$f" "$fn"
+    echo "" > "$fn"
 done
 
 exit
