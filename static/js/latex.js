@@ -384,11 +384,11 @@ function write_latex(data) {
             break;
     }
     tex += '\\end{center}\n';
-    tex += '\\vspace{ 0.5cm }\n';
-    tex += '\\begin{center}\n';
-    tex += '\\makebox[12.35cm][c]{ Aidez-nous à améliorer nos livrets~!}\n';
-    tex += '\\makebox[12.35cm][c]{Toutes les corrections et suggestions seront les bienvenues.}\n';
-    tex += '\\end{center}\n\n';
+    // tex += '\\vspace{ 0.5cm }\n';
+    // tex += '\\begin{center}\n';
+    // tex += '\\makebox[12.35cm][c]{ Aidez-nous à améliorer nos livrets~!}\n';
+    // tex += '\\makebox[12.35cm][c]{Toutes les corrections et suggestions seront les bienvenues.}\n';
+    // tex += '\\end{center}\n\n';
 
 
     tex += '\\newpage\n'
