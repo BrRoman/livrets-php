@@ -77,7 +77,7 @@ function calculate_tempo($timestamp){
         $pro_unitate += (5 * $day);
     }
     $paques = calculate_paques($lit_year);
-    $cendres = $paques - (46 * $day);
+    $cendres = $paques - (47 * $day);
     $quadr_dim_1 = $cendres + (4 * $day);
     $pentecote = $paques + (49 * $day);
     $christ_roi = $current_adv - (7 * $day);
@@ -127,7 +127,7 @@ function calculate_tempo($timestamp){
 
     // Féries après les Cendres :
     if($timestamp >= $cendres and $timestamp < $quadr_dim_1){
-        $days_after_cendres = ceil(($timestamp - $cendres) / $day);
+        $days_after_cendres = floor(($timestamp - $cendres) / $day);
         $tempo = "cendres_".$days_after_cendres;
     }
 
